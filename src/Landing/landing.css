@@ -1,22 +1,7 @@
 .text{
     text-align: center;
 }
-/* .text{
-width: 274px;
-height: 28.15px;
-left: calc(50% - 274px/2);
-top: calc(50% - 28.15px/2 + 0.07px);
 
-font-family: 'Ovo';
-font-style: normal;
-font-weight: 400;
-font-size: 32px;
-line-height: 36px;
-align-items: flex-end;
-
-color: #000000;
-
-} */
 .landing{
     display: flex;
     flex-direction: column;
@@ -25,22 +10,9 @@ color: #000000;
 .card{
     margin: 5px;
 }
-/* .line2{
-    left: 4.38%;
-    right: 7.38%;
-    top: 140%;
-    Width :72.5%;
-Height :1px;
-Top :938px;
-Left :135px;
-margin-top: -8%;
-margin-left: -1%;
 
-} */
 .slider{
-    /* width: 1186px;
-height: 730px; */
-/* left: 30px; */
+
 margin: 20px;
 top: 156px;
 align-content: center;

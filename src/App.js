@@ -6,6 +6,7 @@ function App() {
   return (
     <React.Fragment>
       <Navbar />
+      {/* <div sx={{height:'1000px'}}></div> */}
       <Footer />
     </React.Fragment>
   );

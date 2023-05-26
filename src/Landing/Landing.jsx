@@ -1,209 +1,92 @@
-import a from '../assets/130.png';
-import b from '../assets/99.jpg';
-import c from '../assets/100.jpg';
-//import  from '../assets/130.png';
-import abcc from '../assets/11.png';
-import abb from  '../assets/22.png';
-import d from '../assets/33.png';
-import e from '../assets/140.png';
-import f from '../assets/44.png';
-import g from '../assets/66.png';
-import h from '../assets/77.png';
+import sliderImg1 from '../assets/130.png';
+import sliderImg2 from '../assets/99.jpg';
+import sliderImg3 from '../assets/100.jpg';
+import img1 from '../assets/11.png';
+import img2 from  '../assets/22.png';
+import img3 from '../assets/33.png';
+import img4 from '../assets/140.png';
+import img5 from '../assets/44.png';
+import img6 from '../assets/66.png';
+import img7 from '../assets/77.png';
 import './landing.css';
 import SimpleImageSlider from "react-simple-image-slider";
 import * as React from 'react';
-import { styled } from '@mui/material/styles';
-import Card from '@mui/material/Card';
-// import CardHeader from '@mui/material/CardHeader';
-import CardMedia from '@mui/material/CardMedia';
-import CardContent from '@mui/material/CardContent';
-import CardActions from '@mui/material/CardActions';
-import Collapse from '@mui/material/Collapse';
-// import Avatar from '@mui/material/Avatar';
-import IconButton, { IconButtonProps } from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-// import { red } from '@mui/material/colors';
-//import FavoriteIcon from '@mui/icons-material/Favorite';
-const images = [
-    { url: a }, 
-    { url: b }, 
-    { url: c }
-  ];
+import LandingCard from './Card'; 
+import { Grid } from '@mui/material';
+
+const slider_images = [
+    { url: sliderImg1 }, 
+    { url: sliderImg2 }, 
+    { url: sliderImg3 }
+];
+
+const cart_object = [
+    {
+        "src" : img1,
+        "name" : "Chair",
+        "price" : "115$"
+    },
+    {
+        "src" : img2,
+        "name" : "Wardrobe",
+        "price" : "45$"
+    },
+    {
+        "src" : img3,
+        "name" : "Living Room Couch Set",
+        "price" : "74$"    
+    },
+    {
+        "src" : img4,
+        "name" : "Chandliers",
+        "price" : "78$"
+    },
+    {
+        "src" : img5,
+        "name" : "Armchair",
+        "price" : "74$"
+    },
+    {
+        "src" : img6,
+        "name" : "Couch Set",
+        "price" : "74$"
+    },
+    {
+        "src" : img7,
+        "name" : "Coat Hanger",
+        "price" : "115$"
+    }
+];
+
 
 
 function Landing(){
     return(
         <div className='landing'>
-            <div>
-                  <div className = "slider">{/*<img src = {abc} name="sliderImg"></img> */}
-                 <SimpleImageSlider
-        width={896}
-        height={504}
-        images={images}
-       // text = {text}
-        showBullets={true}
-        showNavs={true}
-        autoPlay ={true}
+                <div className = "slider">{/*<img src = {abc} name="sliderImg"></img> */}
+                    <SimpleImageSlider
+                        width='100%'
+                        height={504}
+                        images={slider_images}
+                        // text = {text}
+                        showBullets={true}
+                        showNavs={true}
+                        autoPlay ={true}
+                    />
+                </div>
 
-      />
-            </div>
-            <hr className="line2"></hr>
-            <div>
-                <div className='text'>
-                    <h4>PRODUCTS</h4>
-                </div>
-                <div className='products'>
-                <div className='card'>
-                <Card sx={{ maxWidth: 345 }}>
-        
-                    <CardMedia
-                        component="img"
-                        height="352px"
-                        image={abcc}
-                        alt="Paella dish"
-                        position = "absolute"
-                        left= "135px"
-                        top = "1059px"                    />
-                                <CardContent>
-                                    <Typography variant="body2" color="text.secondary" align='center'>
-                                    Chair<br/>
-                                    $115
-                                    </Typography>
-                                </CardContent>
-    
-                </Card>
-                </div>
-                <div className='card'>
-                <Card sx={{ maxWidth: 345 }}>
-        
-                    <CardMedia
-                        component="img"
-                        height="354px"
-                        image={abb}
-                        alt="Paella dish"
-                        position = "absolute"
-                        left= "135px"
-                        top = "1059px"                    />
-                                <CardContent>
-                                    <Typography variant="body2" color="text.secondary" align='center'>
-                                    Wardorbe<br/>
-                                    $45
-                                    </Typography>
-                                </CardContent>
-    
-                </Card>
-                </div>
-                <div className='card'>
-                <Card sx={{ maxWidth: 345 }}>
-        
-                    <CardMedia
-                        component="img"
-                        height="352px"
-                        image={d}
-                        alt="Paella dish"
-                        position = "absolute"
-                        left= "135px"
-                        top = "1059px"                    />
-                                <CardContent>
-                                    <Typography variant="body2" color="text.secondary" align='center'>
-                                   Living Room couch set<br/>
-                                    $74
-                                    </Typography>
-                                </CardContent>
-    
-                </Card>
-                </div>
-                <div className='card'>
-                <Card sx={{ maxWidth: 345 }}>
-        
-                    <CardMedia
-                        component="img"
-                        height="352px"
-                        image={e}
-                        alt="Paella dish"
-                        position = "absolute"
-                        left= "135px"
-                        top = "1059px"                    />
-                                <CardContent>
-                                    <Typography variant="body2" color="text.secondary" align='center'>
-                                   Chandliers<br/>
-                                    $78
-                                    </Typography>
-                                </CardContent>
-    
-                </Card>
-                </div>
-                <div className='card'>
-                <Card sx={{ maxWidth: 345 }}>
-        
-                    <CardMedia
-                        component="img"
-                        height="352px"
-                        image={f}
-                        alt="Paella dish"
-                        position = "absolute"
-                        left= "135px"
-                        top = "1059px"                    />
-                                <CardContent>
-                                    <Typography variant="body2" color="text.secondary" align='center'>
-                                   Armchair<br/>
-                                    $74
-                                    </Typography>
-                                </CardContent>
-    
-                </Card>
-                </div>
-                <div className='card'>
-                <Card sx={{ maxWidth: 345 }}>
-        
-                    <CardMedia
-                        component="img"
-                        height="352px"
-                        image={g}
-                        alt="Paella dish"
-                        position = "absolute"
-                        left= "135px"
-                        top = "1059px"                    />
-                                <CardContent>
-                                    <Typography variant="body2" color="text.secondary" align='center'>
-                                   Coat Hanger<br/>
-                                    $115
-                                    </Typography>
-                                </CardContent>
-    
-                </Card>
-                </div>
-                <div className='card'>
-                <Card sx={{ maxWidth: 345 }}>
-        
-                    <CardMedia
-                        component="img"
-                        height="352px"
-                        image={h}
-                        alt="Paella dish"
-                        position = "absolute"
-                        left= "135px"
-                        top = "1059px"                    />
-                                <CardContent>
-                                    <Typography variant="body2" color="text.secondary" align='center'>
-                                   Coat Hanger<br/>
-                                    $115
-                                    </Typography>
-                                </CardContent>
-    
-                </Card>
-                </div>
-                </div>
-                
-            </div>
-            </div>
-             <div></div>
-            
-                
                 <div>
-
-            
-            </div>
+                <hr className="line2"></hr></div>
+                <div>
+                    <div className='text'>
+                        <h4>PRODUCTS</h4>
+                    </div>
+                    <Grid container spacing={4} className='product'>
+                        {cart_object.map((s) =>(
+                            <LandingCard itemImage={s.src} itemName={s.name} itemPrice={s.price}></LandingCard>
+                        ))}
+                    </Grid>
+                </div>
         </div>
     )
 }

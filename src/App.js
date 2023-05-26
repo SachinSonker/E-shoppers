@@ -8,8 +8,10 @@ import './App.css';
 function App() {
   return (
     <React.Fragment>
-      <Navbar />
-      <Landing/>
+      <div className='App'>
+        <Navbar />
+        <Landing/>
+      </div>
       <Footer />
       
     </React.Fragment>

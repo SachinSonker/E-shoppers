@@ -3,12 +3,12 @@ import { AppBar, styled, Toolbar, Typography, Box, Button, IconButton , TextFiel
 import SearchIcon from '@mui/icons-material/Search';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import './Navbar.css'
-const noOfItems = 14;
+const noOfItems = 0;
 
 const Search = styled("div")(({theme})=>({
     backgroundColor: "white",
     padding: "0 10px",
-    width: "150px",
+    width: "200px",
 }))
 const Shop = styled(Button)({
     textTransform: "none",
@@ -39,13 +39,15 @@ const SignIn = styled(Button)({
 const Navbar = () => {
     return (
         <Container className='container'>
-        <Box  sx={{ padding:"2px 10px 20px",borderBottom:1,height:"calc(100vh-86.8px)" }} >
         <AppBar  color='transparent' elevation={0} sx={{position:'sticky'}}>
-            <Toolbar sx={{ display: "flex",backgroundColor: "white"}}>
-                <Box flex={1}><Shop>Shop</Shop></Box>        
+            <Toolbar sx={{ display: "flex",backgroundColor: "white",borderBottom:1,paddingBottom:'20px'}}>
+                <Box flex={1}>
+                            <Shop>Shop</Shop>
+                </Box>
+                      
                 <Box flex={1}>
                             <Typography
-                                variant='title'
+                                variant='h3'
                                 component={'h1'}
                                 sx={{ fontFamily: 'Palanquin Dark',
                                         fontStyle: "normal",
@@ -54,8 +56,8 @@ const Navbar = () => {
                                         lineHeight: "25px",
                                         letterSpacing: "-0.055em"}} >Shoppers</Typography>
                 </Box>
+                <Box>
                     <Search >
-                            {/* <TextField placeholder='search...' variant='outlined' inputProps={{ endAdornment: (<IconButton><SearchIcon /></IconButton>)}}/> */}
                                 <TextField
                                     placeholder='search...'
                                     variant='outlined'
@@ -66,13 +68,14 @@ const Navbar = () => {
                                     }}
                                     size="small"
                                 />
-                        {/* <IconButton><SearchIcon /></IconButton> */}
                     </Search>
+                </Box> 
+                <Box>
                     <SignIn>Sign In</SignIn>
                     <Button sx={{ textTransform:"none",color: "ButtonText", borderColor: "ButtonText",fontSize:"13px",margin:"0 10px 0",border:"1px solid #A0A0A0",fontFamily: 'Mulish',fontStyle: 'normal',fontWeight: 400,lineHeight:'27px',boxSizing:"border-box" }} endIcon={<ShoppingBagIcon />}>{noOfItems} items</Button>
-            </Toolbar>
+                </Box>                                
+                </Toolbar>
         </AppBar>
-        </Box>
         </Container>
     )
 }

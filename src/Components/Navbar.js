@@ -2,6 +2,7 @@ import React from 'react'
 import { AppBar, styled, Toolbar, Typography, Box, Button, IconButton , TextField, endAdornment, Container } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
+import './Navbar.css'
 const noOfItems = 14;
 
 const Search = styled("div")(({theme})=>({
@@ -37,7 +38,7 @@ const SignIn = styled(Button)({
 })
 const Navbar = () => {
     return (
-        <Container>
+        <Container className='container'>
         <Box  sx={{ padding:"2px 10px 20px",borderBottom:1,height:"calc(100vh-86.8px)" }} >
         <AppBar  color='transparent' elevation={0} sx={{position:'sticky'}}>
             <Toolbar sx={{ display: "flex",backgroundColor: "white"}}>
@@ -51,7 +52,7 @@ const Navbar = () => {
                                         fontWeight: "400",
                                         fontSize: "48px",
                                         lineHeight: "25px",
-                                        letterSpacing: "-0.055em"}} >E-Shopper's</Typography>
+                                        letterSpacing: "-0.055em"}} >Shoppers</Typography>
                 </Box>
                     <Search >
                             {/* <TextField placeholder='search...' variant='outlined' inputProps={{ endAdornment: (<IconButton><SearchIcon /></IconButton>)}}/> */}

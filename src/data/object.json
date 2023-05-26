@@ -1,0 +1,43 @@
+[
+    {
+        "src" : "../assets/11.png",
+        "name" : "Chair",
+        "price" : "115$"
+    },
+    {
+        "src" : "../assets/22.png",
+        "name" : "Wardrobe",
+        "price" : "45$"
+    },
+    {
+        "src" : "../assets/33.png",
+        "name" : "Living Room Couch Set",
+        "price" : "74$"    
+    },
+    {
+        "src" : "../assets/140.png",
+        "name" : "Chandliers",
+        "price" : "78$"
+    },
+    {
+        "src" : "../assets/44.png",
+        "name" : "Armchair",
+        "price" : "74$"
+    },
+    {
+        "src" : "../assets/55.png",
+        "name" : "Couch Set",
+        "price" : "74$"
+    },
+    {
+        "src" : "../assets/66.png",
+        "name" : "Coat Hanger",
+        "price" : "115$"
+    },
+    {
+        "src" : "../assets/77.png",
+        "name" : "Tulip Chair",
+        "price" : "75$"
+    }
+
+]

@@ -1,4 +1,3 @@
-import abcc from '../assets/11.png';
 import './landing.css';
 import * as React from 'react';
 import Card from '@mui/material/Card';

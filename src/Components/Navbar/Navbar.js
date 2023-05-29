@@ -2,6 +2,8 @@ import React from 'react'
 import { AppBar, styled, Toolbar, Typography, Box, Button, IconButton , TextField, endAdornment,Container} from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
+import Login from '../Login/Login';
+import Signup from '../Signup/Signup';
 import './Navbar.css'
 const noOfItems = 0;
 
@@ -37,6 +39,21 @@ const SignIn = styled(Button)({
     }
 })
 const Navbar = () => {
+    const [isOpen, setModalOpen] = useState(false);
+    const [registration, setRegistration] = useState(false);
+    const openModal= ()=>{
+      setModalOpen(true)
+    }
+    function closeModal(){
+      setModalOpen(false)
+      console.log(isOpen)
+    } 
+    function createAccount(){
+        setRegistration(true)
+        setModalOpen(false)
+    }
+
+
     return (
         <Container className='container'>
         <AppBar  color='transparent' elevation={0} sx={{position:'sticky'}}>

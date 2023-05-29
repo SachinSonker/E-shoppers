@@ -1,7 +1,9 @@
-import React from 'react'
+import React, {useState} from 'react';
 import { AppBar, styled, Toolbar, Typography, Box, Button, IconButton , TextField, endAdornment, Container } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
+import Login from '../Login/Login';
+import Signup from '../Signup/Signup';
 import './Navbar.css'
 const noOfItems = 14;
 
@@ -37,6 +39,21 @@ const SignIn = styled(Button)({
     }
 })
 const Navbar = () => {
+    const [isOpen, setModalOpen] = useState(false);
+    const [registration, setRegistration] = useState(false);
+    const openModal= ()=>{
+      setModalOpen(true)
+    }
+    function closeModal(){
+      setModalOpen(false)
+      console.log(isOpen)
+    } 
+    function createAccount(){
+        setRegistration(true)
+        setModalOpen(false)
+    }
+
+
     return (
         <Container className='container'>
         <Box  sx={{ padding:"2px 10px 20px",borderBottom:1,height:"calc(100vh-86.8px)" }} >
@@ -54,21 +71,10 @@ const Navbar = () => {
                                         lineHeight: "25px",
                                         letterSpacing: "-0.055em"}} >Shoppers</Typography>
                 </Box>
-                    <Search >
-                            {/* <TextField placeholder='search...' variant='outlined' inputProps={{ endAdornment: (<IconButton><SearchIcon /></IconButton>)}}/> */}
-                                <TextField
-                                    placeholder='search...'
-                                    variant='outlined'
-                                    InputProps={{
-                                        endAdornment: (
-                                            <IconButton><SearchIcon /></IconButton>
-                                        )
-                                    }}
-                                    size="small"
-                                />
-                        {/* <IconButton><SearchIcon /></IconButton> */}
-                    </Search>
-                    <SignIn>Sign In</SignIn>
+                    
+                    <SignIn onClick={openModal}>Sign In</SignIn>
+                    {isOpen ?  <Login onClose={closeModal} registration={createAccount} />:""}
+                    {registration ?  <Signup onClose={()=> setRegistration(false)} />:""}
                     <Button sx={{ textTransform:"none",color: "ButtonText", borderColor: "ButtonText",fontSize:"13px",margin:"0 10px 0",border:"1px solid #A0A0A0",fontFamily: 'Mulish',fontStyle: 'normal',fontWeight: 400,lineHeight:'27px',boxSizing:"border-box" }} endIcon={<ShoppingBagIcon />}>{noOfItems} items</Button>
             </Toolbar>
         </AppBar>

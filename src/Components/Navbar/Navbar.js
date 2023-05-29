@@ -40,7 +40,7 @@ const Navbar = () => {
     return (
         <Container className='container'>
         <AppBar  color='transparent' elevation={0} sx={{position:'sticky'}}>
-            <Toolbar sx={{ display: "flex",backgroundColor: "white",borderBottom:1,paddingBottom:'20px'}}>
+            <Toolbar sx={{ display: "flex",backgroundColor: "white",borderBottom:1,paddingBottom:'20px',paddingLeft:'24px !important',paddingRight:'24px !important'}} disableGutters>
                 <Box flex={1}>
                             <Shop>Shop</Shop>
                 </Box>
@@ -54,7 +54,8 @@ const Navbar = () => {
                                         fontWeight: "400",
                                         fontSize: "48px",
                                         lineHeight: "25px",
-                                        letterSpacing: "-0.055em"}} >Shoppers</Typography>
+                                        letterSpacing: "-0.055em",marginLeft:'110px'
+                                        }} >Shoppers</Typography>
                 </Box>
                 <Box>
                     <Search >

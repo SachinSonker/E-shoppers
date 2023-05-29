@@ -8,7 +8,7 @@ import CardContent from '@mui/material/CardContent';
 function LandingCard(props){
     return(
         <div className='card'>
-            <Card sx={{ maxWidth: 345 }}>
+            <Card sx={{ maxWidth: 250 }}>
                 <CardMedia
                     component="img"
                     height="352px"

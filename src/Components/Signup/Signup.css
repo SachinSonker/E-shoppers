@@ -1,0 +1,65 @@
+  .loginpopup{
+    display: flex;
+    height: 50%;
+    width: 30%;
+    flex-direction: row;
+    align-items: center;
+    border: 1px solid grey;
+    box-shadow: 0 0 10px #555;
+    margin-left: 35%;
+    margin-top: 3%;
+    background-color: white;
+  }
+
+  .loginTemplate{
+    flex : 2;
+    text-align: center;
+    margin: 10px;
+    max-height: 500px;
+    overflow: auto;
+  }
+
+  .details{
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    margin: 0px 30px 0px 30px;
+}
+
+.signInBtn{
+    margin: 30px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+button[name="signin"]{
+    width: 100%;
+    padding: 2%;
+    background-color: black;
+    color: white;
+    border: 0px;
+}
+
+input[name="username"],input[name="password"],input[name="phone"],input[name="confirm-password"],input[name="name"]{
+    height: 25px;
+    background-color: rgb(246, 244, 244);
+    border: 0px;
+    border-bottom: 1px solid grey;
+    margin-top: 10px;
+}
+
+
+
+.closeIcon{
+    display: flex;
+    flex-direction: row-reverse;
+    margin: 10px;
+}
+
+input[value="Google"]{
+    width: 30%;
+    padding: 2%;
+    background-color: blue;
+    color: white;
+    border: 0px;
+}

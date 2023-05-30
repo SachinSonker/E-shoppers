@@ -1,20 +1,18 @@
-import Landing from './Components/LandingPage/Landing' ;
 import React from 'react';
-import Footer from './Components/Footer/Footer';
-import Navbar from './Components/Navbar/Navbar'
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import './App.css';
+import ProductDetails from './Components/ProductDetailPage/ProductDetail';
+import LandingPage from './Components/LandingPage/LandingPage';
 
 
 function App() {
   return (
-    <React.Fragment>
-      <div className='App'>
-        <Navbar />
-        <Landing/>
-      </div>
-      <Footer />
-      
-    </React.Fragment>
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<LandingPage />} />
+        <Route path="productDetails/*" element={<ProductDetails />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

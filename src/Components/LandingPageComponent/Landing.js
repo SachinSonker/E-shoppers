@@ -102,7 +102,7 @@ function Landing(){
                     </div>
                     <Grid container spacing={4} className='product'>
                         {productList.map((s) =>(
-                            <LandingCard itemImage={s.images[0]} itemName={s.title} itemPrice={s.price} itemStrikePrice={s.price}></LandingCard>
+                            <LandingCard itemID= {s.id} itemImage={s.images[0]} itemName={s.title} itemPrice={s.price} itemStrikePrice={s.price}></LandingCard>
                         ))}
                         {/* {cart_object.map((s) =>(
                             <LandingCard itemImage={s.src} itemName={s.name} itemPrice={s.price} itemStrikePrice={s.strike_price}></LandingCard>

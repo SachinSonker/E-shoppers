@@ -5,13 +5,19 @@ import Typography from '@mui/material/Typography';
 import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import { CardActionArea } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import './landing.css';
 
 function LandingCard(props){
+    const navigate = useNavigate();
+
+    const navigateToPDP = (itemID) => {
+        navigate('/productDetails/'+itemID)
+    }
 
     return(
         <div className='card'>
-            <CardActionArea>
+            <CardActionArea onClick={event => {navigateToPDP(props.itemID)}}>
                 <Card sx={{ maxWidth: 250 }} className='card'>
                     <CardMedia
                         component="img"

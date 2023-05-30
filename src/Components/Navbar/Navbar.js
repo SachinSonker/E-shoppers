@@ -4,6 +4,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import Login from '../Login/Login';
 import Signup from '../Signup/Signup';
+import { useState } from 'react';
 import './Navbar.css'
 const noOfItems = 0;
 

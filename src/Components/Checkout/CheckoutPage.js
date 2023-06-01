@@ -11,6 +11,7 @@ import {useState , useEffect} from 'react';
 import { CountryDropdown, RegionDropdown, CountryRegionData } from 'react-country-region-selector';
 import { useForm, Controller } from "react-hook-form";
 import { NavLink } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 import './CheckoutPage.css';
 import img1 from "../../assets/11.png"
 import img2 from "../../assets/22.png"
@@ -95,7 +96,7 @@ export default function CheckoutPage() {
           
           const decrementQuantity = (itemId) => {
           const updatedItems = data.map((item) => {
-          if (item.id === itemId && item.quantity > 1) {
+          if (item.id === itemId && item.quantity > 0) {
           return { ...item, quantity: item.quantity - 1 };
           }
           return item;
@@ -147,10 +148,14 @@ export default function CheckoutPage() {
                 setState({ ...state, region: val });
             }
             const { country, region } = state;
+            
+
+            //
         
         
-        
+            const navigate = useNavigate();
   return (
+    
     <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={2}>
         <Grid xs={8}>
@@ -270,7 +275,7 @@ export default function CheckoutPage() {
         <Typography variant="h6" style={{textAlign:'Left',fontSize:14,marginLeft:30}}>Shipping</Typography>
         <Typography variant="h6" style={{textAlign:'Left',fontSize:14,marginLeft:30}}>Order Total</Typography>
         <hr/>
-        <Button variant="contained" disableElevation style={{backgroundColor: '#a77ad7', width : '80%' , marginTop: 20, marginBottom: 20, borderRadius: 0, }}>Place Order</Button>
+        <Button variant="contained" disableElevation style={{backgroundColor: '#a77ad7', width : '80%' , marginTop: 20, marginBottom: 20, borderRadius: 0, }} onClick={() => {console.log("redirecting.....");navigate("/SuccessPopup");}}>Place Order</Button>
       </div>
       
           </Item>

@@ -12,6 +12,13 @@ import { CountryDropdown, RegionDropdown, CountryRegionData } from 'react-countr
 import { useForm, Controller } from "react-hook-form";
 import { NavLink } from "react-router-dom";
 import './CheckoutPage.css';
+import img1 from "../../assets/11.png"
+import img2 from "../../assets/22.png"
+import img3 from "../../assets/33.png"
+import img4 from "../../assets/44.png"
+import img5 from "../../assets/55.png"
+
+
 
 
 
@@ -30,7 +37,7 @@ export default function CheckoutPage() {
   const [data , setData] = useState([
     {
         'id':1,
-        'image' : '/image1.jpg',
+        'image' : img1,
         'name':'Chair',
         'color':'Blue',
         'quantity':1,
@@ -39,7 +46,7 @@ export default function CheckoutPage() {
     },
     {
         'id':2,
-        'image' : '/image2.jpg',
+        'image' : img2,
         'name':'Wardrobe',
         'color':'black',
         'quantity':1,
@@ -48,7 +55,7 @@ export default function CheckoutPage() {
     },
     {
         'id':3,
-        'image' : '/image2.jpg',
+        'image' : img3,
         'name':'Pen',
         'color':'Red',
         'quantity':1,
@@ -57,7 +64,7 @@ export default function CheckoutPage() {
     },
     {
         'id':4,
-        'image' : '/image2.jpg',
+        'image' : img4,
         'name':'Cycle',
         'color':'Aqua',
         'quantity':1,
@@ -66,7 +73,7 @@ export default function CheckoutPage() {
     },
     {
         'id':5,
-        'image' : '/image2.jpg',
+        'image' : img5,
         'name':'Laptop',
         'color':'Metal Black',
         'quantity':1,
@@ -144,7 +151,6 @@ export default function CheckoutPage() {
         
         
   return (
-    
     <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={2}>
         <Grid xs={8}>
@@ -163,14 +169,13 @@ export default function CheckoutPage() {
         <div className="card">
         
         <table className="table table-borderless table-shopping-cart" style = {{paddingRight:30, paddingLeft:30}}>
-        <thead className="text-muted" style = {{backgroundColor:'#dedcdc' }}>
+        <thead className="text-muted" style = {{backgroundColor:'#a77ad7',color:'white' }}>
         <tr className="small text-uppercase">
         <th className="table_heading"scope="col">Product Name</th>
         <th className="table_heading"scope="col" width="120">Unit Price</th>
         <th className="table_heading"scope="col" width="120">Qunatity</th>
         <th className="table_heading"scope="col" width="120">Sub Total</th>
         <th className="table_heading"scope="col" width="120">Remove</th>
-        {/* <th scope="col" className="text-right" width="200"> </th> */}
         </tr>
         </thead>
 
@@ -265,7 +270,7 @@ export default function CheckoutPage() {
         <Typography variant="h6" style={{textAlign:'Left',fontSize:14,marginLeft:30}}>Shipping</Typography>
         <Typography variant="h6" style={{textAlign:'Left',fontSize:14,marginLeft:30}}>Order Total</Typography>
         <hr/>
-        <Button variant="contained" disableElevation style={{backgroundColor: 'black', width : '80%' , marginTop: 20, marginBottom: 20, borderRadius: 0, }}>Place Order</Button>
+        <Button variant="contained" disableElevation style={{backgroundColor: '#a77ad7', width : '80%' , marginTop: 20, marginBottom: 20, borderRadius: 0, }}>Place Order</Button>
       </div>
       
           </Item>

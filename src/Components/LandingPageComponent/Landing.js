@@ -15,6 +15,7 @@ import LandingCard from './Card';
 import { Grid } from '@mui/material';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { Spinner } from '../Spinner/Spinner';
 
 const slider_images = [
     { url: sliderImg1 }, 
@@ -80,7 +81,9 @@ function Landing(){
 
     console.log(productList)
 
-    return(
+    return productList.length == 0 ? (
+        <Spinner />
+    ) : (
         <div className='landing'>
                 <div className = "slider">{/*<img src = {abc} name="sliderImg"></img> */}
                     <SimpleImageSlider
@@ -110,7 +113,7 @@ function Landing(){
                     </Grid>
                 </div>
         </div>
-    )
+    );
 }
 
 export default Landing;

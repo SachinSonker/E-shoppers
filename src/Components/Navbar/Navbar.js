@@ -76,7 +76,6 @@ const Navbar = () => {
         setSignIn(true)
     }
     const handleClick = (newPlacement) => (event) => {
-        event.preventDefault();
         setAnchorEl(event.currentTarget);
         setOpen((prev) => placement !== newPlacement || !prev);
         setPlacement(newPlacement);

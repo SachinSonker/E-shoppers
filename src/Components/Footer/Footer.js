@@ -13,7 +13,7 @@ const Typo = styled(Typography)({
 const Footer = () => {
 
   return (
-    <Box sx={{display:"flex",justifyContent:"space-between",position:"absolute",width:"100%",height:'20%',backgroundColor:"#F7F7F7",marginTop:'20px',textAlign:'center'}}>
+    <Box sx={{display:"flex",position:"absolute",width:'100%',height:'20%',backgroundColor:"#F7F7F7",marginTop:'20px'}}>
       <Box flex={1}> 
         <Typo variant='h1'><strong>ABOUT</strong></Typo>
         <Typo>About Shoppers</Typo>

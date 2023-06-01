@@ -10,8 +10,8 @@ function LandingPage() {
       <Navbar />
         <Landing />
       <br></br>
-      <Footer />
       </div>
+      <Footer />
     </React.Fragment>
   )
 }

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Typography,Container, styled } from '@mui/material'
+import { Box, Typography, styled } from '@mui/material'
 
 const Typo = styled(Typography)({
   color: "#646464",
@@ -13,13 +13,28 @@ const Typo = styled(Typography)({
 const Footer = () => {
 
   return (
-    <Box sx={{display:"flex",justifyContent:"center",position:"absolute",width:"100%",backgroundColor:"#F7F7F7",height:"35px",position:'sticky',marginTop:"100%"}}>
+    <Box sx={{display:"flex",justifyContent:"space-between",position:"absolute",width:"100%",height:'20%',backgroundColor:"#F7F7F7",marginTop:'20px',textAlign:'center'}}>
+      <Box flex={1}> 
+        <Typo variant='h1'><strong>ABOUT</strong></Typo>
+        <Typo>About Shoppers</Typo>
+        <Typo>Locations</Typo>
+        <Typo>CONTACT US</Typo>
+      </Box>
+      <Box flex={1}>
+        <Typo variant='h1'><strong>CUSTOMER CARE</strong></Typo>
           <Typo>FAQs</Typo>
-          <Typo>Orders & Return</Typo>
           <Typo>Account</Typo>
-          <Typo>About Us</Typo>
+      </Box>
+      <Box flex={1}>
+        <Typo variant='h1'><strong>CONNECT</strong></Typo>
+        <Typo>Instagram</Typo>
+        <Typo>Facebook</Typo>
+        <Typo>Twitter</Typo>
+        <Typo>Pinterest</Typo>
+      </Box>
     </Box>
   )
 }
 
 export default Footer
+

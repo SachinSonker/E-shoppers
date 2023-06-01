@@ -14,7 +14,7 @@ const noOfItems = 0;
 
 const Search = styled("div")({
     marginRight: "11px",
-    width: "400px",
+    width: "600px",
 })
 // const Shop = styled(Button)({
 //     textTransform: "none",
@@ -89,7 +89,7 @@ const Navbar = () => {
     return (
         <Container className='container'>
         <AppBar  color='transparent' elevation={0} sx={{position:'sticky',marginTop:'25px'}}>
-        <Toolbar sx={{ display: "flex",backgroundColor: "white",borderBottom:1,paddingBottom:'20px',justifyContent:'space-between'}} disableGutters>
+        <Toolbar sx={{ display: "flex", flex :'1 1 auto', backgroundColor: "white",borderBottom:1,paddingBottom:'20px',justifyContent:'space-between'}} disableGutters>
                 {/* <Box flex={1}><Shop>Shop</Shop></Box>    */}
                     
                 <Box>
@@ -108,7 +108,7 @@ const Navbar = () => {
                 <Box>
                     <Search >
                             {/* <TextField placeholder='search...' variant='outlined' inputProps={{ endAdornment: (<IconButton><SearchIcon /></IconButton>)}}/> */}
-                                <TextField
+                                <TextField fullWidth
                                 variant='outlined'
                                 placeholder='Search...'
                                     InputProps={{
@@ -123,23 +123,23 @@ const Navbar = () => {
                     </Search>
                     </Box>
                     <Box>
-                    <Button sx={{ color:'white',width:'110px',textTransform: "none", fontSize: "13px", margin: "0 10px 0", fontFamily: 'Mulish', fontStyle: 'normal', fontWeight: 400, lineHeight: '27px', boxSizing: "border-box", backgroundColor:'#8B3DFF','&:hover': {backgroundColor:'#7300e6'}}} variant="contained" endIcon={<ShoppingBagIcon />} onClick={handleClick('bottom-end')}>
-                            {noOfItems} items
-                        </Button>   
-                        <Popper
-                            open={open}
-                            anchorEl={anchorEl}
-                            placement={placement}
-                            onClose={handleClose}
-                            sx={{ zIndex : 1500, width:'344px', height:'609px'}}
-                            >
-                            <Cart onClose={handleClose}
-                            />
-                        </Popper>
-                    { !signIn ?  <SignIn variant='contained' onClick={openModal}>Sign In</SignIn>: ""}
-                    { signIn ? <AccountCircleRoundedIcon /> : ""}
-                    {isOpen ?  <Login onClose={closeModal} registration={createAccount} loggedIn={login}/>:""}
-                    {registration ?  <Signup onClose={()=> setRegistration(false)} signin={openSignIn} loggedIn={login} />:""}
+                        <Button sx={{ color:'white',width:'110px', margin: "0 10px 0", boxSizing: "border-box", backgroundColor:'#8B3DFF','&:hover': {backgroundColor:'#7300e6'},height:'39px'}} variant="contained" endIcon={<ShoppingBagIcon />} onClick={handleClick('bottom-end')}>
+                                <Typography sx={{marginTop:'5px',textTransform: "none", fontSize: "15px", fontFamily: 'Mulish', fontStyle: 'normal', fontWeight: 400, lineHeight: '27px'}}>{noOfItems} Items</Typography>
+                            </Button>   
+                            <Popper
+                                open={open}
+                                anchorEl={anchorEl}
+                                placement={placement}
+                                onClose={handleClose}
+                                sx={{ zIndex : 1500, width:'344px', height:'609px'}}
+                                >
+                                <Cart onClose={handleClose}
+                                />
+                            </Popper>
+                        { !signIn ?  <SignIn variant='contained' onClick={openModal}>Sign In</SignIn>: ""}
+                        { signIn ? <AccountCircleRoundedIcon /> : ""}
+                        {isOpen ?  <Login onClose={closeModal} registration={createAccount} loggedIn={login}/>:""}
+                        {registration ?  <Signup onClose={()=> setRegistration(false)} signin={openSignIn} loggedIn={login} />:""}
                     </Box>
                 </Toolbar>
         </AppBar>

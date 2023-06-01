@@ -12,7 +12,7 @@ function LandingCard(props){
     const navigate = useNavigate();
 
     const navigateToPDP = (itemID) => {
-        navigate('/checkout/'+itemID)
+        navigate('/productdetails/'+itemID)
     }
 
     return(

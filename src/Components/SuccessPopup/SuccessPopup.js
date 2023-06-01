@@ -1,7 +1,10 @@
 import React from 'react';
 import Button from '@mui/material/Button';
+import { useNavigate } from 'react-router-dom';
 import './successPopup.css';
-const successPopup = () => {
+const SuccessPopup = () => {
+
+    const navigate = useNavigate();
   return (
     <div>
       <div className="modal">
@@ -10,7 +13,7 @@ const successPopup = () => {
         <div className="content">
           {' '}
           Congrats !!You have successfully Placed Your Order....
-          <Button variant="contained" disableElevation style={{backgroundColor: '#C01CB5', marginTop: 20, marginBottom: 20, borderRadius: 0, }}>Continue Shopping</Button>
+          <Button variant="contained" disableElevation style={{backgroundColor: '#C01CB5', marginTop: 20, marginBottom: 20, borderRadius: 0,color:'black' }} onClick={() => {console.log("redirecting.....");navigate("/");}}>Continue Shopping</Button>
         </div>
         
       </div>
@@ -18,4 +21,4 @@ const successPopup = () => {
   )
 }
 
-export default successPopup
+export default SuccessPopup

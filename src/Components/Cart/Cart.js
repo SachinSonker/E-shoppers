@@ -6,7 +6,11 @@ import img1 from '../../assets/11.png';
 import img2 from  '../../assets/22.png';
 import img3 from '../../assets/33.png';
 import CartItem from '../Cart Item/CartItem';
+import { useNavigate } from 'react-router-dom';
+
 const Cart = ({ onClose }) => {
+  const navigate = useNavigate();
+
   const [addCartObject,setAddCartObject] = useState([{
     'id': 1,
     'srcImage': img1,
@@ -36,7 +40,7 @@ const Cart = ({ onClose }) => {
     }])
 //   const history=useHistory()
   const handleClick = () => {
-    // history.push('/checkout')
+    navigate('/checkout')
   }
   const increaseQty = (productId) => {
     const updatedProducts = addCartObject.map((product) => {

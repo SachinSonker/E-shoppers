@@ -20,9 +20,6 @@ import img4 from "../../assets/44.png"
 import img5 from "../../assets/55.png"
 
 
-
-
-
 const Item = styled('div')(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
   border: '1px solid',
@@ -150,13 +147,13 @@ export default function CheckoutPage() {
             const { country, region } = state;
             
 
-            //
-        
-        
-            const navigate = useNavigate();
+            //routing for checkout Page
+        const navigate = useNavigate();
+
+
   return (
     
-    <Box sx={{ flexGrow: 1 }}>
+    <Box sx={{ flexGrow: 1 }} style={{position:'sticky'}}>
       <Grid container spacing={2}>
         <Grid xs={8}>
           <Item style={{borderRadius:0, border:'none'}}>
@@ -173,7 +170,7 @@ export default function CheckoutPage() {
             <main className="col-md-9">
         <div className="card">
         
-        <table className="table table-borderless table-shopping-cart" style = {{paddingRight:30, paddingLeft:30}}>
+        <table className="table table-borderless table-shopping-cart">
         <thead className="text-muted" style = {{backgroundColor:'#a77ad7',color:'white' }}>
         <tr className="small text-uppercase">
         <th className="table_heading"scope="col">Product Name</th>
@@ -199,19 +196,19 @@ export default function CheckoutPage() {
                 </figure>
             </td>
             <td> 
-                <div className="price-wrap"style = {{position : 'absolute',marginLeft:20}}> 
+                <div className="price-wrap"style = {{position : 'absolute',marginLeft:25}}> 
                     <var className="price">${item.unit_price}</var> 
                 </div> 
             </td>
             <td>
             <div style= {{display: 'flex'}}>
-            <Box component="span" border={1} borderColor='black' style={{width: 20,height: 20,marginTop:20,}}>{item.quantity}</Box>
-            <button onClick={()=>incrementQuantity(item.id)} variant="contained" style={{width: 20,height: 20,backgroundColor:'black',color:'white',marginTop:20,marginRight:10,marginLeft:10,}}>+</button>
+            <Box component="span" border={1} borderColor='black' style={{width: 20,height: 20,marginTop:20,marginLeft:15}}>{item.quantity}</Box>
+            <button onClick={()=>incrementQuantity(item.id)} variant="contained" style={{width: 20,height: 20,backgroundColor:'black',color:'white',marginTop:20,marginRight:15,marginLeft:15,}}>+</button>
             <button onClick={()=>decrementQuantity(item.id)} variant="contained" style={{width: 20,height: 20,backgroundColor:'black',color:'white',marginTop:20,}}>-</button>
             </div>
             </td>
             <td> 
-                <div className="price-wrap"style = {{position : 'absolute',marginLeft:20}}> 
+                <div className="price-wrap"style = {{position : 'absolute',marginLeft:25}}> 
                     <var className="price">${calculateTotalPrice(item.unit_price, item.quantity)}</var> 
                 </div> 
             </td>
@@ -271,7 +268,7 @@ export default function CheckoutPage() {
                <input type="text" name="postalcode" placeholder='Postal Code' style={{width:140}} onChange={event => setPostalCode(event.target.value)}></input>             
             </div>
         <hr/>
-        <Typography variant="h6" style={{textAlign:'Left',fontSize:14,marginLeft:30}}>Sub Total &nbsp;<span style={{marginRight:190}}></span> ${calculateSubTotal()}</Typography>
+        <Typography variant="h6" style={{textAlign:'Left',fontSize:14,marginLeft:30}}>Sub Total &nbsp;<span style={{marginRight:130}}></span> ${calculateSubTotal()}</Typography>
         <Typography variant="h6" style={{textAlign:'Left',fontSize:14,marginLeft:30}}>Shipping</Typography>
         <Typography variant="h6" style={{textAlign:'Left',fontSize:14,marginLeft:30}}>Order Total</Typography>
         <hr/>

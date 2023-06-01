@@ -1,47 +1,60 @@
-import React from 'react'
-import { AppBar, styled, Toolbar, Typography, Box, Button, IconButton , TextField, endAdornment,Container} from '@mui/material';
+import React, {useState} from 'react';
+import { AppBar, styled, Toolbar, Typography, Box, Button, IconButton, Popper , TextField, endAdornment, Container } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import Login from '../Login/Login';
 import Signup from '../Signup/Signup';
-import { useState } from 'react';
-import './Navbar.css'
+// import { FaBeer } from "@react-icons/all-files/fa/FaBeer";
+import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
+import './Navbar.css';
+import Cart from '../Cart/Cart';
+
+
 const noOfItems = 0;
 
-const Search = styled("div")(({theme})=>({
-    backgroundColor: "white",
-    padding: "0 10px",
-    width: "200px",
-}))
-const Shop = styled(Button)({
-    textTransform: "none",
-    color: "ButtonText",
-    '&:hover,&:active': {
-        textDecoration:'underline',
-        backgroundColor:'transparent'
-    },
-    fontSize: "15px",
-    margin: "0 10px 0",
-    fontFamily: 'Mulish',
-    fontStyle: "normal",
-    fontWeight: "400",
-    lineHeight: "5px"
+const Search = styled("div")({
+    marginRight: "11px",
+    width: "400px",
 })
+// const Shop = styled(Button)({
+//     textTransform: "none",
+//     color: "ButtonText",
+//     '&:hover,&:active': {
+//         textDecoration:'underline',
+//         backgroundColor:'transparent'
+//     },
+//     fontSize: "15px",
+//     margin: "0 10px 0",
+//     fontFamily: 'Mulish',
+//     fontStyle: "normal",
+//     fontWeight: "400",
+//     lineHeight: "5px"
+// })
 const SignIn = styled(Button)({
     textTransform: "none",
+    border: "1px solid #A0A0A0",
+    boxSizing: 'border-box',
+    width:'110px',
     fontFamily: 'Mulish',
     fontStyle: 'normal',
     fontWeight: '400',
     fontSize: '15px',
     lineHeight: '25px',
-    color: "#000000",
+    color: "white",
+    backgroundColor:'#8B3DFF',
     '&:hover': {
-        backgroundColor:'transparent'
+        backgroundColor:'#7300e6'
     }
 })
+
 const Navbar = () => {
     const [isOpen, setModalOpen] = useState(false);
     const [registration, setRegistration] = useState(false);
+    const [signIn , setSignIn] = useState(false);
+    const [placement, setPlacement] = useState();
+    const [open, setOpen] = useState(false);
+    const [anchorEl, setAnchorEl] = useState(null);
+
     const openModal= ()=>{
       setModalOpen(true)
     }
@@ -54,45 +67,80 @@ const Navbar = () => {
         setModalOpen(false)
     }
 
+    function openSignIn(){
+        console.log("called login")
+        setRegistration(false)
+        setModalOpen(true)
+    }
+    function login(){
+        setSignIn(true)
+    }
+    const handleClick = (newPlacement) => (event) => {
+        event.preventDefault();
+        setAnchorEl(event.currentTarget);
+        setOpen((prev) => placement !== newPlacement || !prev);
+        setPlacement(newPlacement);
+    };
+    const handleClose = () => {
+        setOpen(false)
+    }
+
 
     return (
         <Container className='container'>
-        <AppBar  color='transparent' elevation={0} sx={{position:'sticky'}}>
-            <Toolbar sx={{ display: "flex",backgroundColor: "white",borderBottom:1,paddingBottom:'20px',paddingLeft:'24px !important',paddingRight:'24px !important'}} disableGutters>
-                <Box flex={1}>
-                            <Shop>Shop</Shop>
-                </Box>
-                      
-                <Box flex={1}>
-                            <Typography
-                                variant='h3'
-                                component={'h1'}
-                                sx={{ fontFamily: 'Palanquin Dark',
-                                        fontStyle: "normal",
-                                        fontWeight: "400",
-                                        fontSize: "48px",
-                                        lineHeight: "25px",
-                                        letterSpacing: "-0.055em",marginLeft:'110px'
-                                        }} >Shoppers</Typography>
+        <AppBar  color='transparent' elevation={0} sx={{position:'sticky',marginTop:'25px'}}>
+        <Toolbar sx={{ display: "flex",backgroundColor: "white",borderBottom:1,paddingBottom:'20px',justifyContent:'space-between'}} disableGutters>
+                {/* <Box flex={1}><Shop>Shop</Shop></Box>    */}
+                    
+                <Box>
+                    <Typography
+                                    variant='h3'
+                                    component={'h1'}
+                                    sx={{ fontFamily: 'Palanquin Dark',
+                                            fontStyle: "normal",
+                                            fontWeight: "400",
+                                            fontSize: "48px",
+                                            lineHeight: "25px",
+                                            letterSpacing: "-0.055em",
+                                            //marginLeft: '110px'
+                                            }} >Shoppers</Typography>
                 </Box>
                 <Box>
                     <Search >
+                            {/* <TextField placeholder='search...' variant='outlined' inputProps={{ endAdornment: (<IconButton><SearchIcon /></IconButton>)}}/> */}
                                 <TextField
-                                    placeholder='search...'
-                                    variant='outlined'
+                                variant='outlined'
+                                placeholder='Search...'
                                     InputProps={{
                                         endAdornment: (
-                                            <IconButton><SearchIcon /></IconButton>
+                                            <IconButton><SearchIcon sx={{color:'#8B3DFF'}}/></IconButton>
                                         )
                                     }}
-                                    size="small"
+                                    size='small'
+                                    sx={{paddingRight:'0px !important'}}
                                 />
+                        {/* <IconButton><SearchIcon /></IconButton> */}
                     </Search>
-                </Box> 
-                <Box>
-                    <SignIn>Sign In</SignIn>
-                    <Button sx={{ textTransform:"none",color: "ButtonText", borderColor: "ButtonText",fontSize:"13px",margin:"0 10px 0",border:"1px solid #A0A0A0",fontFamily: 'Mulish',fontStyle: 'normal',fontWeight: 400,lineHeight:'27px',boxSizing:"border-box" }} endIcon={<ShoppingBagIcon />}>{noOfItems} items</Button>
-                </Box>                                
+                    </Box>
+                    <Box>
+                    <Button sx={{ color:'white',width:'110px',textTransform: "none", fontSize: "13px", margin: "0 10px 0", fontFamily: 'Mulish', fontStyle: 'normal', fontWeight: 400, lineHeight: '27px', boxSizing: "border-box", backgroundColor:'#8B3DFF','&:hover': {backgroundColor:'#7300e6'}}} variant="contained" endIcon={<ShoppingBagIcon />} onClick={handleClick('bottom-end')}>
+                            {noOfItems} items
+                        </Button>   
+                        <Popper
+                            open={open}
+                            anchorEl={anchorEl}
+                            placement={placement}
+                            onClose={handleClose}
+                            sx={{ zIndex : 1500, width:'344px', height:'609px'}}
+                            >
+                            <Cart onClose={handleClose}
+                            />
+                        </Popper>
+                    { !signIn ?  <SignIn variant='contained' onClick={openModal}>Sign In</SignIn>: ""}
+                    { signIn ? <AccountCircleRoundedIcon /> : ""}
+                    {isOpen ?  <Login onClose={closeModal} registration={createAccount} loggedIn={login}/>:""}
+                    {registration ?  <Signup onClose={()=> setRegistration(false)} signin={openSignIn} loggedIn={login} />:""}
+                    </Box>
                 </Toolbar>
         </AppBar>
         </Container>

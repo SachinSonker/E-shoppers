@@ -2,7 +2,7 @@
   .loginpopup{
     display: flex;
     height: 50%;
-    width: 30%;
+    width: 400px;
     flex-direction: row;
     align-items: center;
     border: 1px solid grey;
@@ -15,27 +15,34 @@
   .loginTemplate{
     flex : 2;
     text-align: center;
+    /* max-height: 540px; */
+    font-family: 'Mulish';
+    color: #5E5E5E;
   }
 
-  .details{
+.detail{
     display: flex;
     flex-direction: column;
     text-align: left;
-    margin: 0px 30px 0px 30px;
+    margin: 0px 15px 0px 15px;
+    max-height: 400px;
 }
 
 .Btn{
-    margin: 30px;
-    margin-top: 15px;
-    margin-bottom: 15px;
+    /* margin: 30px; */
+    width: 100%;
+    /* margin-top: 15px; */
+    /* margin-bottom: 15px; */
 }
 
 button[value="signin"],button[value="create"]{
+    border-radius: 7px;
     width: 100%;
-    padding: 2%;
-    background-color: black;
+    padding: 3%;
+    background-color: darkorchid;
     color: white;
     border: 0px;
+    cursor: pointer;
 }
 
 input[name="username"],input[name="password"]{
@@ -51,16 +58,74 @@ button[value="create"]{
     color: black;
     cursor: pointer;
 }
+.google{
+    margin-bottom: 20px;
+}
 
 .closeIcon{
     display: flex;
     flex-direction: row-reverse;
     margin: 10px;
+    margin-bottom: 5px;
 }
 input[value="Google"]{
-    width: 30%;
-    padding: 2%;
-    background-color: blue;
+    width: 60px;
+    padding: 6%;
+    background-color: #4688F1;
     color: white;
     border: 0px;
+    margin-bottom: 15px;
+}
+.title {
+    font-family: 'Ovo';
+    font-style: normal;
+    font-weight: 400;
+    color: #000000;
+    font-size: 24px;
+    margin-top: 0px;
+}
+.errorMsg{
+    font-size: small;
+    color: red;
+    /* margin-bottom: 10px; */
+}
+
+.actionBtn{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 15px;
+}
+p{
+    margin-bottom: 15px;
+    margin-top: 15px;
+}
+
+.input{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.content{
+    margin: 30px;
+}
+h5{
+    margin-top: 0px;
+}
+
+.invalid{
+    border-bottom: 1px solid red !important;
+}
+input:focus{
+    outline: 0;
+}
+.signup{
+    color:darkorchid;
+    margin-left: 4px;
+    cursor: pointer;
+}
+.hr-line{
+    width: 100%;
+    color: black;
 }

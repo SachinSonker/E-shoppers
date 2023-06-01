@@ -16,11 +16,13 @@
     "react-country-region-selector": "^3.6.1",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.44.2",
+    "react-icons": "^4.9.0",
     "react-material-ui-form-validator": "^3.0.1",
     "react-router-dom": "^6.11.2",
     "react-scripts": "5.0.1",
     "react-simple-image-slider": "^2.4.1",
     "react-spinners": "^0.13.8",
+    "styled-components": "^5.3.11",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

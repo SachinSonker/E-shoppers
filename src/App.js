@@ -5,6 +5,7 @@ import ProductDetails from './Components/ProductDetailPage/ProductDetail';
 import LandingPage from './Components/LandingPage/LandingPage';
 import CheckoutPage from './Components/Checkout/CheckoutPage';
 import { GoogleOAuthProvider } from '@react-oauth/google';
+import Navbar from './Components/Navbar/Navbar';
 
 
 function App() {
@@ -13,7 +14,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<LandingPage />} />
-          <Route path="productDetails/*" element={<ProductDetails />} />
+          <Route path="productdetails/*" element={<ProductDetails />} />
           <Route path="checkout/*" element={<CheckoutPage />} />
         </Routes>
       </BrowserRouter>

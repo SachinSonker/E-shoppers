@@ -7,10 +7,11 @@ function LandingPage() {
   return (
     <React.Fragment>
       <div className='App'>
-        <Navbar />
+      <Navbar />
         <Landing />
-      </div>
+      <br></br>
       <Footer />
+      </div>
     </React.Fragment>
   )
 }

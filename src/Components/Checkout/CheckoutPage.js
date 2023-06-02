@@ -1,4 +1,3 @@
-
 import React, { Component } from 'react';
 import Box from '@mui/system/Box';
 import Grid from '@mui/system/Unstable_Grid';
@@ -171,7 +170,7 @@ export default function CheckoutPage() {
         <div className="card">
         
         <table className="table table-borderless table-shopping-cart">
-        <thead className="text-muted" style = {{backgroundColor:'#a77ad7',color:'white' }}>
+        <thead className="text-muted" style = {{backgroundColor:'darkorchid',color:'white' }}>
         <tr className="small text-uppercase">
         <th className="table_heading"scope="col">Product Name</th>
         <th className="table_heading"scope="col" width="120">Unit Price</th>
@@ -245,9 +244,9 @@ export default function CheckoutPage() {
          <hr/>
             <div className='details'>
                     <label>Address Line 1</label>
-                    <input type="text" name="address1" placeholder='Line 1' onChange={event => setAddress1(event.target.value)}></input>
+                    <input type="text" name="address1" placeholder='' onChange={event => setAddress1(event.target.value)}></input>
                     <label>Address Line 2</label>
-                    <input type="text" name="address2" placeholder='Line 2' onChange={event => setAddress2(event.target.value)}></input>
+                    <input type="text" name="address2" placeholder='' onChange={event => setAddress2(event.target.value)}></input>
                     
                 <div className="wrapper" style={{display:'flex'}}>
                 <span className="selectrow">
@@ -265,14 +264,14 @@ export default function CheckoutPage() {
                 </span>
                </div> 
                <label>Postal Code</label>
-               <input type="text" name="postalcode" placeholder='Postal Code' style={{width:140}} onChange={event => setPostalCode(event.target.value)}></input>             
+               <input type="text" name="postalcode" placeholder='' style={{width:140}} onChange={event => setPostalCode(event.target.value)}></input>             
             </div>
         <hr/>
         <Typography variant="h6" style={{textAlign:'Left',fontSize:14,marginLeft:30}}>Sub Total &nbsp;<span style={{marginRight:130}}></span> ${calculateSubTotal()}</Typography>
         <Typography variant="h6" style={{textAlign:'Left',fontSize:14,marginLeft:30}}>Shipping</Typography>
         <Typography variant="h6" style={{textAlign:'Left',fontSize:14,marginLeft:30}}>Order Total</Typography>
         <hr/>
-        <Button variant="contained" disableElevation style={{backgroundColor: '#a77ad7', width : '80%' , marginTop: 20, marginBottom: 20, borderRadius: 0, }} onClick={() => {console.log("redirecting.....");navigate("/SuccessPopup");}}>Place Order</Button>
+        <Button variant="contained" disableElevation style={{backgroundColor: 'darkorchid', width : '80%' , marginTop: 20, marginBottom: 20, borderRadius: 0, }} onClick={() => {console.log("redirecting.....");navigate("/SuccessPopup");}}>Place Order</Button>
       </div>
       
           </Item>

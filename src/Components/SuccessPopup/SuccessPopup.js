@@ -13,7 +13,7 @@ const SuccessPopup = () => {
         <div className="content">
           {' '}
           Congrats !!You have successfully Placed Your Order....
-          <Button variant="contained" disableElevation style={{backgroundColor: '#C01CB5', marginTop: 20, marginBottom: 20, borderRadius: 0,color:'black' }} onClick={() => {console.log("redirecting.....");navigate("/");}}>Continue Shopping</Button>
+          <Button variant="contained" disableElevation style={{backgroundColor: 'darkorchid', marginTop: 20, marginBottom: 20, borderRadius: 0,color:'black' }} onClick={() => {console.log("redirecting.....");navigate("/");}}>Continue Shopping</Button>
         </div>
         
       </div>

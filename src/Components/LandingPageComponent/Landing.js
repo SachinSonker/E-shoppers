@@ -95,8 +95,11 @@ function Landing(){
                         showNavs={true}
                         autoPlay ={true}
                     />
+                    <div className = "textcontainer" style={{marginLeft:'auto',marginRight:'auto',position:'absolute',color:'white',textAlign:'center'}}>
+                    <h1>Affordable Appliances That Keep Up</h1>
+                    <h3>Work Hard Appliances.. Feel Good Prices!!</h3>
+                    </div>
                 </div>
-
                 <div>
                 <hr className="line2"></hr></div>
                 <div>

@@ -124,7 +124,7 @@ export default function Signup({onClose,signin,loggedIn}) {
                 </div>
                 <div className='content'>
                     <div className='title'>
-                        <p className="creatText">Create an Account </p>
+                        <h4 className="creatText">Create an Account </h4>
                     </div>
                     {/* <div>
                         <h5>Please sign up</h5>

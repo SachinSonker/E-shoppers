@@ -78,7 +78,7 @@ export default function Login({ onClose, registration,loggedIn }) {
                             </div>
                             <div className="content">
                                 <div  className='title'> 
-                                    <p>Login</p>
+                                    <h4>Login</h4>
                                 </div>
                                 {/* <div>
                                     <h5>Please sign in</h5>

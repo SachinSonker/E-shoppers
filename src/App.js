@@ -16,31 +16,39 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path='/' element={
-            <div>
+            <React.Fragment>
             <div className='App'>
               <Navbar/>
               <Landing/>
             </div>
               <Footer />
-            </div>
+            </React.Fragment>
           } />
           <Route path="productdetails/*" element={
+            <div>
             <div className='App'>
               <Navbar/>
               <ProductDetails/>
-              <Footer/>
+            </div>
+              <Footer />
             </div>
           } />
           <Route path="checkout/*" element={
+            <div>
             <div className='App'>
               <Navbar/>
               <CheckoutPage/>
-              <Footer/>
+            </div>
+              <Footer />
             </div>
           } />
           <Route path="SuccessPopup/*" element={
+            <div>
             <div className='App'>
+              <Navbar/>
               <SuccessPopup/>
+            </div>
+              <Footer />
             </div>
           } />
         </Routes>

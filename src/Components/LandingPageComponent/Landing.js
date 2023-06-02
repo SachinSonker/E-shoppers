@@ -91,7 +91,7 @@ function Landing(){
     return productList.length == 0 ? (
         <Spinner />
     ) : (
-        <div className='landing'>
+        <div className='landing-page'>
             <SimpleImageSlider
                 width='100%'
                 height={504}
@@ -100,14 +100,16 @@ function Landing(){
                 showNavs={true}
                 autoPlay ={true}
             />
-            <hr className="line2"></hr>
-            <h4 className='text'>PRODUCTS</h4>
-            <Grid container spacing={4} className='product'>
+            <hr className='divider-line'></hr>
+            <h4 className='page-title'>PRODUCTS</h4>
+            <Grid container spacing={4} className='product-card'>
                 {/* {productList.map((s) =>(
                     <LandingCard itemID= {s.id} itemImage={s.images[0]} itemName={s.title} itemPrice={s.price} itemStrikePrice={s.price}></LandingCard>
                 ))} */}
                 {cart_object.map((s) =>(
+                    <Grid item style={{width: "24%", padding: "0px", textAlign: "center"}}>
                     <LandingCard itemID= {s.id} itemImage={s.src} itemName={s.name} itemPrice={s.price} itemStrikePrice={s.strike_price}></LandingCard>
+                    </Grid>
                 ))}
             </Grid>
         </div>

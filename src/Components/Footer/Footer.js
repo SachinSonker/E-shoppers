@@ -1,5 +1,5 @@
-import React from 'react';
-import { Box, Typography, Container, styled } from '@mui/material';
+import React from 'react'
+import { Box, Typography, styled } from '@mui/material'
 
 // Custom styled component for Typography
 const Typo = styled(Typography)({
@@ -14,24 +14,28 @@ const Typo = styled(Typography)({
 
 const Footer = () => {
   return (
-    // Container for the footer
-    <Box sx={{
-      display: "flex",
-      justifyContent: "center",
-      position: "absolute",
-      width: "100%",
-      backgroundColor: "#F7F7F7",
-      height: "35px",
-      position: 'sticky',
-      marginTop: "100%"
-    }}>
-      {/* Footer links */}
-      <Typo>FAQs</Typo>
-      <Typo>Orders & Return</Typo>
-      <Typo>Account</Typo>
-      <Typo>About Us</Typo>
+    <Box sx={{display:"flex",position:"absolute",width:'99%',height:'150px',backgroundColor:"#F7F7F7"}}>
+      <Box flex={1}> 
+        <Typo variant='h1'><strong>ABOUT</strong></Typo>
+        <Typo>About Shoppers</Typo>
+        <Typo>Locations</Typo>
+        <Typo>CONTACT US</Typo>
+      </Box>
+      <Box flex={1}>
+        <Typo variant='h1'><strong>CUSTOMER CARE</strong></Typo>
+          <Typo>FAQs</Typo>
+          <Typo>Account</Typo>
+      </Box>
+      <Box flex={1}>
+        <Typo variant='h1'><strong>CONNECT</strong></Typo>
+        <Typo>Instagram</Typo>
+        <Typo>Facebook</Typo>
+        <Typo>Twitter</Typo>
+        <Typo>Pinterest</Typo>
+      </Box>
     </Box>
   );
 }
 
-export default Footer;
+export default Footer
+

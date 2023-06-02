@@ -16,35 +16,45 @@ function App() {
         <Routes>
           {/* Home Route */}
           <Route path='/' element={
+            <React.Fragment>
             <div className='App'>
               <Navbar/>
               <Landing/>
-              <Footer/>
             </div>
+              <Footer />
+            </React.Fragment>
           } />
 
           {/* Product Details Route */}
           <Route path="productdetails/*" element={
+            <div>
             <div className='App'>
               <Navbar/>
               <ProductDetails/>
-              <Footer/>
+            </div>
+              <Footer />
             </div>
           } />
 
           {/* Checkout Route */}
           <Route path="checkout/*" element={
+            <div>
             <div className='App'>
               <Navbar/>
               <CheckoutPage/>
-              <Footer/>
+            </div>
+              <Footer />
             </div>
           } />
 
           {/* Success Popup Route */}
           <Route path="SuccessPopup/*" element={
+            <div>
             <div className='App'>
+              <Navbar/>
               <SuccessPopup/>
+            </div>
+              <Footer />
             </div>
           } />
         </Routes>

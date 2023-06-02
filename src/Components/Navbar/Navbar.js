@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { AppBar, styled, Toolbar, Typography, Box, Button, IconButton, Popper , TextField, endAdornment, Container } from '@mui/material';
+import { AppBar, styled, Toolbar, Typography, Box, Button, IconButton, Popper,Popover , TextField, endAdornment, Container, ClickAwayListener } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import Login from '../Login/Login';
@@ -83,12 +83,10 @@ const Navbar = () => {
     const handleClose = () => {
         setOpen(false)
     }
-
-
     return (
         <Container className='container'>
-        <AppBar  color='transparent' elevation={0} sx={{position:'sticky',marginTop:'25px'}}>
-        <Toolbar sx={{ display: "flex", flex :'1 1 auto', backgroundColor: "white",borderBottom:1,paddingBottom:'20px',justifyContent:'space-between'}} disableGutters>
+        <AppBar  color='transparent' elevation={0} sx={{position:'sticky',marginTop:'5px'}}>
+        <Toolbar sx={{ display: "flex", flex :'1 1 auto', backgroundColor: "white",borderBottom:1,paddingBottom:'15px',justifyContent:'space-between'}} disableGutters>
                 {/* <Box flex={1}><Shop>Shop</Shop></Box>    */}
                     
                 <Box>
@@ -122,18 +120,20 @@ const Navbar = () => {
                     </Search>
                     </Box>
                     <Box>
-                        <Button sx={{ color:'white',width:'110px', margin: "0 10px 0", boxSizing: "border-box", backgroundColor:'#8B3DFF','&:hover': {backgroundColor:'#7300e6'},height:'39px'}} variant="contained" endIcon={<ShoppingBagIcon />} onClick={handleClick('bottom-end')}>
+                        
+                        <Button sx={{ color:'white',width:'110px', margin: "0 10px 0", boxSizing: "border-box", backgroundColor:'#8B3DFF','&:hover': {backgroundColor:'#7300e6'},height:'39px'}} variant="contained" endIcon={<ShoppingBagIcon />} onClick={handleClick('bottom')}>
                                 <Typography sx={{marginTop:'5px',textTransform: "none", fontSize: "15px", fontFamily: 'Mulish', fontStyle: 'normal', fontWeight: 400, lineHeight: '27px'}}>{noOfItems} Items</Typography>
-                            </Button>   
+                        </Button>  
+                            
                             <Popper
                                 open={open}
+                                disablePortal={true}
                                 anchorEl={anchorEl}
                                 placement={placement}
                                 onClose={handleClose}
-                                sx={{ zIndex : 1500, width:'344px', height:'609px'}}
-                                >
-                                <Cart onClose={handleClose}
-                                />
+                                sx={{ zIndex : 1500, width:'344px', height:'609px'}}>
+                                <Cart onClose={handleClose} />
+
                             </Popper>
                         { !signIn ?  <SignIn variant='contained' onClick={openModal}>Sign In</SignIn>: ""}
                         { signIn ? <AccountCircleRoundedIcon /> : ""}

@@ -15,10 +15,12 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path='/' element={
+            <div>
             <div className='App'>
               <Navbar/>
               <Landing/>
-              <Footer/>
+            </div>
+              <Footer />
             </div>
           } />
           <Route path="productdetails/*" element={

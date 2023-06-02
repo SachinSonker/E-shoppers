@@ -66,7 +66,7 @@ const Cart = ({ onClose }) => {
   }
   const calculateTotal =addCartObject.reduce((acc,item)=> acc + item.quantity * item.price,0)
   return (
-      <Box sx={{backgroundColor: 'white', height:'609px', border:'2px solid'}}>
+      <Box sx={{backgroundColor: 'white', height:'609px', border:'2px solid',marginTop:'10px'}}>
           <Box  sx={{display: 'flex', justifyContent: 'space-between'}}>
             <Typography
                 sx={{

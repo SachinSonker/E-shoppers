@@ -8,9 +8,9 @@ import img4 from '../../assets/140.png';
 import img5 from '../../assets/44.png';
 import img6 from '../../assets/66.png';
 import img7 from '../../assets/77.png';
+import * as React from 'react';
 import './landing.css';
 import SimpleImageSlider from "react-simple-image-slider";
-import * as React from 'react';
 import LandingCard from './Card'; 
 import { Grid } from '@mui/material';
 import axios from 'axios';
@@ -85,33 +85,24 @@ function Landing(){
         <Spinner />
     ) : (
         <div className='landing'>
-                <div className = "slider">{/*<img src = {abc} name="sliderImg"></img> */}
-                    <SimpleImageSlider
-                        width='100%'
-                        height={504}
-                        images={slider_images}
-                        // text = {text}
-                        showBullets={true}
-                        showNavs={true}
-                        autoPlay ={true}
-                    />
-                </div>
-
-                <div>
-                <hr className="line2"></hr></div>
-                <div>
-                    <div className='text'>
-                        <h4>PRODUCTS</h4>
-                    </div>
-                    <Grid container spacing={4} className='product'>
-                        {productList.map((s) =>(
-                            <LandingCard itemID= {s.id} itemImage={s.images[0]} itemName={s.title} itemPrice={s.price} itemStrikePrice={s.price}></LandingCard>
-                        ))}
-                        {/* {cart_object.map((s) =>(
-                            <LandingCard itemImage={s.src} itemName={s.name} itemPrice={s.price} itemStrikePrice={s.strike_price}></LandingCard>
-                        ))} */}
-                    </Grid>
-                </div>
+            <SimpleImageSlider
+                width='100%'
+                height={504}
+                images={slider_images}
+                showBullets={true}
+                showNavs={true}
+                autoPlay ={true}
+            />
+            <hr className="line2"></hr>
+            <h4 className='text'>PRODUCTS</h4>
+            <Grid container spacing={4} className='product'>
+                {productList.map((s) =>(
+                    <LandingCard itemID= {s.id} itemImage={s.images[0]} itemName={s.title} itemPrice={s.price} itemStrikePrice={s.price}></LandingCard>
+                ))}
+                {/* {cart_object.map((s) =>(
+                    <LandingCard itemImage={s.src} itemName={s.name} itemPrice={s.price} itemStrikePrice={s.strike_price}></LandingCard>
+                ))} */}
+            </Grid>
         </div>
     );
 }

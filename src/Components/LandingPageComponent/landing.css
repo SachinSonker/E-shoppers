@@ -3,11 +3,11 @@
 }
 
 .landing{
-    display: flex;
-    flex-direction: column;
     position: relative; 
-    margin: 0%;
     margin-top: 20px;
+    margin-left: 4px;
+    margin-right: 4px;
+    margin-bottom: 20px;
 }
 
 .card{
@@ -16,8 +16,8 @@
 }
 
 .slider{
-top: 156px;
-align-content: center;
+    top: 156px;
+    align-content: center;
 }
 
 img[name="sliderImg"]{
@@ -30,6 +30,7 @@ img[name="sliderImg"]{
 }
 
 .line2{
+    width: 100%;
     margin-top: 25px;
 }
 

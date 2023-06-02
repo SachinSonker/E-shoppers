@@ -107,8 +107,8 @@ function ProductDetails(){
                        Deal of the day :{cart_object[0].price}$ (14% OFF){/*<FormatPrice price = {cart_object[0].price}/>              */}
                  </p>
                  <p>
-                     <span>Description:</span>{cart_object[0].description}
-                 </p>
+                     <span>Description:&nbsp;</span>{cart_object[0].description}
+                 </p>&nbsp;
                    <div className="specs">
                      <div className="product-data-warranty">
                         <div className = "product-warranty-data">
@@ -126,7 +126,7 @@ function ProductDetails(){
                       </div>   
                     </div>
                   <div className="product-data-info">
-                       <p>Available:
+                       <p className="text-data">Available:
                          <span>{cart_object[0].Available> 0 ? "In Stock" : "Not Available"}</span>
                        </p>
 

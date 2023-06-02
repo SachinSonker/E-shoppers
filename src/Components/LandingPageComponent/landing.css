@@ -46,3 +46,10 @@
 .alignright {
 	float: right;
 }
+
+.textcontainer{
+    width:60%;
+    /* top:6%; */
+    left:18%;
+    margin-top: -270px;
+}

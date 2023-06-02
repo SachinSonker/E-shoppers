@@ -26,9 +26,10 @@ const  Stars = ({ ratings, reviews }) =>{
      
      return(
       <Wrapper>
+        <div className="rate-icon">
          <div className = "icon"/>
-         {ratingStar}<span><p>({reviews} Customer Ratings)</p></span>
-      
+         {ratingStar}<span>&nbsp;({reviews} Customer Ratings)</span>
+         </div>
       </Wrapper>
 
 

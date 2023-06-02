@@ -6,18 +6,17 @@ import Button from '@mui/material/Button';
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import DeleteIcon from '@mui/icons-material/Delete';
-import {useState , useEffect} from 'react';
+import { useState , useEffect } from 'react';
 import { CountryDropdown, RegionDropdown, CountryRegionData } from 'react-country-region-selector';
 import { useForm, Controller } from "react-hook-form";
 import { NavLink } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
 import './CheckoutPage.css';
-import img1 from "../../assets/11.png"
-import img2 from "../../assets/22.png"
-import img3 from "../../assets/33.png"
-import img4 from "../../assets/44.png"
-import img5 from "../../assets/55.png"
-
+import img1 from "../../assets/11.png";
+import img2 from "../../assets/22.png";
+import img3 from "../../assets/33.png";
+import img4 from "../../assets/44.png";
+import img5 from "../../assets/55.png";
 
 const Item = styled('div')(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -29,117 +28,84 @@ const Item = styled('div')(({ theme }) => ({
 }));
 
 export default function CheckoutPage() {
-
-  //dummy data
+  // Dummy data
   const [data , setData] = useState([
     {
-        'id':1,
-        'image' : img1,
-        'name':'Chair',
-        'color':'Blue',
-        'quantity':1,
-        'unit_price':1150.00
-        
+      'id':1,
+      'image' : img1,
+      'name':'Chair',
+      'color':'Blue',
+      'quantity':1,
+      'unit_price':1150.00
     },
     {
-        'id':2,
-        'image' : img2,
-        'name':'Wardrobe',
-        'color':'black',
-        'quantity':1,
-        'unit_price':1245.00
-        
+      'id':2,
+      'image' : img2,
+      'name':'Wardrobe',
+      'color':'black',
+      'quantity':1,
+      'unit_price':1245.00
     },
-    {
-        'id':3,
-        'image' : img3,
-        'name':'Pen',
-        'color':'Red',
-        'quantity':1,
-        'unit_price':1352.00
-        
-    },
-    {
-        'id':4,
-        'image' : img4,
-        'name':'Cycle',
-        'color':'Aqua',
-        'quantity':1,
-        'unit_price':1999.00
-        
-    },
-    {
-        'id':5,
-        'image' : img5,
-        'name':'Laptop',
-        'color':'Metal Black',
-        'quantity':1,
-        'unit_price':1853.00
-        
-    }
-]);
+    // ...
+  ]);
 
-       //product increment decrement 
-        const incrementQuantity = (itemId) => {
-          const updatedItems = data.map((item) => {
-          if (item.id === itemId) {
-          return { ...item, quantity: item.quantity + 1 };
-          }
-          return item;
-          });
-          setData(updatedItems);
-          };
-          
-          const decrementQuantity = (itemId) => {
-          const updatedItems = data.map((item) => {
-          if (item.id === itemId && item.quantity > 0) {
-          return { ...item, quantity: item.quantity - 1 };
-          }
-          return item;
-          });
-          setData(updatedItems);
-          };
+  // Product increment/decrement
+  const incrementQuantity = (itemId) => {
+    const updatedItems = data.map((item) => {
+      if (item.id === itemId) {
+        return { ...item, quantity: item.quantity + 1 };
+      }
+      return item;
+    });
+    setData(updatedItems);
+  };
+  
+  const decrementQuantity = (itemId) => {
+    const updatedItems = data.map((item) => {
+      if (item.id === itemId && item.quantity > 0) {
+        return { ...item, quantity: item.quantity - 1 };
+      }
+      return item;
+    });
+    setData(updatedItems);
+  };
 
-        //calculating Total price
-        const calculateTotalPrice = (unit_price, quantity) => {
-            let totalPrice = 0;
-            totalPrice += unit_price * quantity;
+  // Calculate total price
+  const calculateTotalPrice = (unit_price, quantity) => {
+    let totalPrice = 0;
+    totalPrice += unit_price * quantity;
+    return totalPrice;
+  };
 
-            return totalPrice;
-        };
+  // Calculate subtotal
+  const calculateSubTotal = () => {
+    let subTotal = 0;
+    data.map((item) => {
+      subTotal += item.unit_price * item.quantity;
+    });
+    return subTotal;
+  };
 
-        //Calculating Subtotal
-        const calculateSubTotal = () => {
-            let subTotal = 0;
+  // Delete items
+  const deleteItem = (itemId) => {
+    const updatedItems = data.filter((item) => item.id !== itemId);
+    setData(updatedItems);
+  }
 
-            data.map((item)=> {
-                subTotal += item.unit_price * item.quantity;
-            });
+  // Form state
+  const [address1, setAddress1] = useState("");
+  const [address2, setAddress2] = useState("");
+  const [postalcode, setPostalCode] = useState("");
 
-            return subTotal;
-        }
+  // Getting state and country data
+  const [state, setState] = useState({
+    country: "",
+    region: ""
+  });
 
-        //deleting items
-        const deleteItem = (itemId)=>{
-          const updatedItems = data.filter((item) => item.id !== itemId);
-          setData(updatedItems);
-        }
-        //forms
-        const [address1, setAddress1] = useState("")
-        const [address2, setAddress2] = useState("")
-        const [postalcode, setPostalCode] = useState("")
-        
-
-        //getting state and country data
-            const [state, setState] = useState({
-              country: "",
-              region: ""
-            })
-          
-            const selectCountry = (val) => {
-                setState({ ...state, country: val });
-            }
-          
+  const selectCountry = (val) => {
+    setState({ ...state, country: val });
+  }
             const selectRegion = (val) =>{
                 setState({ ...state, region: val });
             }

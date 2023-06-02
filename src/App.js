@@ -9,12 +9,12 @@ import SuccessPopup from './Components/SuccessPopup/SuccessPopup';
 import Navbar from './Components/Navbar/Navbar';
 import Footer from './Components/Footer/Footer';
 
-
 function App() {
   return (
     <GoogleOAuthProvider clientId="307607756850-v5ohbkpfepkgfrd2duss39nd5cse9gta.apps.googleusercontent.com">
       <BrowserRouter>
         <Routes>
+          {/* Home Route */}
           <Route path='/' element={
             <div className='App'>
               <Navbar/>
@@ -22,6 +22,8 @@ function App() {
               <Footer/>
             </div>
           } />
+
+          {/* Product Details Route */}
           <Route path="productdetails/*" element={
             <div className='App'>
               <Navbar/>
@@ -29,6 +31,8 @@ function App() {
               <Footer/>
             </div>
           } />
+
+          {/* Checkout Route */}
           <Route path="checkout/*" element={
             <div className='App'>
               <Navbar/>
@@ -36,6 +40,8 @@ function App() {
               <Footer/>
             </div>
           } />
+
+          {/* Success Popup Route */}
           <Route path="SuccessPopup/*" element={
             <div className='App'>
               <SuccessPopup/>

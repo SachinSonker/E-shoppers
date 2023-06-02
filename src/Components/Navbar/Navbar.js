@@ -73,6 +73,10 @@ const Navbar = () => {
     const handleClose = () => {
         setOpen(false)
     }
+    const handleClickAway=()=>{
+        setAnchorEl(false)
+        setOpen(false)
+    }
     return (
         <Container className='container'>
         <AppBar  color='transparent' elevation={0} sx={{position:'sticky',marginTop:'5px'}}>
@@ -110,13 +114,13 @@ const Navbar = () => {
                     </Search>
                     </Box>
                     <Box sx={{display:'flex',flexDirection:'row', width:'400px',justifyContent:'flex-end'}}>
+                    <ClickAwayListener onClickAway={handleClickAway}>
                     <Box>
-                        
                         <Button sx={{ color:'white',width:'110px', margin: "0 10px 0", boxSizing: "border-box", backgroundColor:'#8B3DFF','&:hover': {backgroundColor:'#7300e6'},height:'39px'}} variant="contained" endIcon={<ShoppingBagIcon />} onClick={handleClick('bottom')}>
                             <Typography sx={{ marginTop: '5px', textTransform: "none", fontSize: "15px", fontFamily: 'Mulish', fontStyle: 'normal', fontWeight: 400, lineHeight: '27px' }}>{noOfItem} Items</Typography>
                         </Button>  
                             
-                            <Popper
+                            {open ? (<Popper
                                 open={open}
                                 disablePortal={true}
                                 anchorEl={anchorEl}
@@ -125,14 +129,15 @@ const Navbar = () => {
                                 sx={{ zIndex : 1500, width:'344px', height:'609px'}}>
                             <Cart onClose={handleClose} itemRemove={ itemDelete} />
 
-                            </Popper>
+                            </Popper>):null}
                         
                         {isOpen ?  <Login onClose={closeModal} registration={createAccount} loggedIn={login}/>:""}
                         {registration ?  <Signup onClose={()=> setRegistration(false)} signin={openSignIn} loggedIn={login} />:""}
                         </Box>
+                    </ClickAwayListener>
                         <Box sx={{marginLeft:'10px'}}>
                         { !signIn ?  <SignIn variant='contained' onClick={openModal}>Sign In</SignIn>: ""}
-                            {signIn ? <AccountCircleRoundedIcon sx={{ color: '#8B3DFF',fontSize:'30px',marginTop:'6px' }} /> : ""}
+                            {signIn ? <AccountCircleRoundedIcon sx={{ color: '#8B3DFF',fontSize:'40px',marginTop:'0px' }} /> : ""}
                         </Box>
                     </Box>
                 </Toolbar>

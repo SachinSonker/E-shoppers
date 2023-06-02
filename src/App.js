@@ -42,7 +42,7 @@ function App() {
               <Footer />
             </div>
           } />
-          <Route path="SuccessPopup/*" element={
+          <Route path="successpopup/*" element={
             <div>
             <div className='App'>
               <Navbar/>

@@ -271,7 +271,7 @@ export default function CheckoutPage() {
         <Typography variant="h6" style={{textAlign:'Left',fontSize:14,marginLeft:30}}>Shipping</Typography>
         <Typography variant="h6" style={{textAlign:'Left',fontSize:14,marginLeft:30}}>Order Total</Typography>
         <hr/>
-        <Button variant="contained" disableElevation style={{backgroundColor: 'darkorchid', width : '80%' , marginTop: 20, marginBottom: 20, borderRadius: 0, }} onClick={() => {console.log("redirecting.....");navigate("/SuccessPopup");}}>Place Order</Button>
+        <Button variant="contained" disableElevation style={{backgroundColor: 'darkorchid', width : '80%' , marginTop: 20, marginBottom: 20, borderRadius: 0, }} onClick={() => {console.log("redirecting.....");navigate("/successpopup");}}>Place Order</Button>
       </div>
       
           </Item>

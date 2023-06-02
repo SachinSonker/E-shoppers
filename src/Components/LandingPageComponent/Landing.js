@@ -81,7 +81,7 @@ function Landing(){
     const [productList, setProductList] = useState([]);
 
     useEffect(() => {
-        axios.get("https://api.escuelajs.co/api/v1/products").then((response) => {
+        axios.get("http://10.53.97.64:8090/api/product/").then((response) => {
           setProductList(response.data);
         });
     }, []);
@@ -104,7 +104,7 @@ function Landing(){
             <h4 className='page-title'>PRODUCTS</h4>
             <Grid container spacing={4} className='product-card'>
                 {/* {productList.map((s) =>(
-                    <LandingCard itemID= {s.id} itemImage={s.images[0]} itemName={s.title} itemPrice={s.price} itemStrikePrice={s.price}></LandingCard>
+                    <LandingCard itemID= {s.id} itemImage={img1} itemName={s.name} itemPrice={s.price} itemStrikePrice={s.price}></LandingCard>
                 ))} */}
                 {cart_object.map((s) =>(
                     <Grid item style={{width: "24%", padding: "0px", textAlign: "center"}}>

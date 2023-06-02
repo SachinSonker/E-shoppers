@@ -44,7 +44,7 @@ export default function Login({ onClose, registration,loggedIn }) {
                 "userName" : email,
                 "password" : password,
             }
-            const result = await axios.post(constants.url.user.login, data);
+            await axios.post(constants.url.user.login, data);
             
             loggedIn();
             onClose();
@@ -114,6 +114,7 @@ export default function Login({ onClose, registration,loggedIn }) {
                                                     console.log('Login Failed');
                                                 }}
                                                 size = "medium"
+                                                width='270'
                                             />
                                             {/* <input type="button" value="Google" /> */}
                                         </div>

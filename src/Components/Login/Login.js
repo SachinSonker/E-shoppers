@@ -7,9 +7,6 @@ import axios from 'axios';
 import { constants } from '../../shared/constant';
 
 
-import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
-
-
 
 export default function Login({ onClose, registration,loggedIn }) {
     const [email,setEmail] = useState("")
@@ -32,8 +29,9 @@ export default function Login({ onClose, registration,loggedIn }) {
     const validatePassword = (event) =>{
         const pass = event.target.value
         setPassword(pass)
-        if(pass==="" || pass.length < 7 || !/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*\W).{8,15}/.test(password)){
-            setErrors({...errors,["password"]:"Password should contains at least 8 characters, 1 special character and 1 uppercase letter"})
+        // if(pass==="" || pass.length < 7 || !/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*\W).{8,15}/.test(password)){
+            if(pass===""){
+            setErrors({...errors,["password"]:"Password is required"})
        }else{
         delete errors.password
        }
@@ -80,21 +78,21 @@ export default function Login({ onClose, registration,loggedIn }) {
                             </div>
                             <div className="content">
                                 <div  className='title'> 
-                                    <p>Login</p>
+                                    <h4>Login</h4>
                                 </div>
                                 {/* <div>
                                     <h5>Please sign in</h5>
                                 </div> */}
                                 <div className='detail'>
                                     <div className='input'>
-                                        <label>Email Address</label>
-                                        <input type="email" name="username" placeholder='abc@gmail.com' onChange={event => {validateEmail(event)}} className={errors.email!==undefined ? "invalid" : ""}></input>
+                                        {/* <label>Email Address</label> */}
+                                        <input type="email" name="username" placeholder='Email' onChange={event => {validateEmail(event)}} className={errors.email!==undefined ? "invalid" : ""}></input>
                                         {errors.email && <span className='errorMsg' style={{  }}>{errors.email}</span>}
                                     </div>
 
                                     <div className='input'>
-                                        <label>Password</label>
-                                        <input type="password" name="password"  onChange = {event => validatePassword(event)} className={errors.password!==undefined ? "invalid" : ""}></input>
+                                        {/* <label>Password</label> */}
+                                        <input type="password" name="password" placeholder='Password' onChange = {event => validatePassword(event)} className={errors.password!==undefined ? "invalid" : ""}></input>
                                         {errors.password && <span className='errorMsg'>{errors.password}</span>}
                                     </div>
 
@@ -130,9 +128,6 @@ export default function Login({ onClose, registration,loggedIn }) {
                                 </div>
                             </div>
                         </div>
-                        {/* <div className="ecommImg">
-      <img src='https://images.pexels.com/photos/5632379/pexels-photo-5632379.jpeg?cs=srgb&dl=pexels-karolina-grabowska-5632379.jpg&fm=jpg' height="100%" width="100%"/>
-    </div> */}
                     </div>
                 </div>
             </div>

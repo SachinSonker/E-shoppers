@@ -8,9 +8,9 @@ import img4 from '../../assets/140.png';
 import img5 from '../../assets/44.png';
 import img6 from '../../assets/66.png';
 import img7 from '../../assets/77.png';
+import * as React from 'react';
 import './landing.css';
 import SimpleImageSlider from "react-simple-image-slider";
-import * as React from 'react';
 import LandingCard from './Card'; 
 import { Grid } from '@mui/material';
 import axios from 'axios';
@@ -25,42 +25,49 @@ const slider_images = [
 
 const cart_object = [
     {
+        "id": 1,
         "src" : img1,
         "name" : "Chair",
         "price" : "115",
         "strike_price" : "135"
     },
     {
+        "id": 2,
         "src" : img2,
         "name" : "Wardrobe",
         "price" : "45",
         "strike_price" : "56"
     },
     {
+        "id": 3,
         "src" : img3,
         "name" : "Living Room Couch Set",
         "price" : "74",
         "strike_price" : "80"
     },
     {
+        "id": 4,
         "src" : img4,
         "name" : "Chandliers",
         "price" : "78",
         "strike_price" : "90"
     },
     {
+        "id": 5,
         "src" : img5,
         "name" : "Armchair",
         "price" : "74",
         "strike_price" : "80"
     },
     {
+        "id": 6,
         "src" : img6,
         "name" : "Couch Set",
         "price" : "174",
         "strike_price" : "200"
     },
     {
+        "id": 7,
         "src" : img7,
         "name" : "Coat Hanger",
         "price" : "115",
@@ -85,6 +92,25 @@ function Landing(){
         <Spinner />
     ) : (
         <div className='landing'>
+            <SimpleImageSlider
+                width='100%'
+                height={504}
+                images={slider_images}
+                showBullets={true}
+                showNavs={true}
+                autoPlay ={true}
+            />
+            <hr className="line2"></hr>
+            <h4 className='text'>PRODUCTS</h4>
+            <Grid container spacing={4} className='product'>
+                {/* {productList.map((s) =>(
+                    <LandingCard itemID= {s.id} itemImage={s.images[0]} itemName={s.title} itemPrice={s.price} itemStrikePrice={s.price}></LandingCard>
+                ))} */}
+                {cart_object.map((s) =>(
+                    <LandingCard itemID= {s.id} itemImage={s.src} itemName={s.name} itemPrice={s.price} itemStrikePrice={s.strike_price}></LandingCard>
+                ))}
+            </Grid>
+        </div>
                 <div className = "slider">{/*<img src = {abc} name="sliderImg"></img> */}
                     <SimpleImageSlider
                         width='100%'

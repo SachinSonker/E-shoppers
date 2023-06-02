@@ -124,40 +124,40 @@ export default function Signup({onClose,signin,loggedIn}) {
                 </div>
                 <div className='content'>
                     <div className='title'>
-                        <p>Create an Account </p>
+                        <h4 className="creatText">Create an Account </h4>
                     </div>
                     {/* <div>
                         <h5>Please sign up</h5>
                     </div> */}
                     <div className='details'>
                         <div className='input'>
-                            <label>Full Name</label>
-                            <input type="text" name="name"  onChange={event => validateName(event)} className={errors.name!==undefined ? "invalid" : ""}></input>
+                            {/* <label>Full Name</label> */}
+                            <input type="text" name="name"  onChange={event => validateName(event)} className={errors.name!==undefined ? "invalid" : ""} placeholder="Name"></input>
                             {errors.name && <span className='errorMsg'>{errors.name}</span>}
                         </div>
 
                         <div className='input'>
-                            <label>Email Address</label>
-                            <input type="text" name="username" placeholder='abc@gmail.com' onChange={event => {validateEmail(event)}} className={errors.email!==undefined ? "invalid" : ""}></input>
+                            {/* <label>Email Address</label> */}
+                            <input type="text" name="username" placeholder='Email' onChange={event => {validateEmail(event)}} className={errors.email!==undefined ? "invalid" : ""}></input>
                             {console.log(errors.email, "Email Errors")}
                             {errors.email && <span className='errorMsg'>{errors.email}</span>}
                         </div>
 
                         <div className='input'>
-                            <label>Phone No</label>
-                            <input type="text" name="phone"  placeholder='+91 99999 99999' onChange = {event => validatePhone(event)} className={errors.phone!==undefined ? "invalid" : ""}></input>
+                            {/* <label>Phone No</label> */}
+                            <input type="text" name="phone"  placeholder='Phone' onChange = {event => validatePhone(event)} className={errors.phone!==undefined ? "invalid" : ""}></input>
                             {errors.phone && <span className='errorMsg'>{errors.phone}</span>}
                         </div>
 
                         <div className='input'>
-                            <label>Password</label>
-                            <input type="password" name="password" onChange = {event => validatePassword(event)} className={errors.password!==undefined ? "invalid" : ""}></input>
+                            {/* <label>Password</label> */}
+                            <input type="password" name="password"  placeholder='Password' onChange = {event => validatePassword(event)} className={errors.password!==undefined ? "invalid" : ""}></input>
                             {errors.password && <span className='errorMsg'>{errors.password}</span>}
                         </div>
 
                         <div className='input'>
-                            <label>Confirm Password </label>
-                            <input type="password" name="confirm-password" onChange = {event => validateConfirmPassword(event)} className={errors.confirmPassword!==undefined ? "invalid" : ""}></input>
+                            {/* <label>Confirm Password </label> */}
+                            <input type="password" name="confirm-password" placeholder='Confirm Password' onChange = {event => validateConfirmPassword(event)} className={errors.confirmPassword!==undefined ? "invalid" : ""}></input>
                             {errors.confirmPassword && <span className='errorMsg'>{errors.confirmPassword}</span>}
                         </div>
                         
@@ -173,7 +173,7 @@ export default function Signup({onClose,signin,loggedIn}) {
                             </div> */}
                             <div className="google">
                                 {/* <input type="button" value="Google" /> */}
-                                <GoogleLogin
+                                <GoogleLogin 
                                     onSuccess={credentialResponse => {
                                         console.log(credentialResponse);
                                         googleLogin(credentialResponse)
@@ -183,13 +183,14 @@ export default function Signup({onClose,signin,loggedIn}) {
                                         console.log('Login Failed');
                                     }}
                                     size = "medium"
+                                    text = "signup_with"
                                 />
                             </div>
                             <div className='hr-line'>
                                 <hr />
                             </div>
                             <div>
-                            <p>Already have an account?<a className="signup" onClick={signin}>Sign In</a></p>
+                            <p className="text">Already have an account?<a className="signup" onClick={signin}>Sign In</a></p>
                                             {/* <button value="create" onClick={registration}>Create an Account </button> */}
                             </div>
                         </div>

@@ -5,6 +5,7 @@ import ProductDetails from './Components/ProductDetailPage/ProductDetail';
 import Landing from './Components/LandingPageComponent/Landing';
 import CheckoutPage from './Components/Checkout/CheckoutPage';
 import { GoogleOAuthProvider } from '@react-oauth/google';
+import SuccessPopup from './Components/SuccessPopup/SuccessPopup';
 import Navbar from './Components/Navbar/Navbar';
 import Footer from './Components/Footer/Footer';
 
@@ -35,6 +36,11 @@ function App() {
               <Navbar/>
               <CheckoutPage/>
               <Footer/>
+            </div>
+          } />
+          <Route path="SuccessPopup/*" element={
+            <div className='App'>
+              <SuccessPopup/>
             </div>
           } />
         </Routes>

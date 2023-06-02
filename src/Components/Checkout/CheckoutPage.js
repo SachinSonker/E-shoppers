@@ -1,4 +1,3 @@
-
 import React, { Component } from 'react';
 import Box from '@mui/system/Box';
 import Grid from '@mui/system/Unstable_Grid';
@@ -11,15 +10,13 @@ import {useState , useEffect} from 'react';
 import { CountryDropdown, RegionDropdown, CountryRegionData } from 'react-country-region-selector';
 import { useForm, Controller } from "react-hook-form";
 import { NavLink } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 import './CheckoutPage.css';
 import img1 from "../../assets/11.png"
 import img2 from "../../assets/22.png"
 import img3 from "../../assets/33.png"
 import img4 from "../../assets/44.png"
 import img5 from "../../assets/55.png"
-
-
-
 
 
 const Item = styled('div')(({ theme }) => ({
@@ -95,7 +92,7 @@ export default function CheckoutPage() {
           
           const decrementQuantity = (itemId) => {
           const updatedItems = data.map((item) => {
-          if (item.id === itemId && item.quantity > 1) {
+          if (item.id === itemId && item.quantity > 0) {
           return { ...item, quantity: item.quantity - 1 };
           }
           return item;
@@ -147,11 +144,15 @@ export default function CheckoutPage() {
                 setState({ ...state, region: val });
             }
             const { country, region } = state;
-        
-        
-        
+            
+
+            //routing for checkout Page
+        const navigate = useNavigate();
+
+
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    
+    <Box sx={{ flexGrow: 1 }} style={{position:'sticky'}}>
       <Grid container spacing={2}>
         <Grid xs={8}>
           <Item style={{borderRadius:0, border:'none'}}>
@@ -168,8 +169,8 @@ export default function CheckoutPage() {
             <main className="col-md-9">
         <div className="card">
         
-        <table className="table table-borderless table-shopping-cart" style = {{paddingRight:30, paddingLeft:30}}>
-        <thead className="text-muted" style = {{backgroundColor:'#a77ad7',color:'white' }}>
+        <table className="table table-borderless table-shopping-cart">
+        <thead className="text-muted" style = {{backgroundColor:'darkorchid',color:'white' }}>
         <tr className="small text-uppercase">
         <th className="table_heading"scope="col">Product Name</th>
         <th className="table_heading"scope="col" width="120">Unit Price</th>
@@ -194,19 +195,19 @@ export default function CheckoutPage() {
                 </figure>
             </td>
             <td> 
-                <div className="price-wrap"style = {{position : 'absolute',marginLeft:20}}> 
+                <div className="price-wrap"style = {{position : 'absolute',marginLeft:25}}> 
                     <var className="price">${item.unit_price}</var> 
                 </div> 
             </td>
             <td>
             <div style= {{display: 'flex'}}>
-            <Box component="span" border={1} borderColor='black' style={{width: 20,height: 20,marginTop:20,}}>{item.quantity}</Box>
-            <button onClick={()=>incrementQuantity(item.id)} variant="contained" style={{width: 20,height: 20,backgroundColor:'black',color:'white',marginTop:20,marginRight:10,marginLeft:10,}}>+</button>
+            <Box component="span" border={1} borderColor='black' style={{width: 20,height: 20,marginTop:20,marginLeft:15}}>{item.quantity}</Box>
+            <button onClick={()=>incrementQuantity(item.id)} variant="contained" style={{width: 20,height: 20,backgroundColor:'black',color:'white',marginTop:20,marginRight:15,marginLeft:15,}}>+</button>
             <button onClick={()=>decrementQuantity(item.id)} variant="contained" style={{width: 20,height: 20,backgroundColor:'black',color:'white',marginTop:20,}}>-</button>
             </div>
             </td>
             <td> 
-                <div className="price-wrap"style = {{position : 'absolute',marginLeft:20}}> 
+                <div className="price-wrap"style = {{position : 'absolute',marginLeft:25}}> 
                     <var className="price">${calculateTotalPrice(item.unit_price, item.quantity)}</var> 
                 </div> 
             </td>
@@ -243,9 +244,9 @@ export default function CheckoutPage() {
          <hr/>
             <div className='details'>
                     <label>Address Line 1</label>
-                    <input type="text" name="address1" placeholder='Line 1' onChange={event => setAddress1(event.target.value)}></input>
+                    <input type="text" name="address1" placeholder='' onChange={event => setAddress1(event.target.value)}></input>
                     <label>Address Line 2</label>
-                    <input type="text" name="address2" placeholder='Line 2' onChange={event => setAddress2(event.target.value)}></input>
+                    <input type="text" name="address2" placeholder='' onChange={event => setAddress2(event.target.value)}></input>
                     
                 <div className="wrapper" style={{display:'flex'}}>
                 <span className="selectrow">
@@ -263,14 +264,14 @@ export default function CheckoutPage() {
                 </span>
                </div> 
                <label>Postal Code</label>
-               <input type="text" name="postalcode" placeholder='Postal Code' style={{width:140}} onChange={event => setPostalCode(event.target.value)}></input>             
+               <input type="text" name="postalcode" placeholder='' style={{width:140}} onChange={event => setPostalCode(event.target.value)}></input>             
             </div>
         <hr/>
-        <Typography variant="h6" style={{textAlign:'Left',fontSize:14,marginLeft:30}}>Sub Total &nbsp;<span style={{marginRight:190}}></span> ${calculateSubTotal()}</Typography>
+        <Typography variant="h6" style={{textAlign:'Left',fontSize:14,marginLeft:30}}>Sub Total &nbsp;<span style={{marginRight:130}}></span> ${calculateSubTotal()}</Typography>
         <Typography variant="h6" style={{textAlign:'Left',fontSize:14,marginLeft:30}}>Shipping</Typography>
         <Typography variant="h6" style={{textAlign:'Left',fontSize:14,marginLeft:30}}>Order Total</Typography>
         <hr/>
-        <Button variant="contained" disableElevation style={{backgroundColor: '#a77ad7', width : '80%' , marginTop: 20, marginBottom: 20, borderRadius: 0, }}>Place Order</Button>
+        <Button variant="contained" disableElevation style={{backgroundColor: 'darkorchid', width : '80%' , marginTop: 20, marginBottom: 20, borderRadius: 0, }} onClick={() => {console.log("redirecting.....");navigate("/SuccessPopup");}}>Place Order</Button>
       </div>
       
           </Item>

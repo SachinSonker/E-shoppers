@@ -25,42 +25,49 @@ const slider_images = [
 
 const cart_object = [
     {
+        "id": 1,
         "src" : img1,
         "name" : "Chair",
         "price" : "115",
         "strike_price" : "135"
     },
     {
+        "id": 2,
         "src" : img2,
         "name" : "Wardrobe",
         "price" : "45",
         "strike_price" : "56"
     },
     {
+        "id": 3,
         "src" : img3,
         "name" : "Living Room Couch Set",
         "price" : "74",
         "strike_price" : "80"
     },
     {
+        "id": 4,
         "src" : img4,
         "name" : "Chandliers",
         "price" : "78",
         "strike_price" : "90"
     },
     {
+        "id": 5,
         "src" : img5,
         "name" : "Armchair",
         "price" : "74",
         "strike_price" : "80"
     },
     {
+        "id": 6,
         "src" : img6,
         "name" : "Couch Set",
         "price" : "174",
         "strike_price" : "200"
     },
     {
+        "id": 7,
         "src" : img7,
         "name" : "Coat Hanger",
         "price" : "115",
@@ -96,12 +103,12 @@ function Landing(){
             <hr className="line2"></hr>
             <h4 className='text'>PRODUCTS</h4>
             <Grid container spacing={4} className='product'>
-                {productList.map((s) =>(
+                {/* {productList.map((s) =>(
                     <LandingCard itemID= {s.id} itemImage={s.images[0]} itemName={s.title} itemPrice={s.price} itemStrikePrice={s.price}></LandingCard>
-                ))}
-                {/* {cart_object.map((s) =>(
-                    <LandingCard itemImage={s.src} itemName={s.name} itemPrice={s.price} itemStrikePrice={s.strike_price}></LandingCard>
                 ))} */}
+                {cart_object.map((s) =>(
+                    <LandingCard itemID= {s.id} itemImage={s.src} itemName={s.name} itemPrice={s.price} itemStrikePrice={s.strike_price}></LandingCard>
+                ))}
             </Grid>
         </div>
     );

@@ -91,60 +91,35 @@ function Landing(){
     return productList.length == 0 ? (
         <Spinner />
     ) : (
-        <div className='landing-page'>
-            <SimpleImageSlider
-                width='100%'
-                height={504}
-                images={slider_images}
-                showBullets={true}
-                showNavs={true}
-                autoPlay ={true}
-            />
-            <hr className='divider-line'></hr>
-            <h4 className='page-title'>PRODUCTS</h4>
-            <Grid container spacing={4} className='product-card'>
-                {/* {productList.map((s) =>(
-                    <LandingCard itemID= {s.id} itemImage={s.images[0]} itemName={s.title} itemPrice={s.price} itemStrikePrice={s.price}></LandingCard>
-                ))} */}
-                {cart_object.map((s) =>(
-                    <Grid item style={{width: "24%", padding: "0px", textAlign: "center"}}>
-                    <LandingCard itemID= {s.id} itemImage={s.src} itemName={s.name} itemPrice={s.price} itemStrikePrice={s.strike_price}></LandingCard>
-                    </Grid>
-                ))}
-            </Grid>
-        </div>
-                <div className = "slider">{/*<img src = {abc} name="sliderImg"></img> */}
-                    <SimpleImageSlider
-                        width='100%'
-                        height={504}
-                        images={slider_images}
-                        // text = {text}
-                        showBullets={true}
-                        showNavs={true}
-                        autoPlay ={true}
-                    />
-                    <div className = "textcontainer" style={{marginLeft:'auto',marginRight:'auto',position:'absolute',color:'white',textAlign:'center'}}>
+        <><div className="slider">{/*<img src = {abc} name="sliderImg"></img> */}
+                <SimpleImageSlider
+                    width='100%'
+                    height={504}
+                    images={slider_images}
+                    // text = {text}
+                    showBullets={true}
+                    showNavs={true}
+                    autoPlay={true} />
+                <div className="textcontainer" style={{ marginLeft: 'auto', marginRight: 'auto', position: 'absolute', color: 'white', textAlign: 'center' }}>
                     <h1>Affordable Appliances That Keep Up</h1>
                     <h3>Work Hard Appliances.. Feel Good Prices!!</h3>
-                    </div>
                 </div>
-                <div>
-                <hr className="line2"></hr></div>
-                <div>
-                    <div className='text'>
-                        <h4>PRODUCTS</h4>
-                    </div>
-                    <Grid container spacing={4} className='product'>
-                        {productList.map((s) =>(
-                            <LandingCard itemID= {s.id} itemImage={s.images[0]} itemName={s.title} itemPrice={s.price} itemStrikePrice={s.price}></LandingCard>
-                        ))}
-                        {/* {cart_object.map((s) =>(
-                            <LandingCard itemImage={s.src} itemName={s.name} itemPrice={s.price} itemStrikePrice={s.strike_price}></LandingCard>
-                        ))} */}
-                    </Grid>
+            </div><div>
+                <hr className="line2"></hr></div><div>
+                <div className='text'>
+                    <h4>PRODUCTS</h4>
                 </div>
-        </div>
-    );
+                <Grid container spacing={4} className='product'>
+                    {/* {productList.map((s) => (
+                        <LandingCard itemID={s.id} itemImage={s.images[0]} itemName={s.title} itemPrice={s.price} itemStrikePrice={s.price}></LandingCard>
+                    ))} */}
+                    {cart_object.map((s) =>(
+        <LandingCard itemImage={s.src} itemName={s.name} itemPrice={s.price} itemStrikePrice={s.strike_price}></LandingCard>
+    ))}
+                </Grid>
+            </div></>
+    ); 
+    
 }
 
 export default Landing;

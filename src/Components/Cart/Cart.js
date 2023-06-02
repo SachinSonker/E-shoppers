@@ -8,7 +8,7 @@ import img3 from '../../assets/33.png';
 import CartItem from '../Cart Item/CartItem';
 import { useNavigate } from 'react-router-dom';
 
-const Cart = ({ onClose }) => {
+const Cart = ({ onClose, itemRemove }) => {
   const navigate = useNavigate();
 
   const [addCartObject,setAddCartObject] = useState([{
@@ -63,10 +63,11 @@ const Cart = ({ onClose }) => {
   const deleteProduct = (productId) => {
     const deletedItems = addCartObject.filter((product) => product.id !== productId)
     setAddCartObject(deletedItems);
+    itemRemove()
   }
   const calculateTotal =addCartObject.reduce((acc,item)=> acc + item.quantity * item.price,0)
   return (
-      <Box sx={{backgroundColor: 'white', height:'609px', border:'2px solid'}}>
+      <Box sx={{backgroundColor: 'white', height:'609px', border:'2px solid',marginTop:'10px'}}>
           <Box  sx={{display: 'flex', justifyContent: 'space-between'}}>
             <Typography
                 sx={{
@@ -87,7 +88,7 @@ const Cart = ({ onClose }) => {
           <Box sx={{display:'flex',flexDirection:'column',marginLeft:'13px',maxHeight:'424px',overflow:'auto'}}>
             {
           addCartObject.map((data) => (
-            <CartItem item={data} image={data.srcImage} name={(data.name.length >= 12) ? (data.name.slice(0, 12) + "...") : data.name} color={data.color} size={data.size} qty={data.quantity} price={data.price} addQuantity={() => increaseQty(data.id)} removeQuantity={() => decreaseQty(data.id)} deleteItem={()=>deleteProduct(data.id)} />
+            <CartItem item={data} image={data.srcImage} name={(data.name.length >= 12) ? (data.name.slice(0, 12) + "...") : data.name} color={data.color} size={data.size} qty={data.quantity} price={data.price} addQuantity={() => increaseQty(data.id)} removeQuantity={() => decreaseQty(data.id)} deleteItem={() => deleteProduct(data.id)}  />
              ))  
             }
 

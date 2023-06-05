@@ -7,7 +7,7 @@ import Signup from '../Signup/Signup';
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
 import './Navbar.css';
 import Cart from '../Cart/Cart';
-
+import LogoutIcon from '@mui/icons-material/Logout';
 
 
 const Search = styled("div")({
@@ -31,6 +31,26 @@ const SignIn = styled(Button)({
         backgroundColor: '#7300e6'
     },
     margin: '0 10px 0'
+})
+const LogOut = styled(Button)({
+    textTransform: "none",
+    border: "1px solid #A0A0A0",
+    boxSizing: 'border-box',
+    width: '100%',
+    fontFamily: 'Mulish',
+    fontStyle: 'normal',
+    fontWeight: '400',
+    fontSize: '15px',
+    lineHeight: '25px',
+    color: "white",
+    backgroundColor: '#8B3DFF',
+    '&:hover': {
+        backgroundColor: '#7300e6'
+    },
+    margin: '0 10px 0',
+    '@media(max-width:690px)': {
+        display:'none'
+    }
 })
 
 const Navbar = () => {
@@ -127,31 +147,36 @@ const Navbar = () => {
                     <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-end' }}>
                         <ClickAwayListener onClickAway={handleClickAway}>
                             <Box>
-                                <Button sx={{ color: 'white', width: '90%', margin: "0 10px 0", boxSizing: "border-box", backgroundColor: '#8B3DFF', '&:hover': { backgroundColor: '#7300e6' }, height: '39px' }} variant="contained" endIcon={<ShoppingBagIcon />} onClick={handleClick('bottom')}>
-                                    <Typography sx={{ marginTop: '5px', textTransform: "none", fontSize: "15px", fontFamily: 'Mulish', fontStyle: 'normal', fontWeight: 400, lineHeight: '27px' }}>{noOfItem} Items</Typography>
+                                <Button sx={{ color: 'white', width: '90%', margin: "0 10px 0", backgroundColor: '#8B3DFF', '&:hover': { backgroundColor: '#7300e6' }, height: '39px', '@media(max-width:690px)': { display: 'none' } }} variant="contained" endIcon={<ShoppingBagIcon />} onClick={handleClick('bottom')}>
+                                                <Typography sx={{ marginTop: '5px', textTransform: "none", fontSize: "15px", fontFamily: 'Mulish', fontStyle: 'normal', fontWeight: 400, lineHeight: '27px'}}>{noOfItem} Items</Typography>
                                 </Button>
+                                <IconButton sx={{ '@media(min-width:690px)': { display: 'none', '&:hover': { backgroundColor: 'white' } } }} onClick={handleClick('bottom')}><ShoppingBagIcon sx={{ color:'#8B3DFF'}} /></IconButton>
                                 {open ? (<Popper
-                                    open={open}
-                                    disablePortal={true}
-                                    anchorEl={anchorEl}
-                                    placement={placement}
-                                    onClose={handleClose}
-                                    sx={{ zIndex: 1500, width: '344px', height: '609px' }}>
-                                    <Cart onClose={handleClose} itemRemove={itemDelete} />
+                                                open={open}
+                                                disablePortal={true}
+                                                anchorEl={anchorEl}
+                                                placement={placement}
+                                                onClose={handleClose}
+                                                sx={{ zIndex: 1500, width: '344px', height: '609px' }}>
+                                                <Cart onClose={handleClose} itemRemove={itemDelete} />
                                 </Popper>) : null}
 
-                                {isOpen ? <Login onClose={closeModal} registration={createAccount} loggedIn={login} /> : ""}
-                                {registration ? <Signup onClose={() => setRegistration(false)} signin={openSignIn} loggedIn={login} /> : ""}
+                                        {isOpen ? <Login onClose={closeModal} registration={createAccount} loggedIn={login} /> : ""}
+                                        {registration ? <Signup onClose={() => setRegistration(false)} signin={openSignIn} loggedIn={login} /> : ""}
                             </Box>
-                        </ClickAwayListener>
+                        </ClickAwayListener>   
                         <Box>
                             {!signIn ? <SignIn variant='contained' onClick={openModal}>Sign In</SignIn> : ""}
-                            {signIn ? <AccountCircleRoundedIcon sx={{ color: '#8B3DFF', fontSize: '30px' }} /> : ""}
+                            {/* {signIn ? <AccountCircleRoundedIcon sx={{ color: '#8B3DFF', fontSize: '2.5em', margin: '0 10px 0' }} /> : ""} */}
+                            {signIn ?(<>
+                                <LogOut><LogoutIcon /></LogOut>
+                                <IconButton sx={{ '@media(min-width:690px)': { display: 'none' }, }}><LogoutIcon sx={{ color:'#8B3DFF'}} /></IconButton>
+                            </>): ""}
                         </Box>
                     </Box>
-                </Toolbar>
-            </AppBar>
-        </Container>
+                </Toolbar >
+            </AppBar >
+        </Container >
     )
 }
 

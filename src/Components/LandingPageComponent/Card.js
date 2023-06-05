@@ -36,7 +36,7 @@ function LandingCard(props){
                             <b>{props.itemName.length > 30 ? props.itemName.slice(0,30)+"..." : props.itemName}</b>
                         </Typography>
                         {/* Item price and rating */}
-                        <Typography color="text.secondary" className='price-text'>
+                        <Typography color="text.secondary">
                             <p className='alignleft'>Price: <b>$ {props.itemPrice}</b> <s>$ {props.itemStrikePrice}</s></p>
                             <p className='alignright'>⭐⭐⭐</p>
                         </Typography>

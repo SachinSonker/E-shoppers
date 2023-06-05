@@ -16,8 +16,6 @@ import './ProductDetails.css';
 import Stars from "./Stars";
 import { useSearchParams } from "react-router-dom";
 
-
-
 function ProductDetails() {
     const [prodObj, setProdObj] = useState({});
     const [params] = useSearchParams();
@@ -75,6 +73,7 @@ function ProductDetails() {
                 <div className="product-data-info">
                     <p className="text-data">Available:
                         <span>{prodObj.totalStock > 0 ? "In Stock" : "Not Available"}</span>
+
                     </p>
 
                     <div className="buttons">

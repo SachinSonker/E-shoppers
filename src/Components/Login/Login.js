@@ -23,7 +23,7 @@ export default function Login({ onClose, registration, loggedIn }) {
             delete errors.email;
         }
     }
-
+    
     // Function to validate password input
     const validatePassword = (event) => {
         const pass = event.target.value;
@@ -65,7 +65,6 @@ export default function Login({ onClose, registration, loggedIn }) {
                 
 
             });
-
         }
     }
 

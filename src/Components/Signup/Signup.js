@@ -78,7 +78,6 @@ export default function Signup({ onClose, signin, loggedIn }) {
       delete errors.confirmPassword;
     }
   };
-
   // Submit form data
   const onSubmit = async (e) => {
     if (Object.keys(errors).length === 0) {

@@ -174,6 +174,7 @@ const Navbar = () => {
                             {/* {signIn ? <AccountCircleRoundedIcon sx={{ color: '#8B3DFF', fontSize: '2.5em', margin: '0 10px 0' }} /> : ""} */}
                             {signIn ?(<>
                                 <LogOut><LogoutIcon  onClick={logout}/></LogOut>
+
                                 <IconButton sx={{ '@media(min-width:690px)': { display: 'none' }, }}><LogoutIcon sx={{ color:'#8B3DFF'}} /></IconButton>
                             </>): ""}
                         </Box>

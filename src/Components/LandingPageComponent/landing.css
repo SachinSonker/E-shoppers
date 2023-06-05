@@ -1,45 +1,67 @@
-.text{
-    text-align: center;
-}
-
-.landing{
-    display: flex;
-    flex-direction: column;
+.landing-page{
     position: relative; 
-    margin: 0%;
     margin-top: 20px;
+    margin-left: 4px;
+    margin-right: 4px;
+    margin-bottom: 20px;
 }
 
-.card{
-    margin: 5px;
-    height: 475px;
-}
-
-.slider{
-top: 156px;
-align-content: center;
-}
-
-img[name="sliderImg"]{
+.divider-line{
     width: 100%;
-    height: 450px;
-}
-
-.product{
-    margin: 0px !important;
-}
-
-.line2{
     margin-top: 25px;
+    display: flex;
+    align-items: center;
+    justify-content:left;
+}
+
+.page-title{
+    font-family: 'Ovo';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    text-align: center;
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+.product-card{
+    margin: 0px !important;
+    display: flex;
+    align-items: center;
+    justify-content:center;
+    width: 100% !important;
+}
+
+.card-tile{
+    margin: 5px;
+    maxHeight: 450px;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-title{
+    position: relative;
 }
 
 .alignleft {
+    font-size: 16px !important;
 	float: left;
+    position: relative;
 }
 .alignleft b {
-    fontSize: '16px';
+    font-size: 16px !important;
+    position: relative;
 }
 
 .alignright {
+    font-size: 16px !important;
 	float: right;
+    position: relative;
+}
+
+.textcontainer{
+    width:60%;
+    /* top:6%; */
+    left:18%;
+    margin-top: -270px;
 }

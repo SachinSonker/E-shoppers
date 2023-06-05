@@ -1,4 +1,4 @@
-import './Login.css'
+import './Login.css';
 import React, { useState } from 'react';
 import { GoogleLogin } from '@react-oauth/google';
 import Modal from '@mui/material/Modal';
@@ -6,62 +6,76 @@ import CloseIcon from '@mui/icons-material/Close';
 import axios from 'axios';
 import { constants } from '../../shared/constant';
 
+// Login component
+export default function Login({ onClose, registration, loggedIn }) {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
 
-import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
+    const [errors, setErrors] = useState({});
 
-
-
-export default function Login({ onClose, registration,loggedIn }) {
-    const [email,setEmail] = useState("")
-    const [password, setPassword] = useState("")
-
-    const [errors,setErrors] = useState({})
-
-    const validateEmail = (event) =>{
-        const mail = event.target.value
-        setEmail(mail)
-        if(!/\S+@\S+\.\S+/.test(mail) || mail.trim()===""){
-            setErrors({...errors,["email"]:"Please enter an valid email"})
-        }else{
-            delete errors.email
+    // Function to validate email input
+    const validateEmail = (event) => {
+        const mail = event.target.value;
+        setEmail(mail);
+        if (!/\S+@\S+\.\S+/.test(mail) || mail.trim() === "") {
+            setErrors({ ...errors, ["email"]: "Please enter a valid email" });
+        } else {
+            delete errors.email;
         }
-     }
+    }
 
+    // Function to validate password input
+    const validatePassword = (event) => {
+        const pass = event.target.value;
+        setPassword(pass);
+        if (pass === "") {
+            setErrors({ ...errors, ["password"]: "Password is required" });
+        } else {
+            delete errors.password;
+        }
+    }
 
+    // Function to handle form submission
+    const onSubmit = async (e) => {
+        if (Object.keys(errors).length === 0) {
 
-    const validatePassword = (event) =>{
-        const pass = event.target.value
-        setPassword(pass)
-        if(pass==="" || pass.length < 7 || !/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*\W).{8,15}/.test(password)){
-            setErrors({...errors,["password"]:"Password should contains at least 8 characters, 1 special character and 1 uppercase letter"})
-       }else{
-        delete errors.password
-       }
-     }
-
-    const onSubmit = async (e) =>{
-
-        if(Object.keys(errors).length===0){
             const data = {
-                "userName" : email,
-                "password" : password,
-            }
-            const result = await axios.post(constants.url.user.login, data);
-            
-            loggedIn();
-            onClose();
-            
-           }
 
+                "userName": email,
+
+                "password": password,
+
+            }
+
+            const result = await axios.post(constants.url.user.login, data).then((res)=>{
+
+                sessionStorage.setItem("token",res.data.jwtToken)
+
+                loggedIn();
+
+                onClose();
+
+            }).catch((err)=>{
+
+                if(err.request.status==401){
+
+                    alert("Invalid username or password")
+
+                }
+                
+
+            });
+
+        }
     }
-    const googleLogin = (data) =>{
-        if(Object.keys(errors).length===0){
+
+    // Function to handle Google login
+    const googleLogin = (data) => {
+        if (Object.keys(errors).length === 0) {
             loggedIn();
             onClose();
         }
-
     }
-
 
     return <>
         <Modal
@@ -73,28 +87,22 @@ export default function Login({ onClose, registration,loggedIn }) {
             <div className='modal'>
                 <div className='modal-content'>
                     <div className="loginpopup">
-
                         <div className="loginTemplate">
                             <div className='closeIcon'>
                                 <CloseIcon onClick={onClose} />
                             </div>
                             <div className="content">
-                                <div  className='title'> 
-                                    <p>Login</p>
+                                <div className='title'>
+                                    <h4>Login</h4>
                                 </div>
-                                {/* <div>
-                                    <h5>Please sign in</h5>
-                                </div> */}
                                 <div className='detail'>
                                     <div className='input'>
-                                        <label>Email Address</label>
-                                        <input type="email" name="username" placeholder='abc@gmail.com' onChange={event => {validateEmail(event)}} className={errors.email!==undefined ? "invalid" : ""}></input>
-                                        {errors.email && <span className='errorMsg' style={{  }}>{errors.email}</span>}
+                                        <input type="email" name="username" placeholder='Email' onChange={event => { validateEmail(event) }} className={errors.email !== undefined ? "invalid" : ""}></input>
+                                        {errors.email && <span className='errorMsg'>{errors.email}</span>}
                                     </div>
 
                                     <div className='input'>
-                                        <label>Password</label>
-                                        <input type="password" name="password"  onChange = {event => validatePassword(event)} className={errors.password!==undefined ? "invalid" : ""}></input>
+                                        <input type="password" name="password" placeholder='Password' onChange={event => validatePassword(event)} className={errors.password !== undefined ? "invalid" : ""}></input>
                                         {errors.password && <span className='errorMsg'>{errors.password}</span>}
                                     </div>
 
@@ -115,7 +123,10 @@ export default function Login({ onClose, registration,loggedIn }) {
                                                 onError={() => {
                                                     console.log('Login Failed');
                                                 }}
+                                               
+
                                                 size = "medium"
+                                                width='270'
                                             />
                                             {/* <input type="button" value="Google" /> */}
                                         </div>
@@ -130,9 +141,6 @@ export default function Login({ onClose, registration,loggedIn }) {
                                 </div>
                             </div>
                         </div>
-                        {/* <div className="ecommImg">
-      <img src='https://images.pexels.com/photos/5632379/pexels-photo-5632379.jpeg?cs=srgb&dl=pexels-karolina-grabowska-5632379.jpg&fm=jpg' height="100%" width="100%"/>
-    </div> */}
                     </div>
                 </div>
             </div>

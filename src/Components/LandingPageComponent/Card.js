@@ -8,38 +8,43 @@ import { CardActionArea } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import './landing.css';
 
+// Functional component for a landing card
 function LandingCard(props){
     const navigate = useNavigate();
 
+    // Function to navigate to the product details page
     const navigateToPDP = (itemID) => {
-        navigate('/productdetails/'+itemID)
+        navigate('/productdetails?id='+itemID);
     }
 
     return(
-        <div className='card'>
+        <div>
+            {/* Clickable card area */}
             <CardActionArea onClick={event => {navigateToPDP(props.itemID)}}>
-                <Card sx={{ maxWidth: 250 }} className='card'>
+                {/* Card component */}
+                <Card className='card-tile'>
+                    {/* Card media (image) */}
                     <CardMedia
                         component="img"
-                        height="352px"
+                        height="80%"
                         image={props.itemImage}
                         alt="No Product Image"
-                        position = "absolute"
-                        left= "135px"
-                        top = "1059px" />
-                            <CardContent>
-                                <Typography variant="body1" align='center'>
-                                <b>{props.itemName.length > 40 ? props.itemName.slice(0,40)+"..." : props.itemName}</b>
-                                </Typography>
-                                <Typography variant="body2" color="text.secondary">
-                                <br></br>
-                                <p className='alignleft'>Price: <b>$ {props.itemPrice}</b> <s>$ {props.itemStrikePrice}</s></p>
-                                <p className='alignright'>⭐⭐⭐</p>
-                                </Typography>
-                            </CardContent>
+                    />
+                    <CardContent>
+                        {/* Item name */}
+                        <Typography className='card-title'>
+                            <b>{props.itemName.length > 30 ? props.itemName.slice(0,30)+"..." : props.itemName}</b>
+                        </Typography>
+                        {/* Item price and rating */}
+                        <Typography color="text.secondary" className='price-text'>
+                            <p className='alignleft'>Price: <b>$ {props.itemPrice}</b> <s>$ {props.itemStrikePrice}</s></p>
+                            <p className='alignright'>⭐⭐⭐</p>
+                        </Typography>
+                    </CardContent>
                 </Card>
             </CardActionArea>
         </div>
     )
 }
+
 export default LandingCard;

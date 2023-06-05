@@ -1,25 +1,48 @@
 import React from 'react'
-import { Box, Typography,Container, styled } from '@mui/material'
-
+import { Typography, styled, Grid,Divider } from '@mui/material'
+import CopyrightIcon from '@mui/icons-material/Copyright';
+// Custom styled component for Typography
 const Typo = styled(Typography)({
-  color: "#646464",
+  color: "inherit",
   margin: "5px 14px 0",
   fontFamily: 'Mulish',
   fontStyle: 'normal',
   fontWeight: 400,
   fontSize: '14px',
   lineHeight: '21px'
-})
-const Footer = () => {
+});
 
+const Footer = () => {
   return (
-    <Box sx={{display:"flex",justifyContent:"center",position:"absolute",width:"100%",backgroundColor:"#F7F7F7",height:"35px",position:'sticky',marginTop:"100%"}}>
-          <Typo>FAQs</Typo>
-          <Typo>Orders & Return</Typo>
-          <Typo>Account</Typo>
-          <Typo>About Us</Typo>
-    </Box>
-  )
+    <>
+    <Divider sx={{width:'100%'}} />
+      <Grid container spacing={2} sx={{position:'sticky', width:'100%',height:'15%',marginTop:'0% !important',marginLeft:'0% !important',backgroundColor:'#F7F7F7'}}>
+        <Grid item xs={4} md={4}>
+          <Typo variant='h1'><strong>ABOUT</strong></Typo>
+          <Typo>About Shoppers</Typo>
+          <Typo>Locations</Typo>
+          <Typo>CONTACT US</Typo>
+        </Grid>
+        <Grid item xs={4} md={4}>
+           <Typo variant='h1'><strong>CUSTOMER CARE</strong></Typo>
+           <Typo>FAQs</Typo>
+           <Typo>Account</Typo>
+        </Grid>
+        <Grid item xs={4} md={4}>
+         <Typo variant='h1'><strong>CONNECT</strong></Typo>
+         <Typo>Instagram</Typo>
+         <Typo>Facebook</Typo>
+         <Typo>Twitter</Typo>
+         <Typo>Pinterest</Typo>
+        </Grid>
+        <Grid item xs={12}>
+          <Typo><CopyrightIcon sx={{fontSize:'0.8em'}} /> 2023 Shoppers.All rights reserved</Typo>
+          <Typo>Terms of Use | Privacy Policy </Typo>
+        </Grid>
+      </Grid>
+    </>
+  );
 }
 
 export default Footer
+

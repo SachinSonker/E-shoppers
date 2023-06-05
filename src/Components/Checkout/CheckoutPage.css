@@ -1,47 +1,73 @@
-.table_heading{
-    font-weight: 400;
-    font-family: ui-serif;
-    font-size: large;
+.table_heading {
+  font-weight: 400;
+  font-family: ui-serif;
+  font-size: large;
+}
+
+input[name="address1"],
+input[name="address2"],
+input[name="postalcode"] {
+  height: 25px;
+  background-color: rgb(246, 244, 244);
+  border: 0px;
+  border-bottom: 1px solid grey;
+  margin-top: 10px;
+}
+
+label {
+  margin-top: 10px;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  margin: 0px 30px 30px 30px;
+}
+
+.css-11dd937 {
+  border-color: black !important;
+}
+
+.selectrow {
+  height: 25px;
+  background-color: rgb(246, 244, 244);
+  border: 0px;
+  border-bottom: 1px solid grey;
+  margin-top: 10px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+select {
+  height: 25px;
+  background-color: rgb(246, 244, 244);
+  border: 0px;
+  border-bottom: 1px solid grey;
+  margin-top: 10px;
+  width: 120px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.spaced-words {
+  margin-right: 5px !important;
+}
+
+@media screen and (max-width:992px) {
+  .css-1u6avqk-MuiGrid-root {
+    flex-direction: column !important;
   }
-  input[name="address1"],input[name="address2"],input[name="postalcode"]{
-    height: 25px;
-    background-color: rgb(246, 244, 244);
-    border: 0px;
-    border-bottom: 1px solid grey;
-    margin-top: 10px;
+
+  .css-1hgfv8w-MuiGrid-root {
+    width: 362px !important;
   }
-  label{
-    margin-top: 10px;
+
+  .price-wrap {
+    margin-left: 5px !important;
   }
-  
-  .details{
-    display: flex;
-    flex-direction: column;
-    text-align: left;
-    margin: 0px 30px 30px 30px;
+
+  .title-page {
+    font-size: 22px !important;
   }
-  .css-11dd937{
-    border-color: black !important;
-  }
-  .selectrow{
-    height: 25px;
-    background-color: rgb(246, 244, 244);
-    border: 0px;
-    border-bottom: 1px solid grey;
-    margin-top: 10px;
-    margin-right: 10px;
-    margin-bottom: 10px;
-  }
-  select{
-    height: 25px;
-    background-color: rgb(246, 244, 244);
-    border: 0px;
-    border-bottom: 1px solid grey;
-    margin-top: 10px;
-    width: 140px;
-    display: flex;
-    flex-wrap: wrap;
-  }
-  .spaced-words{
-    margin-right:5px !important;
-  }
+}

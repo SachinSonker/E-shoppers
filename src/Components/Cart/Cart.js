@@ -1,72 +1,86 @@
-import React, { useState } from 'react'
-import { Box, IconButton, Typography,Divider, Button } from '@mui/material'
+import React, { useState } from 'react';
+import { Box, IconButton, Typography, Divider, Button } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 // import { useHistory } from 'react-router-dom';
 import img1 from '../../assets/11.png';
-import img2 from  '../../assets/22.png';
+import img2 from '../../assets/22.png';
 import img3 from '../../assets/33.png';
 import CartItem from '../Cart Item/CartItem';
 import { useNavigate } from 'react-router-dom';
 
-const Cart = ({ onClose }) => {
+const Cart = ({ onClose, itemRemove }) => {
   const navigate = useNavigate();
 
-  const [addCartObject,setAddCartObject] = useState([{
-    'id': 1,
-    'srcImage': img1,
-    'name': 'Chair',
-    'color': 'stripe',
-    'size': 'medium',
-    'quantity': 1,
-    'price': 115
-  },
-  {
-    'id': 2,
-    'srcImage': img2,
-    'name': 'Wardrobe',
-    'color': 'stripe',
-    'size': 'Large',
-    'quantity': 1,
-    'price': 45
-  },
-  {
-    'id': 3,
-    'srcImage': img3,
-    'name': 'Living Room Couch Set',
-    'color': 'stripe',
-    'size': 'Large',
-    'quantity': 1,
-    'price': 74
-    }])
-//   const history=useHistory()
+  // State to store the cart items
+  const [addCartObject, setAddCartObject] = useState([
+    {
+      'id': 1,
+      'srcImage': img1,
+      'name': 'Chair',
+      'color': 'stripe',
+      'size': 'medium',
+      'quantity': 1,
+      'price': 115
+    },
+    {
+      'id': 2,
+      'srcImage': img2,
+      'name': 'Wardrobe',
+      'color': 'stripe',
+      'size': 'Large',
+      'quantity': 1,
+      'price': 45
+    },
+    {
+      'id': 3,
+      'srcImage': img3,
+      'name': 'Living Room Couch Set',
+      'color': 'stripe',
+      'size': 'Large',
+      'quantity': 1,
+      'price': 74
+    }
+  ]);
+
+  // Handle click event for "Go to Checkout" button
   const handleClick = () => {
-    navigate('/checkout')
-  }
+    navigate('/checkout');
+  };
+
+  // Increase the quantity of a cart item
   const increaseQty = (productId) => {
     const updatedProducts = addCartObject.map((product) => {
       if (product.id === productId) {
-        return {...product,quantity:product.quantity+1}
+        return { ...product, quantity: product.quantity + 1 };
       }
       return product;
-    })
-    setAddCartObject(updatedProducts)
-  }
+    });
+    setAddCartObject(updatedProducts);
+  };
+
+  // Decrease the quantity of a cart item
   const decreaseQty = (productId) => {
     const updatedProducts = addCartObject.map((product) => {
       if (product.id === productId) {
-        return { ...product, quantity: product.quantity>0 ? product.quantity-1 : product.quantity }
+        return {
+          ...product,
+          quantity: product.quantity > 0 ? product.quantity - 1 : product.quantity
+        };
       }
       return product;
-    })
-    setAddCartObject(updatedProducts)
-  }
+    });
+    setAddCartObject(updatedProducts);
+  };
+
+  // Delete a cart item
   const deleteProduct = (productId) => {
-    const deletedItems = addCartObject.filter((product) => product.id !== productId)
+    const deletedItems = addCartObject.filter((product) => product.id !== productId);
     setAddCartObject(deletedItems);
+    itemRemove()
   }
   const calculateTotal =addCartObject.reduce((acc,item)=> acc + item.quantity * item.price,0)
   return (
-      <Box sx={{backgroundColor: 'white', height:'609px', border:'2px solid'}}>
+      <Box sx={{backgroundColor: 'white', height:'609px', border:'2px solid',marginTop:'10px'}}>
           <Box  sx={{display: 'flex', justifyContent: 'space-between'}}>
             <Typography
                 sx={{
@@ -87,7 +101,7 @@ const Cart = ({ onClose }) => {
           <Box sx={{display:'flex',flexDirection:'column',marginLeft:'13px',maxHeight:'424px',overflow:'auto'}}>
             {
           addCartObject.map((data) => (
-            <CartItem item={data} image={data.srcImage} name={(data.name.length >= 12) ? (data.name.slice(0, 12) + "...") : data.name} color={data.color} size={data.size} qty={data.quantity} price={data.price} addQuantity={() => increaseQty(data.id)} removeQuantity={() => decreaseQty(data.id)} deleteItem={()=>deleteProduct(data.id)} />
+            <CartItem item={data} image={data.srcImage} name={(data.name.length >= 12) ? (data.name.slice(0, 12) + "...") : data.name} color={data.color} size={data.size} qty={data.quantity} price={data.price} addQuantity={() => increaseQty(data.id)} removeQuantity={() => decreaseQty(data.id)} deleteItem={() => deleteProduct(data.id)}  />
              ))  
             }
 

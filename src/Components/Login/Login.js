@@ -106,6 +106,7 @@ export default function Login({ onClose, registration, loggedIn }) {
                                                
 
                                                 size = "medium"
+                                                width='270'
                                             />
                                             {/* <input type="button" value="Google" /> */}
                                         </div>

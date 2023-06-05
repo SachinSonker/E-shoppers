@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import { AppBar, styled, Toolbar, Typography, Box, Button, IconButton, Popper,Popover , TextField, endAdornment, Container, ClickAwayListener } from '@mui/material';
+import React, { useState } from 'react';
+import { AppBar, styled, Toolbar, Typography, Box, Button, IconButton, Popper, Popover, TextField, endAdornment, Container, ClickAwayListener } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import Login from '../Login/Login';
@@ -19,37 +19,37 @@ const SignIn = styled(Button)({
     textTransform: "none",
     border: "1px solid #A0A0A0",
     boxSizing: 'border-box',
-    width:'100%',
+    width: '100%',
     fontFamily: 'Mulish',
     fontStyle: 'normal',
     fontWeight: '400',
     fontSize: '15px',
     lineHeight: '25px',
     color: "white",
-    backgroundColor:'#8B3DFF',
+    backgroundColor: '#8B3DFF',
     '&:hover': {
-        backgroundColor:'#7300e6'
+        backgroundColor: '#7300e6'
     },
-    margin:'0 10px 0'
+    margin: '0 10px 0'
 })
 
 const Navbar = () => {
     const [isOpen, setModalOpen] = useState(false);
     const [registration, setRegistration] = useState(false);
-    const [signIn , setSignIn] = useState(false);
+    const [signIn, setSignIn] = useState(false);
     const [placement, setPlacement] = useState();
     const [open, setOpen] = useState(false);
     const [anchorEl, setAnchorEl] = useState(null);
     const [noOfItem, setItem] = useState(3);
 
-    const openModal= ()=>{
-      setModalOpen(true)
+    const openModal = () => {
+        setModalOpen(true)
     }
-    function closeModal(){
-      setModalOpen(false)
-      console.log(isOpen)
-    } 
-    function createAccount(){
+    function closeModal() {
+        setModalOpen(false)
+        console.log(isOpen)
+    }
+    function createAccount() {
         setRegistration(true)
         setModalOpen(false)
     }
@@ -58,12 +58,12 @@ const Navbar = () => {
         setItem(no)
     }
 
-    function openSignIn(){
+    function openSignIn() {
         console.log("called login")
         setRegistration(false)
         setModalOpen(true)
     }
-    function login(){
+    function login() {
         setSignIn(true)
     }
     const handleClick = (newPlacement) => (event) => {
@@ -80,67 +80,77 @@ const Navbar = () => {
     }
     return (
         <Container className='container'>
-        <AppBar  color='transparent' elevation={0} sx={{position:'sticky',marginTop:'5px'}}>
-            <Toolbar sx={{ backgroundColor: "white",borderBottom:1,paddingBottom:'15px'}}>
-                {/* <Box flex={1}><Shop>Shop</Shop></Box>    */}
-                    
-                <Box>
-                    <Typography
-                                    variant='h3'
-                                    component={'h1'}
-                                    sx={{ fontFamily: 'Palanquin Dark',
-                                            fontStyle: "normal",
-                                            fontWeight: "400",
-                                            fontSize: "48px",
-                                            lineHeight: "25px",
-                                            letterSpacing: "-0.055em",
-                                            marginRight:'1rem'
-                                            }} >Shoppers</Typography>
-                </Box>
-                <Box sx={{display:'flex',justifyContent:'center',alignItems:'center',width:'30%',flexGrow:1}}>
-                    <Search >
+            <AppBar color='transparent' elevation={0} sx={{ position: 'sticky', marginTop: '5px' }}>
+                <Toolbar sx={{ backgroundColor: "white", borderBottom: 1, paddingBottom: '15px' }}>
+                    {/* <Box flex={1}><Shop>Shop</Shop></Box>    */}
+
+                    <Box>
+                        <Typography
+                            variant="h3"
+                            component="h1"
+                            sx={{
+                                fontFamily: 'Palanquin Dark',
+                                fontStyle: 'normal',
+                                fontWeight: '400',
+                                fontSize: '48px',
+                                lineHeight: '25px',
+                                letterSpacing: '-0.055em',
+                                marginRight: '1rem',
+                                '@media (max-width: 600px)': {
+                                    fontSize: '25px',
+                                    lineHeight: '20px',
+                                    letterSpacing: '-0.045em',
+                                    marginRight: '0.5em',
+                                },
+                            }}
+                        >
+                            Shoppers
+                        </Typography>
+                    </Box>
+                    <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '30%', flexGrow: 1 }}>
+                        <Search >
                             {/* <TextField placeholder='search...' variant='outlined' inputProps={{ endAdornment: (<IconButton><SearchIcon /></IconButton>)}}/> */}
-                                <TextField 
+                            <TextField
                                 variant='outlined'
                                 placeholder='Search...'
-                                    InputProps={{
-                                        endAdornment: (
-                                            <IconButton><SearchIcon sx={{color:'#8B3DFF'}}/></IconButton>
-                                        )
-                                    }}
-                                    size='small'
-                                    sx={{paddingRight:'0px !important',width:'100%'}   }
-                                />
-                        {/* <IconButton><SearchIcon /></IconButton> */}
-                    </Search>
-                </Box>
-                <Box sx={{display:'flex',flexDirection:'row',justifyContent:'flex-end'}}>
-                    <ClickAwayListener onClickAway={handleClickAway}>
-                        <Box>
-                        <Button sx={{ color:'white',width:'90%', margin: "0 10px 0", boxSizing: "border-box", backgroundColor:'#8B3DFF','&:hover': {backgroundColor:'#7300e6'},height:'39px'}} variant="contained" endIcon={<ShoppingBagIcon />} onClick={handleClick('bottom')}>
-                            <Typography sx={{ marginTop: '5px', textTransform: "none", fontSize: "15px", fontFamily: 'Mulish', fontStyle: 'normal', fontWeight: 400, lineHeight: '27px' }}>{noOfItem} Items</Typography>
-                        </Button>      
-                            {open ? (<Popper
-                                open={open}
-                                disablePortal={true}
-                                anchorEl={anchorEl}
-                                placement={placement}
-                                onClose={handleClose}
-                                sx={{ zIndex: 1500, width: '344px', height: '609px' }}>
-                                <Cart onClose={handleClose} itemRemove={itemDelete} />
-                            </Popper>) : null}
-                        
-                        {isOpen ?  <Login onClose={closeModal} registration={createAccount} loggedIn={login}/>:""}
-                        {registration ?  <Signup onClose={()=> setRegistration(false)} signin={openSignIn} loggedIn={login} />:""}
-                        </Box>
-                    </ClickAwayListener>
-                    <Box>
-                        { !signIn ?  <SignIn variant='contained' onClick={openModal}>Sign In</SignIn>: ""}
-                            {signIn ? <AccountCircleRoundedIcon sx={{ color: '#8B3DFF',fontSize:'30px' }} /> : ""}
+                                InputProps={{
+                                    endAdornment: (
+                                        <IconButton><SearchIcon sx={{ color: '#8B3DFF' }} /></IconButton>
+                                    )
+                                }}
+                                size='small'
+                                sx={{ paddingRight: '0px !important', width: '100%' }}
+                            />
+                            {/* <IconButton><SearchIcon /></IconButton> */}
+                        </Search>
                     </Box>
-                </Box>
-            </Toolbar>
-        </AppBar>
+                    <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-end' }}>
+                        <ClickAwayListener onClickAway={handleClickAway}>
+                            <Box>
+                                <Button sx={{ color: 'white', width: '90%', margin: "0 10px 0", boxSizing: "border-box", backgroundColor: '#8B3DFF', '&:hover': { backgroundColor: '#7300e6' }, height: '39px' }} variant="contained" endIcon={<ShoppingBagIcon />} onClick={handleClick('bottom')}>
+                                    <Typography sx={{ marginTop: '5px', textTransform: "none", fontSize: "15px", fontFamily: 'Mulish', fontStyle: 'normal', fontWeight: 400, lineHeight: '27px' }}>{noOfItem} Items</Typography>
+                                </Button>
+                                {open ? (<Popper
+                                    open={open}
+                                    disablePortal={true}
+                                    anchorEl={anchorEl}
+                                    placement={placement}
+                                    onClose={handleClose}
+                                    sx={{ zIndex: 1500, width: '344px', height: '609px' }}>
+                                    <Cart onClose={handleClose} itemRemove={itemDelete} />
+                                </Popper>) : null}
+
+                                {isOpen ? <Login onClose={closeModal} registration={createAccount} loggedIn={login} /> : ""}
+                                {registration ? <Signup onClose={() => setRegistration(false)} signin={openSignIn} loggedIn={login} /> : ""}
+                            </Box>
+                        </ClickAwayListener>
+                        <Box>
+                            {!signIn ? <SignIn variant='contained' onClick={openModal}>Sign In</SignIn> : ""}
+                            {signIn ? <AccountCircleRoundedIcon sx={{ color: '#8B3DFF', fontSize: '30px' }} /> : ""}
+                        </Box>
+                    </Box>
+                </Toolbar>
+            </AppBar>
         </Container>
     )
 }

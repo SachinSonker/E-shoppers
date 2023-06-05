@@ -11,7 +11,7 @@
     margin-top: 25px;
     display: flex;
     align-items: center;
-    justify-content:center;
+    justify-content:left;
 }
 
 .page-title{
@@ -29,22 +29,32 @@
     display: flex;
     align-items: center;
     justify-content:center;
+    width: 100% !important;
 }
 
 .card-tile{
     margin: 5px;
-    height: 450px;
+    maxHeight: 450px;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-title{
+    position: relative;
 }
 
 .alignleft {
 	float: left;
+    position: relative;
 }
 .alignleft b {
     fontSize: '16px';
+    position: relative;
 }
 
 .alignright {
 	float: right;
+    position: relative;
 }
 
 .textcontainer{

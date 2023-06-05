@@ -14,26 +14,6 @@ const Typo = styled(Typography)({
 
 const Footer = () => {
   return (
-    // <Box sx={{display:"flex",flexWrap:'wrap',position:"sticky",width:'100%',height:'20%',backgroundColor:"white",top:'100vh',marginTop:'20px'}}>
-    //   <Box flex={1}> 
-    //     <Typo variant='h1'><strong>ABOUT</strong></Typo>
-    //     <Typo>About Shoppers</Typo>
-    //     <Typo>Locations</Typo>
-    //     <Typo>CONTACT US</Typo>
-    //   </Box>
-    //   <Box flex={1}>
-    //     <Typo variant='h1'><strong>CUSTOMER CARE</strong></Typo>
-    //       <Typo>FAQs</Typo>
-    //       <Typo>Account</Typo>
-    //   </Box>
-    //   <Box flex={1}>
-    //     <Typo variant='h1'><strong>CONNECT</strong></Typo>
-    //     <Typo>Instagram</Typo>
-    //     <Typo>Facebook</Typo>
-    //     <Typo>Twitter</Typo>
-    //     <Typo>Pinterest</Typo>
-    //   </Box>
-    // </Box>
     <>
     <Divider sx={{width:'100%'}} />
       <Grid container spacing={2} sx={{position:'sticky', width:'100%',height:'15%',marginTop:'0% !important',marginLeft:'0% !important',backgroundColor:'#F7F7F7'}}>

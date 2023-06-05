@@ -2,6 +2,8 @@ import React from "react";
 import {FaStar, FaStarHalfAlt} from "react-icons/fa";
 import {AiOutlineStar} from "react-icons/ai";
 import styled from 'styled-components';
+import "./ProductDetails.css";
+
 
 const  Stars = ({ ratings, reviews }) =>{
 
@@ -24,7 +26,7 @@ const  Stars = ({ ratings, reviews }) =>{
       <Wrapper>
         <div>
          <div/>
-         {ratingStar}<span>  ({reviews} Customer Ratings)</span>
+         {ratingStar}<span className="review">  ({reviews} Customer Ratings)</span>
          </div>
       </Wrapper>
 

@@ -2,11 +2,11 @@ import React from "react";
 import img1 from '../../assets/11.png';
 import "./ProductDetails.css";
 
-function ProductImages(){
+function ProductImages(props){
     return(
         <figure>
             <img
-                src={img1}
+                src={props.prodImage}
                 className="box-image--style"
             />
         </figure>

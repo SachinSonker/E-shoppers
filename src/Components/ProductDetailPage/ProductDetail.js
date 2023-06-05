@@ -1,5 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { TbTruckDelivery, TbReplace } from "react-icons/tb";
+import { useEffect } from "react";
+import axios from "axios";
+// import parse from 'html-react-parser';
 import { MdSecurity } from "react-icons/md";
 import img1 from '../../assets/11.png';
 import img2 from '../../assets/22.png';
@@ -11,96 +14,45 @@ import img7 from '../../assets/77.png';
 import ProductImages from "./ProductImage";
 import './ProductDetails.css';
 import Stars from "./Stars";
-
-const cart_object = [
-    {
-        "src": img1,
-        "name": "Chair",
-        "price": 115,
-        "ratings": "4.1",
-        "review": "27",
-        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
-        "Available": "1"
-    },
-    {
-        "src": img2,
-        "name": "Wardrobe",
-        "price": "45$",
-        "ratings": "4.1",
-        "review": "27",
-        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. ",
-        "Available": "1"
-    },
-    {
-        "src": img3,
-        "name": "Living Room Couch Set",
-        "price": "74$",
-        "ratings": "4.1",
-        "review": "27",
-        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. ",
-        "Available": "1"
-    },
-    {
-        "src": img4,
-        "name": "Chandliers",
-        "price": "78$",
-        "ratings": "4.1",
-        "review": "27",
-        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. ",
-        "Available": "1"
-    },
-    {
-        "src": img5,
-        "name": "Armchair",
-        "price": "74$",
-        "ratings": "4.1",
-        "review": "27",
-        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. ",
-        "Available": "1"
-    },
-    {
-        "src": img6,
-        "name": "Coat Hanger",
-        "price": "74$",
-        "ratings": "4.1",
-        "review": "27",
-        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. ",
-        "Available": "1"
-    },
-    {
-        "src": img7,
-        "name": "Tulip Chair",
-        "price": "115$",
-        "ratings": "4.1",
-        "review": "27",
-        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. ",
-        "Available": "1"
-    }
-];
+import { useSearchParams } from "react-router-dom";
 
 function ProductDetails() {
+    const [prodObj, setProdObj] = useState({});
+    const [params] = useSearchParams();
+
+    useEffect(() => {
+        axios.get(`http://10.53.97.64:8090/api/product/${params.get('id')}`).then((response) => {
+        //   setProductList(response.data);
+        console.log(response)
+            setProdObj(response.data)
+        });
+        console.log("params",params.get('id'))
+    }, []);
+
     return (
         <div className="productDetails" >
             <div className="product_images">
-                <ProductImages />
+                <ProductImages  prodImage={"data:image/jpeg;base64,"+prodObj.image}/>
             </div>
             <div className="product-data">
-                <h1 className="heading">{cart_object[0].name}</h1>
+                <h1 className="heading">{prodObj.name}</h1>
                 {/* <p>{cart_object[0].ratings}</p> */}
-                <Stars ratings={4.5} reviews={25} />
+                <Stars ratings={prodObj.ratings} reviews={25} />
                 {/* <p>Customer Reviews({cart_object[0].review})</p> */}
                 <p className="product-data-price ">Price:
                     <del>
-                        {cart_object[0].price + 20}$
+                        {prodObj.price + 20}$
                         {/* <FormatPrice price = {cart_object[0].price + 20}/> */}
 
                     </del>
                 </p>
                 <p className="product-data-price product-data-real-price">
-                    Deal of the day :{cart_object[0].price}$ (14% OFF){/*<FormatPrice price = {cart_object[0].price}/>              */}
+                    Deal of the day :{prodObj.price}$ (14% OFF){/*<FormatPrice price = {cart_object[0].price}/>              */}
                 </p>
                 <p>
-                    <span>Description:&nbsp;</span>{cart_object[0].description}
+                    <span>
+                        Description:&nbsp;</span>
+                        <div dangerouslySetInnerHTML={{ __html:prodObj.description }} />
                 </p>&nbsp;
                 <div className="specs">
                     <div className="product-data-warranty">
@@ -116,11 +68,12 @@ function ProductDetails() {
                             <MdSecurity className="warranty-icon" />
                             <p className="wardata">2 Years Warranty</p>
                         </div>
-                    </div>
+                    </div>&nbsp;
                 </div>
                 <div className="product-data-info">
                     <p className="text-data">Available:
-                        <span>{cart_object[0].Available > 0 ? "In Stock" : "Not Available"}</span>
+                        <span>{prodObj.totalStock > 0 ? "In Stock" : "Not Available"}</span>
+
                     </p>
 
                     <div className="buttons">

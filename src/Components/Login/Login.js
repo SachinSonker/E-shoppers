@@ -23,7 +23,7 @@ export default function Login({ onClose, registration, loggedIn }) {
             delete errors.email;
         }
     }
-
+    
     // Function to validate password input
     const validatePassword = (event) => {
         const pass = event.target.value;
@@ -38,14 +38,33 @@ export default function Login({ onClose, registration, loggedIn }) {
     // Function to handle form submission
     const onSubmit = async (e) => {
         if (Object.keys(errors).length === 0) {
-            const data = {
-                "userName": email,
-                "password": password,
-            }
-            const result = await axios.post(constants.url.user.login, data);
 
-            loggedIn();
-            onClose();
+            const data = {
+
+                "userName": email,
+
+                "password": password,
+
+            }
+
+            const result = await axios.post(constants.url.user.login, data).then((res)=>{
+
+                sessionStorage.setItem("token",res.data.jwtToken)
+
+                loggedIn();
+
+                onClose();
+
+            }).catch((err)=>{
+
+                if(err.request.status==401){
+
+                    alert("Invalid username or password")
+
+                }
+                
+
+            });
         }
     }
 

@@ -14,7 +14,7 @@ function LandingCard(props){
 
     // Function to navigate to the product details page
     const navigateToPDP = (itemID) => {
-        navigate('/productdetails/'+itemID);
+        navigate('/productdetails?id='+itemID);
     }
 
     return(

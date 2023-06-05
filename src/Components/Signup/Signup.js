@@ -78,7 +78,6 @@ export default function Signup({ onClose, signin, loggedIn }) {
       delete errors.confirmPassword;
     }
   };
-
   // Submit form data
   const onSubmit = async (e) => {
     if (Object.keys(errors).length === 0) {
@@ -89,7 +88,25 @@ export default function Signup({ onClose, signin, loggedIn }) {
         password: password,
         role: "",
       };
-      const result = await axios.post(constants.url.user.register, data);
+      // const result = await axios.post(constants.url.user.register, data);
+        const result = await axios.post(constants.url.user.register, data).then((res)=>{
+
+          sessionStorage.setItem("token",res.data.jwtToken)
+
+          loggedIn();
+
+          onClose();  
+
+      }).catch((err)=>{
+
+          if(err.request.status==403){
+
+              alert("Invalid username or password")
+
+          }
+          
+
+      });
       loggedIn();
       onClose();
     }

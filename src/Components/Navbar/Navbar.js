@@ -86,6 +86,10 @@ const Navbar = () => {
     function login() {
         setSignIn(true)
     }
+    function logout(){
+        sessionStorage.removeItem("token")
+        setSignIn(false)
+    }
     const handleClick = (newPlacement) => (event) => {
         setAnchorEl(event.currentTarget);
         setOpen((prev) => placement !== newPlacement || !prev);
@@ -169,7 +173,8 @@ const Navbar = () => {
                             {!signIn ? <SignIn variant='contained' onClick={openModal}>Sign In</SignIn> : ""}
                             {/* {signIn ? <AccountCircleRoundedIcon sx={{ color: '#8B3DFF', fontSize: '2.5em', margin: '0 10px 0' }} /> : ""} */}
                             {signIn ?(<>
-                                <LogOut><LogoutIcon /></LogOut>
+                                <LogOut><LogoutIcon  onClick={logout}/></LogOut>
+
                                 <IconButton sx={{ '@media(min-width:690px)': { display: 'none' }, }}><LogoutIcon sx={{ color:'#8B3DFF'}} /></IconButton>
                             </>): ""}
                         </Box>

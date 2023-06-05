@@ -44,15 +44,17 @@
 }
 
 .alignleft {
+    font-size: 16px !important;
 	float: left;
     position: relative;
 }
 .alignleft b {
-    fontSize: '16px';
+    font-size: 16px !important;
     position: relative;
 }
 
 .alignright {
+    font-size: 16px !important;
 	float: right;
     position: relative;
 }

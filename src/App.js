@@ -8,6 +8,7 @@ import { GoogleOAuthProvider } from '@react-oauth/google';
 import SuccessPopup from './Components/SuccessPopup/SuccessPopup';
 import Navbar from './Components/Navbar/Navbar';
 import Footer from './Components/Footer/Footer';
+import { Divider } from '@mui/material';
 
 function App() {
   return (
@@ -20,7 +21,7 @@ function App() {
             <div className='App'>
               <Navbar/>
               <Landing/>
-            </div>
+              </div>
               <Footer />
             </React.Fragment>
           } />

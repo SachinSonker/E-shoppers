@@ -33,7 +33,7 @@ function LandingCard(props){
                     <CardContent>
                         {/* Item name */}
                         <Typography className='card-title'>
-                            <b>{props.itemName.length > 40 ? props.itemName.slice(0,40)+"..." : props.itemName}</b>
+                            <b>{props.itemName.length > 30 ? props.itemName.slice(0,30)+"..." : props.itemName}</b>
                         </Typography>
                         {/* Item price and rating */}
                         <Typography color="text.secondary">

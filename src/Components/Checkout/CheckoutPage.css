@@ -38,10 +38,25 @@
     border: 0px;
     border-bottom: 1px solid grey;
     margin-top: 10px;
-    width: 140px;
+    width: 120px;
     display: flex;
     flex-wrap: wrap;
   }
   .spaced-words{
     margin-right:5px !important;
   }
+  @media screen and (max-width:992px) {
+    .css-1u6avqk-MuiGrid-root{
+      flex-direction: column !important;
+    }
+    .css-1hgfv8w-MuiGrid-root{
+      width:362px !important;
+    }
+    .price-wrap{
+      margin-left: 5px !important;
+    }
+    .title-page{
+      font-size: 22px !important;
+    }
+  }
+  

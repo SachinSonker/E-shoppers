@@ -11,6 +11,7 @@ import { CountryDropdown, RegionDropdown, CountryRegionData } from 'react-countr
 import { useForm, Controller } from "react-hook-form";
 import { NavLink } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import './CheckoutPage.css';
 import img1 from "../../assets/11.png"
 import img2 from "../../assets/22.png"
@@ -31,53 +32,85 @@ const Item = styled('div')(({ theme }) => ({
 export default function CheckoutPage() {
 
   //dummy data
-  const [data , setData] = useState([
-    {
-        'id':1,
-        'image' : img1,
-        'name':'Chair',
-        'color':'Blue',
-        'quantity':1,
-        'unit_price':1150.00
+//   const [data , setData] = useState([
+    // {
+    //     'id':1,
+    //     'image' : img1,
+    //     'name':'Chair',
+    //     'color':'Blue',
+    //     'quantity':1,
+    //     'unit_price':1150.00
         
-    },
-    {
-        'id':2,
-        'image' : img2,
-        'name':'Wardrobe',
-        'color':'black',
-        'quantity':1,
-        'unit_price':1245.00
+    // },
+    // {
+    //     'id':2,
+    //     'image' : img2,
+    //     'name':'Wardrobe',
+    //     'color':'black',
+    //     'quantity':1,
+    //     'unit_price':1245.00
         
-    },
-    {
-        'id':3,
-        'image' : img3,
-        'name':'Pen',
-        'color':'Red',
-        'quantity':1,
-        'unit_price':1352.00
+    // },
+    // {
+    //     'id':3,
+    //     'image' : img3,
+    //     'name':'Pen',
+    //     'color':'Red',
+    //     'quantity':1,
+    //     'unit_price':1352.00
         
-    },
-    {
-        'id':4,
-        'image' : img4,
-        'name':'Cycle',
-        'color':'Aqua',
-        'quantity':1,
-        'unit_price':1999.00
+    // },
+    // {
+    //     'id':4,
+    //     'image' : img4,
+    //     'name':'Cycle',
+    //     'color':'Aqua',
+    //     'quantity':1,
+    //     'unit_price':1999.00
         
-    },
-    {
-        'id':5,
-        'image' : img5,
-        'name':'Laptop',
-        'color':'Metal Black',
-        'quantity':1,
-        'unit_price':1853.00
+    // },
+    // {
+    //     'id':5,
+    //     'image' : img5,
+    //     'name':'Laptop',
+    //     'color':'Metal Black',
+    //     'quantity':1,
+    //     'unit_price':1853.00
         
-    }
-]);
+    // }
+//]);
+
+const [data, setData] = useState([]);
+
+    useEffect(() => {
+        // Fetch cart item details and update the state
+        fetchCartItems();
+        }, []);
+        
+        const fetchCartItems = async () => {
+        // try {
+        // const response = await axios.get('http://10.53.97.64:8090/api/cart');
+        // setData(response.data);
+        // } catch (error) {
+        // console.error('Error fetching cart items:', error);
+        // }
+        const response = await axios.get('http://10.53.97.64:8090/api/cart');
+        setData(response.data);
+        };
+
+
+
+
+
+// const [cartDetails, setcartDetails] = useState([]);
+// useEffect(() => {
+// // axios.get("https://api.escuelajs.co/api/v1/products").then((response) => {
+// axios.get("http://10.53.97.64:8090/api/cart").then((response) => {
+//     setCheckoutList(response.cartDetails);
+// });
+// }, []);
+
+// console.log(checkoutList)
 
        //product increment decrement 
         const incrementQuantity = (itemId) => {
@@ -101,9 +134,9 @@ export default function CheckoutPage() {
           };
 
         //calculating Total price
-        const calculateTotalPrice = (unit_price, quantity) => {
+        const calculateTotalPrice = (price, quantity) => {
             let totalPrice = 0;
-            totalPrice += unit_price * quantity;
+            totalPrice += price * quantity;
 
             return totalPrice;
         };
@@ -113,7 +146,7 @@ export default function CheckoutPage() {
             let subTotal = 0;
 
             data.map((item)=> {
-                subTotal += item.unit_price * item.quantity;
+                subTotal += item.price * item.quantity;
             });
 
             return subTotal;
@@ -149,6 +182,9 @@ export default function CheckoutPage() {
             //routing for checkout Page
         const navigate = useNavigate();
 
+        //
+       
+
 
   return (
     
@@ -170,7 +206,7 @@ export default function CheckoutPage() {
         <div className="card">
         
         <table className="table table-borderless table-shopping-cart">
-        <thead className="text-muted" style = {{backgroundColor:'darkorchid',color:'white' }}>
+        <thead className="text-muted" style = {{backgroundColor:'#8B3DFF',color:'white' }}>
         <tr className="small text-uppercase">
         <th className="table_heading"scope="col">Product Name</th>
         <th className="table_heading"scope="col" width="120">Unit Price</th>
@@ -196,7 +232,7 @@ export default function CheckoutPage() {
             </td>
             <td> 
                 <div className="price-wrap"style = {{position : 'absolute',marginLeft:25}}> 
-                    <var className="price">${item.unit_price}</var> 
+                    <var className="price">${item.price}</var> 
                 </div> 
             </td>
             <td>
@@ -208,12 +244,12 @@ export default function CheckoutPage() {
             </td>
             <td> 
                 <div className="price-wrap"style = {{position : 'absolute',marginLeft:25}}> 
-                    <var className="price">${calculateTotalPrice(item.unit_price, item.quantity)}</var> 
+                    <var className="price">${calculateTotalPrice(item.price, item.quantity)}</var> 
                 </div> 
             </td>
             <td>
             <Grid item xs={8}>
-                <DeleteIcon style = {{marginLeft:20,marginTop:20}} onClick={()=> deleteItem(item.id)}></DeleteIcon>
+                <DeleteIcon style = {{marginLeft:20,marginTop:20}} onClick={()=> deleteItem(item.id)}>Remove</DeleteIcon>
             </Grid>
             </td>
         </tr>
@@ -271,7 +307,7 @@ export default function CheckoutPage() {
         <Typography variant="h6" style={{textAlign:'Left',fontSize:14,marginLeft:30}}>Shipping</Typography>
         <Typography variant="h6" style={{textAlign:'Left',fontSize:14,marginLeft:30}}>Order Total</Typography>
         <hr/>
-        <Button variant="contained" disableElevation style={{backgroundColor: 'darkorchid', width : '80%' , marginTop: 20, marginBottom: 20, borderRadius: 0, }} onClick={() => {console.log("redirecting.....");navigate("/SuccessPopup");}}>Place Order</Button>
+        <Button variant="contained" disableElevation style={{backgroundColor: '#8B3DFF', width : '80%' , marginTop: 20, marginBottom: 20, borderRadius: 0, }} onClick={() => {console.log("redirecting.....");navigate("/SuccessPopup");}}>Place Order</Button>
       </div>
       
           </Item>

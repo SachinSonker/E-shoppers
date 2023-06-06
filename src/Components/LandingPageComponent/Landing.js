@@ -101,6 +101,7 @@ function Landing(){
                 autoPlay ={true}
             />
             <hr className='divider-line'></hr>
+            
             <h4 className='page-title'>PRODUCTS</h4>
             <Grid container spacing={4} className='product-card'>
                 {/* {productList.map((s) =>(

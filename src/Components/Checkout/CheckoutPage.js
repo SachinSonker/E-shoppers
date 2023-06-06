@@ -128,16 +128,20 @@ export default function CheckoutPage() {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    axios
-      .get("http://10.53.97.64:8090/api/cartDetails", {
-        headers: { Authorization: "Bearer " + sessionStorage.getItem("token") },
-      })
-      .then((response) => {
-        console.log(response)
-        setCartItems(response.data);
-        setData(response.data);
-      });
+   getAllItems();
   }, []);
+
+  function getAllItems(){
+    axios
+    .get("http://10.53.97.64:8090/api/cartDetails", {
+      headers: { Authorization: "Bearer " + sessionStorage.getItem("token") },
+    })
+    .then((response) => {
+      console.log(response)
+      setCartItems(response.data);
+      setData(response.data);
+    });
+  }
 
   console.log(data);
 
@@ -208,9 +212,22 @@ export default function CheckoutPage() {
   //deleting items
 
   const deleteItem = (itemId) => {
-    const updatedItems = data.filter((item) => item.id !== itemId);
+    // const updatedItems = data.filter((item) => item.id !== itemId);
 
-    setData(updatedItems);
+    // setData(updatedItems);
+    console.log(itemId)
+
+    axios
+      .delete(`http://10.53.97.64:8090/api/cartDetails/${itemId}`, {
+        headers: { Authorization: "Bearer " + sessionStorage.getItem("token") },
+      })
+      .then((response) => {
+        getAllItems();
+        console.log(response)
+        setCartItems(response.data);
+        setData(response.data);
+      });
+
   };
 
   //forms
@@ -446,7 +463,7 @@ export default function CheckoutPage() {
                                   <Grid item xs={8}>
                                     <DeleteIcon
                                       style={{ marginLeft: 20, marginTop: 20 }}
-                                      onClick={() => deleteItem(item.id)}
+                                      onClick={() => deleteItem(item.productId)}
                                     >
                                       Remove
                                     </DeleteIcon>

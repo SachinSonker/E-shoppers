@@ -1,111 +1,127 @@
-import './Signup.css'
-import React,{useState, useEffect} from 'react';
+import './Signup.css';
+import React, { useState, useEffect } from 'react';
 import { GoogleLogin } from '@react-oauth/google';
-
 import Modal from '@mui/material/Modal';
 import CloseIcon from '@mui/icons-material/Close';
 import { constants } from '../../shared/constant';
 import axios from 'axios';
-// import ModalClose from '@mui/joy/ModalClose';
 
+export default function Signup({ onClose, signin, loggedIn }) {
 
-export default function Signup({onClose,signin,loggedIn}) {
-    
- const [name, setName] = useState("asd")
- const [phone, setPhone] = useState("")
- const [email, setEmail] = useState("")
- const [password, setPassword] = useState("")
- const [confirmPassword, setConfirmPassword] = useState("")
+  // State variables for form inputs and errors
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [errors, setErrors] = useState({});
 
- const [errors, setErrors] = useState({});
- 
- let validatedErrors = {}
- const validateEmail = (event) =>{
-    const mail = event.target.value
-    setEmail(mail)
-    if(!/\S+@\S+\.\S+/.test(mail) || mail.trim()===""){
-        setErrors({...errors,["email"]:"Please enter an valid email"})
-    }else{
-        delete errors.email
+  // Validate email input
+  const validateEmail = (event) => {
+    const mail = event.target.value;
+    setEmail(mail);
+    if (!/\S+@\S+\.\S+/.test(mail) || mail.trim() === "") {
+      setErrors({ ...errors, ["email"]: "Please enter a valid email" });
+    } else {
+      delete errors.email;
     }
-    // setErrors(validatedErrors)
- }
+  };
 
- const validateName = (event) =>{
-    const  fullName= event.target.value
-    setName(fullName)
-    if(fullName.trim()===""){
-        setErrors({...errors,["name"]:"Please enter an valid email"})
-    }else{
-        delete errors.name
+  // Validate name input
+  const validateName = (event) => {
+    const fullName = event.target.value;
+    setName(fullName);
+    if (fullName.trim() === "") {
+      setErrors({ ...errors, ["name"]: "Please enter a valid name" });
+    } else {
+      delete errors.name;
     }
-    console.log(errors)
+  };
 
- }
-
- const validatePhone = (event) =>{
-    const no = event.target.value
-    
-    setPhone(no)
-    if(no==="" || no.length !== 10 || !/^\d+$/.test(no)){
-        validatedErrors["phone"] = "Please enter valid phone no"
-        setErrors({...errors,["phone"]:"Please enter an valid phone no"})
-    }else{
-        delete errors.phone
+  // Validate phone input
+  const validatePhone = (event) => {
+    const no = event.target.value;
+    setPhone(no);
+    if (no === "" || no.length !== 10 || !/^\d+$/.test(no)) {
+      setErrors({ ...errors, ["phone"]: "Please enter a valid phone number" });
+    } else {
+      delete errors.phone;
     }
-    // setErrors(validatedErrors)
-    console.log(errors)
-    // CgProfile
- }
- const validatePassword = (event) =>{
-    const pass = event.target.value
-    setPassword(pass)
-    if(pass==="" || pass.length < 7 || !/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*\W).{8,15}/.test(password)){
-        setErrors({...errors,["password"]:"Password should contains at least 8 characters, 1 special character and 1 uppercase letter"})
-   }else{
-    delete errors.password
-   }
+  };
 
-
- }
-
- const validateConfirmPassword = (event) =>{
-    const confPass = event.target.value
-    setConfirmPassword(confPass)
-    if(confPass!==password){
-        setErrors({...errors,["confirmPassword"]:"Password did not match!"})
-
-   }else{
-    delete errors.confirmPassword
-   }
- }
-
-
- const onSubmit = async (e) =>{
-    
-   if(Object.keys(errors).length===0){
-    const data = {
-        "email" : email,
-        "name" :name,
-        "phoneNo" : phone,
-        "password" : password,
-        "role" : ""
+  // Validate password input
+  const validatePassword = (event) => {
+    const pass = event.target.value;
+    setPassword(pass);
+    if (
+      pass === "" ||
+      pass.length < 7 ||
+      !/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*\W).{8,15}/.test(password)
+    ) {
+      setErrors({
+        ...errors,
+        ["password"]:
+          "Password should contain at least 8 characters, 1 special character, and 1 uppercase letter",
+      });
+    } else {
+      delete errors.password;
     }
-    const result = await axios.post(constants.url.user.register, data);
-    loggedIn();
-    onClose();
+  };
 
-    // alert("Account created successfully...",result)
-   }
- }
-
-    const googleLogin = (data) =>{
-        if(Object.keys(errors).length===0){
-            loggedIn();
-            onClose();
-        }
-
+  // Validate confirm password input
+  const validateConfirmPassword = (event) => {
+    const confPass = event.target.value;
+    setConfirmPassword(confPass);
+    if (confPass !== password) {
+      setErrors({ ...errors, ["confirmPassword"]: "Passwords do not match" });
+    } else {
+      delete errors.confirmPassword;
     }
+  };
+  // Submit form data
+  const onSubmit = async (e) => {
+    if (Object.keys(errors).length === 0) {
+      const data = {
+        email: email,
+        name: name,
+        phoneNo: phone,
+        password: password,
+        role: "",
+      };
+      // const result = await axios.post(constants.url.user.register, data);
+        const result = await axios.post(constants.url.user.register, data).then((res)=>{
+
+          sessionStorage.setItem("token",res.data.jwtToken)
+
+          loggedIn();
+
+          onClose();  
+
+      }).catch((err)=>{
+
+          if(err.request.status==403){
+
+              alert("Invalid username or password")
+
+          }
+          else{
+            alert("Something went wrong!")
+          }
+          
+
+      });
+      loggedIn();
+      onClose();
+    }
+  };
+
+  // Handle Google login
+  const googleLogin = (data) => {
+    if (Object.keys(errors).length === 0) {
+      loggedIn();
+      onClose();
+    }
+  };
 
   return <>
   <Modal

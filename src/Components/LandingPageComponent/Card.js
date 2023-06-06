@@ -8,17 +8,22 @@ import { CardActionArea } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import './landing.css';
 
+// Functional component for a landing card
 function LandingCard(props){
     const navigate = useNavigate();
 
+    // Function to navigate to the product details page
     const navigateToPDP = (itemID) => {
-        navigate('/productdetails/'+itemID)
+        navigate('/productdetails?id='+itemID);
     }
 
     return(
         <div>
+            {/* Clickable card area */}
             <CardActionArea onClick={event => {navigateToPDP(props.itemID)}}>
+                {/* Card component */}
                 <Card className='card-tile'>
+                    {/* Card media (image) */}
                     <CardMedia
                         component="img"
                         height="80%"
@@ -26,12 +31,14 @@ function LandingCard(props){
                         alt="No Product Image"
                     />
                     <CardContent>
-                        <Typography align='center'>
-                        <b>{props.itemName.length > 40 ? props.itemName.slice(0,40)+"..." : props.itemName}</b>
+                        {/* Item name */}
+                        <Typography className='card-title'>
+                            <b>{props.itemName.length > 30 ? props.itemName.slice(0,30)+"..." : props.itemName}</b>
                         </Typography>
+                        {/* Item price and rating */}
                         <Typography color="text.secondary">
-                        <p className='alignleft'>Price: <b>$ {props.itemPrice}</b> <s>$ {props.itemStrikePrice}</s></p>
-                        <p className='alignright'>⭐⭐⭐</p>
+                            <p className='alignleft'>Price: <b>$ {props.itemPrice}</b> <s>$ {props.itemStrikePrice}</s></p>
+                            <p className='alignright'>⭐⭐⭐</p>
                         </Typography>
                     </CardContent>
                 </Card>
@@ -39,4 +46,5 @@ function LandingCard(props){
         </div>
     )
 }
+
 export default LandingCard;

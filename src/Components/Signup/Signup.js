@@ -87,6 +87,10 @@ export default function Signup({ onClose, signin, loggedIn }) {
 
       const result = await axios.post(constants.url.user.login, data).then((res)=>{
         sessionStorage.setItem("token",res.data.jwtToken)
+        sessionStorage.setItem("name",res.data.name)
+        sessionStorage.setItem("phone",res.data.phoneNo)
+        sessionStorage.setItem("email",res.data.email)
+
 
     })
   }

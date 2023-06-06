@@ -491,12 +491,14 @@ export default function CheckoutPage() {
 
               <hr />
 
+              
+
               <Typography
                 variant="h6"
                 gutterBottom
                 style={{ textAlign: "Left", fontSize: 16, marginLeft: 30 }}
               >
-                Address
+                Name : {sessionStorage.getItem("name")}
               </Typography>
 
               <Typography
@@ -504,7 +506,7 @@ export default function CheckoutPage() {
                 gutterBottom
                 style={{ textAlign: "Left", fontSize: 16, marginLeft: 30 }}
               >
-                Name
+                Mobile : {sessionStorage.getItem("phone")}
               </Typography>
 
               <Typography
@@ -512,7 +514,7 @@ export default function CheckoutPage() {
                 gutterBottom
                 style={{ textAlign: "Left", fontSize: 16, marginLeft: 30 }}
               >
-                Mobile
+                Email : {sessionStorage.getItem("email")}
               </Typography>
 
               <hr />

@@ -8,6 +8,7 @@ import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
 import './Navbar.css';
 import Cart from '../Cart/Cart';
 import LogoutIcon from '@mui/icons-material/Logout';
+import {Link} from 'react-router-dom';
 
 
 const Search = styled("div")({
@@ -134,7 +135,9 @@ const Navbar = () => {
                                 },
                             }}
                         >
-                            Shoppers
+                        <Link to='/' style={{color:'#000000',textDecoration:'none'}}>
+                        Shoppers
+                        </Link>
                         </Typography>
                     </Box>
                     <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '30%', flexGrow: 1 }}>

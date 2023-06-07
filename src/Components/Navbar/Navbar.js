@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { AppBar, styled, Toolbar, Typography, Box, Button, IconButton, Popper, Popover, TextField, endAdornment, Container, ClickAwayListener } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
+import CloseIcon from '@mui/icons-material/Close';
 import Login from '../Login/Login';
 import Signup from '../Signup/Signup';
-import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
 import './Navbar.css';
 import Cart from '../Cart/Cart';
 import LogoutIcon from '@mui/icons-material/Logout';
@@ -66,7 +66,7 @@ const Navbar = () => {
     useEffect(() => {
         if(sessionStorage.getItem("token")){
             setSignIn(true)
-        }
+        } 
       }, []);
 
     const openModal = () => {
@@ -106,8 +106,8 @@ const Navbar = () => {
         setOpen(false)
     }
     const handleClickAway = () => {
-        setAnchorEl(false)
         setOpen(false)
+        setAnchorEl(null)
     }
     return (
         <Container className='container'>
@@ -161,18 +161,31 @@ const Navbar = () => {
                         <ClickAwayListener onClickAway={handleClickAway}>
                             <Box>
                                 <Button sx={{ color: 'white', width: '90%', margin: "0 10px 0", backgroundColor: '#8B3DFF', '&:hover': { backgroundColor: '#7300e6' }, height: '39px', '@media(max-width:690px)': { display: 'none' } }} variant="contained" endIcon={<ShoppingBagIcon />} onClick={handleClick('bottom')}>
-                                                <Typography sx={{ marginTop: '5px', textTransform: "none", fontSize: "15px", fontFamily: 'Mulish', fontStyle: 'normal', fontWeight: 400, lineHeight: '27px'}}>{noOfItem} Items</Typography>
+                                                <Typography sx={{ marginTop: '5px', textTransform: "none", fontSize: "15px", fontFamily: 'Mulish', fontStyle: 'normal', fontWeight: 400, lineHeight: '27px'}}>My Cart</Typography>
                                 </Button>
                                 <IconButton sx={{ '@media(min-width:690px)': { display: 'none', '&:hover': { backgroundColor: 'white' } } }} onClick={handleClick('bottom')}><ShoppingBagIcon sx={{ color:'#8B3DFF'}} /></IconButton>
                                 {open ? (<Popper
                                                 open={open}
-                                                disablePortal={true}
+                                    disablePortal={false}
+                                    keepMounted
                                                 anchorEl={anchorEl}
                                                 placement={placement}
                                                 onClose={handleClose}
-                                                sx={{ zIndex: 1500, width: '344px', height: '609px' }}>
-                                                <Cart onClose={handleClose} itemRemove={itemDelete} />
-                                </Popper>) : null}
+                                    sx={{
+                                        zIndex: 1500,
+                                        width: '344px',
+                                        height: '570px',
+                                        '@media(max-width:1000px)': { height: '462px' },
+                                        '@media(max-width:800px)': { height: '412px' },
+                                        '@media(max-width:690px)': { width:'200px',height: '380px' }
+                                    }}>
+                                    {signIn ? <Cart onClose={handleClose} itemRemove={itemDelete} /> : ""}
+                                        {!signIn ?    <Box sx={{ backgroundColor: 'white', border: '2px solid', marginTop: '10px' }}> 
+                                            <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                                            <Typography>Please <Link onClick={openModal}>SignIn</Link> to see items you added</Typography>
+                                                <IconButton sx={{ marginTop: '12px', marginRight: '15px', '&: hover': { backgroundColor: 'white' } }} onClick={handleClose}><CloseIcon /></IconButton></Box>
+                                        </Box> : ""
+                                    }                                </Popper>) : null}
 
                                         {isOpen ? <Login onClose={closeModal} registration={createAccount} loggedIn={login} /> : ""}
                                         {registration ? <Signup onClose={() => setRegistration(false)} signin={openSignIn} loggedIn={login} /> : ""}

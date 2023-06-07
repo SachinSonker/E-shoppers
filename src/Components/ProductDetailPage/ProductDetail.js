@@ -8,29 +8,31 @@ import './ProductDetails.css';
 import Stars from "./Stars";
 import { useSearchParams } from "react-router-dom";
 import Alert from '@mui/material/Alert';
+import { useNavigate } from "react-router-dom";
 
 function ProductDetails() {
     const [prodObj, setProdObj] = useState({});
     const [params] = useSearchParams();
+    const navigate = useNavigate()
 
     useEffect(() => {
         axios.get(`http://10.53.97.64:8090/api/product/${params.get('id')}`).then((response) => {
             console.log(response.data)
             setProdObj(response.data)
         });
-    }, []);
+    }, [params.get('id')]);
 
     function addToCart() {
-        if(sessionStorage.getItem("token") == null) {
+        if (sessionStorage.getItem("token") == null) {
             alert("Please Login First...")
-        }else {
+        } else {
             const data = {
                 "color": prodObj.color[0],
                 "productId": params.get('id'),
                 "quantity": 1,
                 "size": "s"
             }
-    
+
             axios.post("http://10.53.97.64:8090/api/addtocart", data, {
                 headers: { Authorization: "Bearer " + sessionStorage.getItem("token") }
             }).then((response) => {
@@ -48,8 +50,8 @@ function ProductDetails() {
             <div className="product-data">
                 <h1 className="heading">{prodObj.name}</h1>
                 <Stars ratings={prodObj.ratings} reviews={25} />
-                <p className="product-data-price ">Price: <s>₹ {Math.round(prodObj.price) + (prodObj.price*0.14)}</s></p>
-                <p className="product-data-price product-data-real-price">Deal of the day : ₹ {Math.round(prodObj.price )} (14% OFF)</p>
+                <p className="product-data-price ">Price: <s>₹ {Math.round(prodObj.price) + (prodObj.price * 0.14)}</s></p>
+                <p className="product-data-price product-data-real-price">Deal of the day : ₹ {Math.round(prodObj.price)} (14% OFF)</p>
                 <p>
                     <span>
                         Description:&nbsp;</span>

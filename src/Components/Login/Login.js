@@ -23,7 +23,7 @@ export default function Login({ onClose, registration, loggedIn }) {
             delete errors.email;
         }
     }
-    
+
     // Function to validate password input
     const validatePassword = (event) => {
         const pass = event.target.value;
@@ -47,27 +47,27 @@ export default function Login({ onClose, registration, loggedIn }) {
 
             }
 
-            const result = await axios.post(constants.url.user.login, data).then((res)=>{
+            const result = await axios.post(constants.url.user.login, data).then((res) => {
 
-                sessionStorage.setItem("token",res.data.jwtToken)
-                sessionStorage.setItem("name",res.data.name)
-                sessionStorage.setItem("phone",res.data.phoneNo)
-                sessionStorage.setItem("email",res.data.email)
+                sessionStorage.setItem("token", res.data.jwtToken)
+                sessionStorage.setItem("name", res.data.name)
+                sessionStorage.setItem("phone", res.data.phoneNo)
+                sessionStorage.setItem("email", res.data.email)
 
                 loggedIn();
 
                 onClose();
 
-            }).catch((err)=>{
+            }).catch((err) => {
 
-                if(err.request.status==401){
+                if (err.request.status == 401) {
 
                     alert("Invalid username or password")
 
-                }else{
+                } else {
                     alert("Something went wrong!")
-                  }
-                
+                }
+
 
             });
         }
@@ -127,9 +127,9 @@ export default function Login({ onClose, registration, loggedIn }) {
                                                 onError={() => {
                                                     console.log('Login Failed');
                                                 }}
-                                               
 
-                                                size = "medium"
+
+                                                size="medium"
                                                 width='270'
                                             />
                                             {/* <input type="button" value="Google" /> */}

@@ -47,24 +47,24 @@ export default function CheckoutPage() {
 
 
   useEffect(() => {
-   getAllItems();
+    getAllItems();
   }, []);
 
-  function getAllItems(){
+  function getAllItems() {
     axios
-    .get("http://10.53.97.64:8090/api/cartDetails", {
-      headers: { Authorization: "Bearer " + sessionStorage.getItem("token") },
-    })
-    .then((response) => {
-      console.log(response)
-      setCartItems(response.data);
-      setData(response.data);
-    });
+      .get("http://10.53.97.64:8090/api/cartDetails", {
+        headers: { Authorization: "Bearer " + sessionStorage.getItem("token") },
+      })
+      .then((response) => {
+        console.log(response)
+        setCartItems(response.data);
+        setData(response.data);
+      });
   }
 
   console.log(data);
 
-  
+
 
   //product increment 
   
@@ -118,8 +118,8 @@ export default function CheckoutPage() {
 
   //calculating order total
 
-const OrderTotal = 100 + calculateSubTotal();
-   
+  const OrderTotal = 100 + calculateSubTotal();
+
 
   //deleting items
 
@@ -141,16 +141,16 @@ const OrderTotal = 100 + calculateSubTotal();
   };
 
   //clearing cart on placing order
-  const deleteAllItemFromCart =()=>{
+  const deleteAllItemFromCart = () => {
 
-    axios.delete(`http://10.53.97.64:8090/api/cart`,{
+    axios.delete(`http://10.53.97.64:8090/api/cart`, {
       headers: { Authorization: "Bearer " + sessionStorage.getItem("token") },
     })
-    .then(response=>{
-      console.log('all item deleted')
-    }).catch(error=>{
-      console.log('Error deleting items from cart', error);
-    })
+      .then(response => {
+        console.log('all item deleted')
+      }).catch(error => {
+        console.log('Error deleting items from cart', error);
+      })
 
   }
 
@@ -277,7 +277,7 @@ const OrderTotal = 100 + calculateSubTotal();
                                   >
                                     <div className="aside">
                                       <img
-                                        src={"data:image/jpeg;base64,"+item.image}
+                                        src={"data:image/jpeg;base64," + item.image}
                                         style={{ width: 100, height: 100 }}
                                       />
                                     </div>
@@ -424,7 +424,7 @@ const OrderTotal = 100 + calculateSubTotal();
 
               <hr />
 
-              
+
 
               <Typography
                 variant="h6"
@@ -524,8 +524,8 @@ const OrderTotal = 100 + calculateSubTotal();
                 variant="h6"
                 style={{ textAlign: "Left", fontSize: 14, marginLeft: 30 }}
               >
-               Order Total &nbsp;<span style={{ marginRight: 120 }}></span> ₹ {Math.round(OrderTotal)}
-              </Typography> 
+                Order Total &nbsp;<span style={{ marginRight: 120 }}></span> ₹ {Math.round(OrderTotal)}
+              </Typography>
 
               <hr />
 
@@ -547,7 +547,7 @@ const OrderTotal = 100 + calculateSubTotal();
                   console.log("redirecting.....");
                   
 
-                  }  
+                }
                 }
               >
                 Place Order

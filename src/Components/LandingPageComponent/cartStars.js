@@ -2,10 +2,11 @@ import React from "react";
 import { FaStar, FaStarHalfAlt } from "react-icons/fa";
 import { AiOutlineStar } from "react-icons/ai";
 import styled from 'styled-components';
-import "./ProductDetails.css";
+import "../ProductDetailPage/ProductDetails.css";
 
 
-const Stars = ({ ratings, reviews }) => {
+const cardStars = ({ ratings, reviews }) => {
+
    const ratingStar = Array.from({ length: 5 }, (elem, index) => {
       let number = index + 0.5;
       return (
@@ -25,11 +26,16 @@ const Stars = ({ ratings, reviews }) => {
       <Wrapper>
          <div>
             <div />
-            {ratingStar}<span className="review">  ({reviews} Customer Ratings)</span>
+            {ratingStar}
          </div>
       </Wrapper>
+
+
+
    )
+
 }
 const Wrapper = styled.section` `
 
-export default Stars;
+
+export default cardStars;

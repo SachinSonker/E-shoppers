@@ -132,9 +132,12 @@ const OrderTotal = 100 + calculateSubTotal();
         console.log(response)
         setCartItems(response.data);
         setData(response.data);
+        alert('Are you sure You want to delete this Item...');
       });
 
   };
+
+  //clearing cart on placing order
   const deleteAllItemFromCart =()=>{
 
     axios.delete(`http://10.53.97.64:8090/api/cart`,{
@@ -178,17 +181,6 @@ const OrderTotal = 100 + calculateSubTotal();
 
   const navigate = useNavigate();
 
-  //checking if a user is signed-in
-
-  // const[isSignedIn, setIsSignedIn] = useState(false);
-  // // const navigate = useNavigate();
-  // const handlePlaceOrder = () =>{
-  //   if(isSignedIn){
-  //     navigate("/SuccessPopup");
-  //   }else{
-  //     navigate("/");
-  //   }
-  // }
 
   return (
     <Box sx={{ flexGrow: 1 }} style={{ position: "sticky" }}>
@@ -532,7 +524,6 @@ const OrderTotal = 100 + calculateSubTotal();
                   borderRadius: 0,
                 }}
                 onClick={() => {
-                  //handlePlaceOrder();
                   deleteAllItemFromCart();
                   console.log("redirecting.....");
                   navigate("/SuccessPopup");

@@ -93,11 +93,12 @@ const Cart = ({ onClose, itemRemove }) => {
           </Box>
 
       <Box sx={{ display: 'flex', flexDirection: 'column', marginLeft: '13px', maxHeight: '424px', overflowY: 'scroll', overflowX: 'hidden', '@media(max-width:1000px)': { maxHeight: '250px' }, '@media(max-width:800px)': { maxHeight: '200px' } ,'@media(max-width:690px)':{width:'200px',height:'168px'}}}>
-            {
-          addCartObject.map((data) => (
-            <CartItem item={data} image={"data:image/jpeg;base64,"+data.image} name={(data.name.length >= 12) ? (data.name.slice(0, 12) + "...") : data.name} color={data.color} size={data.size} qty={data.quantity} price={data.price} addQuantity={() => increaseQty(data.productId)} removeQuantity={() => decreaseQty(data.productId)} deleteItem={() => deleteProduct(data.productId)}  />
-             ))  
-            }
+        
+          {
+            addCartObject.length === 0 ? <Typography>Your Cart is Empty</Typography> : addCartObject.map((data) => (
+              <CartItem item={data} key={data.productId} image={"data:image/jpeg;base64," + data.image} name={(data.name.length >= 12) ? (data.name.slice(0, 12) + "...") : data.name} color={data.color} size={data.size} qty={data.quantity} price={data.price} addQuantity={() => increaseQty(data.productId)} removeQuantity={() => decreaseQty(data.productId)} deleteItem={() => deleteProduct(data.productId)} />
+            ))
+          }
 
           </Box>
           

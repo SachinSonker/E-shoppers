@@ -30,7 +30,7 @@ function ProductDetails() {
                 "color": prodObj.color[0],
                 "productId": params.get('id'),
                 "quantity": 1,
-                "size": "s"
+                "size": "S"
             }
 
             axios.post("http://10.53.97.64:8090/api/addtocart", data, {
@@ -78,7 +78,7 @@ function ProductDetails() {
                         <span>{prodObj.totalStock > 0 ? "In Stock" : "Not Available"}</span>
                     </p>
                     <div className="buttons">
-                        <button className="buttonstl">Buy Now</button>
+                        <button className="buttonstl" onClick={() => {navigate('/checkout')}}>Go To Checkout </button>
                         <button className="buttonstl" onClick={addToCart}>Add To Cart</button>
                     </div>
                 </div>

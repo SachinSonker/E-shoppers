@@ -29,20 +29,23 @@ const CartItem = (props) => {
                         </Typography>
                         {/* Typography to display the item size and quantity */}
                         <Typography variant='subtitle1' color='text.secondary' component='div' sx={{ fontSize: '11px' }}>
-                            Size: {size} Qty: {qty}
+                            Size: {size} 
+                        </Typography>
+                        <Typography variant='subtitle1' color='text.secondary' component='div' sx={{ fontSize: '11px' }}>
+                            Qty: {qty}
                         </Typography>
                     </CardContent>
                     {/* Box to display quantity controls */}
-                    <Box sx={{ display: 'flex', justifyContent: 'left' }}>
+                    {/* <Box sx={{ display: 'flex', justifyContent: 'left' }}> */}
                         {/* IconButton to decrease quantity */}
-                        <IconButton sx={{ padding: '0px !important' }} onClick={() => removeQuantity(id)}>
+                        {/* <IconButton sx={{ padding: '0px !important' }} onClick={() => removeQuantity(id)}>
                             <IndeterminateCheckBoxIcon />
-                        </IconButton>
+                        </IconButton> */}
                         {/* IconButton to increase quantity */}
-                        <IconButton sx={{ padding: '0px !important' }} onClick={() => addQuantity(id)}>
+                        {/* <IconButton sx={{ padding: '0px !important' }} onClick={() => addQuantity(id)}>
                             <AddBoxIcon />
-                        </IconButton>
-                    </Box>
+                        </IconButton> */}
+                    {/* </Box> */}
                 </Box>
                 {/* Box to display price and delete button */}
                 <Box sx={{ display: 'flex', flexDirection: 'column', width: '70px', justifyContent: 'space-between' }}>

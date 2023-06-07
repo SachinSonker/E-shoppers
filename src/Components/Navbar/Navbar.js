@@ -11,7 +11,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import { Link } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 import axios from 'axios'
-
+import LoginIcon from '@mui/icons-material/Login';
 const Search = styled("div")({
     marginRight: "11px",
     width: "600px",
@@ -222,11 +222,14 @@ const Navbar = () => {
                                         '@media(max-width:690px)': { width: '200px', height: '380px' }
                                     }}>
                                     {signIn ? <Cart onClose={handleClose} itemRemove={itemDelete} /> : ""}
-                                    {!signIn ? <Box sx={{ backgroundColor: 'white', border: '2px solid', marginTop: '10px' }}>
+                                    {!signIn ? 
+                                    <Box sx={{ backgroundColor: 'white', border: '2px solid', marginTop: '10px',height:'100px' }}>
                                         <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                                            <Typography>Please <Link onClick={openModal}>SignIn</Link> to see items you added</Typography>
-                                            <IconButton sx={{ marginTop: '12px', marginRight: '15px', '&: hover': { backgroundColor: 'white' } }} onClick={handleClose}><CloseIcon /></IconButton></Box>
-                                    </Box> : ""
+                                            <Typography sx={{padding:'1em 1em 0',fontSize:'20px'}}><LoginIcon sx={{fontSize:"1em"}}/> Please <Link onClick={openModal}>SignIn</Link> to see items you added</Typography>
+                                            <IconButton sx={{ marginTop: '12px', marginRight: '15px', '&: hover': { backgroundColor: 'white' } }} onClick={handleClose}><CloseIcon /></IconButton>
+                                        </Box>
+                                    </Box> 
+                                    : ""
                                     }                                </Popper>) : null}
 
                                 {isOpen ? <Login onClose={closeModal} registration={createAccount} loggedIn={login} /> : ""}

@@ -119,7 +119,7 @@ const Cart = ({ onClose, itemRemove }) => {
                 fontSize: '15px',
                 lineHeight: '27px', 
                 }}>
-              ₹{calculateTotal}
+              ₹{Math.round(calculateTotal)}
             </Typography>
           </Box> 
         <Box   sx={{display: 'flex', justifyContent:'center', marginTop:'20px'}}>

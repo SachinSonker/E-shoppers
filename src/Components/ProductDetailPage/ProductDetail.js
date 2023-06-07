@@ -7,6 +7,7 @@ import ProductImages from "./ProductImage";
 import './ProductDetails.css';
 import Stars from "./Stars";
 import { useSearchParams } from "react-router-dom";
+import Alert from '@mui/material/Alert';
 
 function ProductDetails() {
     const [prodObj, setProdObj] = useState({});
@@ -47,8 +48,8 @@ function ProductDetails() {
             <div className="product-data">
                 <h1 className="heading">{prodObj.name}</h1>
                 <Stars ratings={prodObj.ratings} reviews={25} />
-                <p className="product-data-price ">Price: <s>₹ {(prodObj.price)}</s></p>
-                <p className="product-data-price product-data-real-price">Deal of the day : ₹ {(prodObj.price - (prodObj.price*0.14)).toFixed(2)} (14% OFF)</p>
+                <p className="product-data-price ">Price: <s>₹ {Math.round(prodObj.price)}</s></p>
+                <p className="product-data-price product-data-real-price">Deal of the day : ₹ {Math.round(prodObj.price - (prodObj.price*0.14))} (14% OFF)</p>
                 <p>
                     <span>
                         Description:&nbsp;</span>

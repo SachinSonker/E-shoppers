@@ -110,7 +110,7 @@ export default function CheckoutPage() {
       subTotal += item.price * item.quantity;
     });
 
-    return subTotal;
+    return Math.round(subTotal);
   };
 
   //calculating order total
@@ -317,7 +317,7 @@ const OrderTotal = 100 + calculateSubTotal();
                                       marginLeft: 25,
                                     }}
                                   >
-                                    <var className="price">₹{item.price}</var>
+                                    <var className="price">₹{Math.round(item.price)}</var>
                                   </div>
                                 </td>
 
@@ -379,10 +379,10 @@ const OrderTotal = 100 + calculateSubTotal();
                                   >
                                     <var className="price">
                                       ₹
-                                      {calculateTotalPrice(
+                                      {Math.round(calculateTotalPrice(
                                         item.price,
                                         item.quantity
-                                      )}
+                                      ))}
                                     </var>
                                   </div>
                                 </td>
@@ -502,22 +502,21 @@ const OrderTotal = 100 + calculateSubTotal();
                 variant="h6"
                 style={{ textAlign: "Left", fontSize: 14, marginLeft: 30 }}
               >
-                Sub Total &nbsp;<span style={{ marginRight: 130 }}></span> ₹
-                {calculateSubTotal()}
+                Sub Total &nbsp;<span style={{ marginRight: 130 }}></span> ₹ {calculateSubTotal()}
               </Typography>
 
               <Typography
                 variant="h6"
                 style={{ textAlign: "Left", fontSize: 14, marginLeft: 30 }}
               >
-                Shipping &nbsp;<span style={{ marginRight: 135 }}></span> $100
+                Shipping &nbsp;<span style={{ marginRight: 135 }}></span> ₹ 100
               </Typography>
 
               <Typography
                 variant="h6"
                 style={{ textAlign: "Left", fontSize: 14, marginLeft: 30 }}
               >
-               Order Total &nbsp;<span style={{ marginRight: 120 }}></span> ${OrderTotal}
+               Order Total &nbsp;<span style={{ marginRight: 120 }}></span> ₹ {Math.round(OrderTotal)}
               </Typography> 
 
               <hr />

@@ -48,7 +48,7 @@ const CartItem = (props) => {
                 <Box sx={{ display: 'flex', flexDirection: 'column', width: '70px', justifyContent: 'space-between' }}>
                     {/* Typography to display the item price */}
                     <Typography component='div' variant='h6' sx={{ display: 'flex', justifyContent: 'right' }}>
-                        ${qty * price}
+                        ₹{qty * price}
                     </Typography>
                     {/* IconButton to delete the item */}
                     <IconButton sx={{ display: 'flex', justifyContent: 'right', '&:hover': { backgroundColor: 'white' } }} onClick={() => deleteItem(id)}>

@@ -37,7 +37,7 @@ function LandingCard(props){
                         </Typography>
                         {/* Item price and rating */}
                         <Typography color="text.secondary">
-                            <p className='alignleft'>Price: <b>₹ {(props.itemPrice - (props.itemPrice*0.14)).toFixed(0)}</b> <s>₹ {props.itemStrikePrice}</s></p>
+                            <p className='alignleft'>Price: <b>₹ {Math.round((props.itemPrice - (props.itemPrice*0.14)))}</b> <s>₹ {Math.round(props.itemStrikePrice)}</s></p>
                             <p className='alignright'>⭐⭐⭐</p>
                         </Typography>
                     </CardContent>

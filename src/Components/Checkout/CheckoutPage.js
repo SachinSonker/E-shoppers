@@ -317,7 +317,7 @@ const OrderTotal = 100 + calculateSubTotal();
                                       marginLeft: 25,
                                     }}
                                   >
-                                    <var className="price">₹{item.price}</var>
+                                    <var className="price">₹{Math.round(item.price)}</var>
                                   </div>
                                 </td>
 
@@ -379,10 +379,10 @@ const OrderTotal = 100 + calculateSubTotal();
                                   >
                                     <var className="price">
                                       ₹
-                                      {calculateTotalPrice(
+                                      {Math.round(calculateTotalPrice(
                                         item.price,
                                         item.quantity
-                                      )}
+                                      ))}
                                     </var>
                                   </div>
                                 </td>

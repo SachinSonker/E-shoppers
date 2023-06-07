@@ -18,9 +18,9 @@ function App() {
           {/* Home Route */}
           <Route path='/' element={
             <React.Fragment>
-            <div className='App'>
-              <Navbar/>
-              <Landing/>
+              <div className='App'>
+                <Navbar/>
+                <Landing/>
               </div>
               <Footer />
             </React.Fragment>

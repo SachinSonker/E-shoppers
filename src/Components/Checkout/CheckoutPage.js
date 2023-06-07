@@ -43,6 +43,8 @@ export default function CheckoutPage() {
   //gettings items data from backend
   const [cartItems, setCartItems] = useState({});
   const [data, setData] = useState([]);
+  const [errors, setErrors] = useState({});
+
 
   useEffect(() => {
    getAllItems();
@@ -65,6 +67,7 @@ export default function CheckoutPage() {
   
 
   //product increment 
+  
 
   const incrementQuantity = (itemId) => {
     const updatedItems = data.map((item) => {
@@ -181,7 +184,17 @@ const OrderTotal = 100 + calculateSubTotal();
 
   const navigate = useNavigate();
 
+  function validate(){
+    if(address1=="" || address2=="" || postalcode==""){
+      setErrors({ ...errors, ["invalid"]: "Required" });
+      return false
+    }else{
+      delete errors.invalid
+      return true
+    }
+  }
 
+  
   return (
     <Box sx={{ flexGrow: 1 }} style={{ position: "sticky" }}>
       <Grid container spacing={2}>
@@ -283,7 +296,7 @@ const OrderTotal = 100 + calculateSubTotal();
                                           fontFamily: "ui-serif",
                                         }}
                                       >
-                                        {item.name}
+                                        {item.name.length > 10 ? item.name.slice(0,10)+"..." : item.name}
                                       </a>
 
                                       <p
@@ -449,6 +462,7 @@ const OrderTotal = 100 + calculateSubTotal();
                   onChange={(event) => setAddress1(event.target.value)}
                   required
                 ></input>
+                {errors.invalid && <span className='errorMsg'>{errors.invalid}</span>}
 
                 <label>Address Line 2</label>
 
@@ -458,6 +472,7 @@ const OrderTotal = 100 + calculateSubTotal();
                   placeholder=""
                   onChange={(event) => setAddress2(event.target.value)}
                 ></input>
+                {errors.invalid && <span className='errorMsg'>{errors.invalid}</span>}
 
                 <div className="wrapper" style={{ display: "flex" }}>
                   <span className="selectrow">
@@ -486,6 +501,7 @@ const OrderTotal = 100 + calculateSubTotal();
                   style={{ width: 140 }}
                   onChange={(event) => setPostalCode(event.target.value)}
                 ></input>
+                {errors.invalid && <span className='errorMsg'>{errors.invalid}</span>}
               </div>
 
               <hr />
@@ -525,8 +541,11 @@ const OrderTotal = 100 + calculateSubTotal();
                 }}
                 onClick={() => {
                   deleteAllItemFromCart();
+                  if(validate()){
+                    navigate("/SuccessPopup");
+                  }
                   console.log("redirecting.....");
-                  navigate("/SuccessPopup");
+                  
 
                   }  
                 }

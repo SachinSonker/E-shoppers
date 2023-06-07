@@ -107,7 +107,7 @@ export default function CheckoutPage() {
     let subTotal = 0;
 
     data.map((item) => {
-      subTotal += item.price * item.quantity;
+      subTotal += (item.price - item.price*0.14) * item.quantity;
     });
 
     return Math.round(subTotal);
@@ -309,7 +309,7 @@ export default function CheckoutPage() {
                                       marginLeft: 25,
                                     }}
                                   >
-                                    <var className="price">₹{Math.round(item.price)}</var>
+                                    <var className="price">₹{Math.round(item.price - item.price*0.14)}</var>
                                   </div>
                                 </td>
 
@@ -373,7 +373,7 @@ export default function CheckoutPage() {
                                       ₹
                                       {Math.round(calculateTotalPrice(
                                         item.price,
-                                        item.quantity
+                                        item.quantity - item.quantity*0.14
                                       ))}
                                     </var>
                                   </div>

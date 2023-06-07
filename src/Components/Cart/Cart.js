@@ -72,7 +72,7 @@ const Cart = ({ onClose, itemRemove }) => {
       })
     itemRemove()
   }
-  const calculateTotal = addCartObject.reduce((acc, item) => acc + item.quantity * item.price, 0)
+  const calculateTotal = addCartObject.reduce((acc, item) => acc + item.quantity * (item.price - (item.price*0.14)), 0)
   return (
     <Box sx={{ backgroundColor: 'white', width: '344px', height: '570px', border: '2px solid', marginTop: '10px', '@media(max-width:1000px)': { height: '462px' }, '@media(max-width:800px)': { height: '412px' }, '@media(max-width:690px)': { width: '200px', height: '380px' } }}>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', '@media(max-width:690px)': { width: '200px' } }}>
@@ -92,7 +92,7 @@ const Cart = ({ onClose, itemRemove }) => {
         <IconButton sx={{ marginTop: '12px', marginRight: '15px', '&: hover': { backgroundColor: 'white' } }} onClick={onClose}><CloseIcon /></IconButton>
       </Box>
 
-      <Box sx={{ display: 'flex', flexDirection: 'column', marginLeft: '13px', maxHeight: '424px', overflowY: 'scroll', overflowX: 'hidden', '@media(max-width:1000px)': { maxHeight: '250px' }, '@media(max-width:800px)': { maxHeight: '200px' }, '@media(max-width:690px)': { width: '200px', height: '168px' } }}>
+      <Box sx={{ display: 'flex', flexDirection: 'column', marginLeft: '13px', maxHeight: '424px', overflowY: 'auto', overflowX: 'hidden', '@media(max-width:1000px)': { maxHeight: '250px' }, '@media(max-width:800px)': { maxHeight: '200px' }, '@media(max-width:690px)': { width: '200px', height: '168px' } }}>
 
         {
           addCartObject.length === 0 ? <Typography>Your Cart is Empty</Typography> : addCartObject.map((data) => (

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Typography, styled, Grid,Divider } from '@mui/material'
+import { Typography, styled, Grid, Divider } from '@mui/material'
 import CopyrightIcon from '@mui/icons-material/Copyright';
 // Custom styled component for Typography
 const Typo = styled(Typography)({
@@ -15,8 +15,8 @@ const Typo = styled(Typography)({
 const Footer = () => {
   return (
     <>
-    <Divider sx={{width:'100%'}} />
-      <Grid container spacing={2} sx={{position:'sticky', width:'100%',height:'15%',marginTop:'0% !important',marginLeft:'0% !important',backgroundColor:'#000000',color:'white'}}>
+      <Divider sx={{ width: '100%' }} />
+      <Grid container spacing={2} sx={{ position: 'sticky', width: '100%', height: '15%', marginTop: '0% !important', marginLeft: '0% !important', backgroundColor: '#000000', color: 'white' }}>
         <Grid item xs={4} md={4} sx={{ mb: '10px' }} >
           <Typo variant='h1'><strong>ABOUT</strong></Typo>
           <Typo>About Shoppers</Typo>
@@ -24,20 +24,20 @@ const Footer = () => {
           <Typo>CONTACT US</Typo>
         </Grid>
         <Grid item xs={4} md={4} sx={{ mb: '10px' }}>
-           <Typo variant='h1'><strong>CUSTOMER CARE</strong></Typo>
-           <Typo>FAQs</Typo>
-           <Typo>Account</Typo>
+          <Typo variant='h1'><strong>CUSTOMER CARE</strong></Typo>
+          <Typo>FAQs</Typo>
+          <Typo>Account</Typo>
         </Grid>
         <Grid item xs={4} md={4} sx={{ mb: '10px' }}>
-         <Typo variant='h1'><strong>CONNECT</strong></Typo>
-         <Typo>Instagram</Typo>
-         <Typo>Facebook</Typo>
-         <Typo>Twitter</Typo>
-         <Typo>Pinterest</Typo>
+          <Typo variant='h1'><strong>CONNECT</strong></Typo>
+          <Typo>Instagram</Typo>
+          <Typo>Facebook</Typo>
+          <Typo>Twitter</Typo>
+          <Typo>Pinterest</Typo>
         </Grid>
-        <Divider sx={{bgcolor:'primary.light',width:'100%'}} />
-        <Grid item xs={4} sx={{pb:'7px'}}>
-          <Typo><CopyrightIcon sx={{fontSize:'0.8em'}} /> 2023 Shoppers.All rights reserved</Typo>
+        <Divider sx={{ bgcolor: 'primary.light', width: '100%' }} />
+        <Grid item xs={4} sx={{ pb: '7px' }}>
+          <Typo><CopyrightIcon sx={{ fontSize: '0.8em' }} /> 2023 Shoppers.All rights reserved</Typo>
         </Grid>
         <Grid item xs={6} sx={{ pb: '7px' }}>
         </Grid>

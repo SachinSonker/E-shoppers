@@ -9,18 +9,18 @@ import { useNavigate } from 'react-router-dom';
 import './landing.css';
 
 // Functional component for a landing card
-function LandingCard(props){
+function LandingCard(props) {
     const navigate = useNavigate();
 
     // Function to navigate to the product details page
     const navigateToPDP = (itemID) => {
-        navigate('/productdetails?id='+itemID);
+        navigate('/productdetails?id=' + itemID);
     }
 
-    return(
+    return (
         <div>
             {/* Clickable card area */}
-            <CardActionArea onClick={event => {navigateToPDP(props.itemID)}}>
+            <CardActionArea onClick={event => { navigateToPDP(props.itemID) }}>
                 {/* Card component */}
                 <Card className='card-tile'>
                     {/* Card media (image) */}
@@ -33,11 +33,11 @@ function LandingCard(props){
                     <CardContent>
                         {/* Item name */}
                         <Typography className='card-title'>
-                            <b>{props.itemName.length > 30 ? props.itemName.slice(0,30)+"..." : props.itemName}</b>
+                            <b>{props.itemName.length > 30 ? props.itemName.slice(0, 30) + "..." : props.itemName}</b>
                         </Typography>
                         {/* Item price and rating */}
                         <Typography color="text.secondary">
-                            <p className='alignleft'>Price: <b>₹ {Math.round((props.itemPrice - (props.itemPrice*0.14)))}</b> <s>₹ {Math.round(props.itemStrikePrice)}</s></p>
+                            <p className='alignleft'>Price: <b>₹ {Math.round((props.itemPrice - (props.itemPrice * 0.14)))}</b> <s>₹ {Math.round(props.itemStrikePrice)}</s></p>
                             <p className='alignright'>⭐⭐⭐</p>
                         </Typography>
                     </CardContent>

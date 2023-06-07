@@ -22,6 +22,7 @@ import img2 from "../../assets/22.png";
 import img3 from "../../assets/33.png";
 import img4 from "../../assets/44.png";
 import img5 from "../../assets/55.png";
+import Login from '../Login/Login';
 
 const Item = styled("div")(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -38,130 +39,36 @@ const Item = styled("div")(({ theme }) => ({
 }));
 
 export default function CheckoutPage() {
-  //dummy data
 
-  //   const [data , setData] = useState([
-
-  // {
-
-  //     'id':1,
-
-  //     'image' : img1,
-
-  //     'name':'Chair',
-
-  //     'color':'Blue',
-
-  //     'quantity':1,
-
-  //     'unit_price':1150.00
-
-  // },
-
-  // {
-
-  //     'id':2,
-
-  //     'image' : img2,
-
-  //     'name':'Wardrobe',
-
-  //     'color':'black',
-
-  //     'quantity':1,
-
-  //     'unit_price':1245.00
-
-  // },
-
-  // {
-
-  //     'id':3,
-
-  //     'image' : img3,
-
-  //     'name':'Pen',
-
-  //     'color':'Red',
-
-  //     'quantity':1,
-
-  //     'unit_price':1352.00
-
-  // },
-
-  // {
-
-  //     'id':4,
-
-  //     'image' : img4,
-
-  //     'name':'Cycle',
-
-  //     'color':'Aqua',
-
-  //     'quantity':1,
-
-  //     'unit_price':1999.00
-
-  // },
-
-  // {
-
-  //     'id':5,
-
-  //     'image' : img5,
-
-  //     'name':'Laptop',
-
-  //     'color':'Metal Black',
-
-  //     'quantity':1,
-
-  //     'unit_price':1853.00
-
-  // }
-
-  //]);
-
+  //gettings items data from backend
   const [cartItems, setCartItems] = useState({});
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    axios
-      .get("http://10.53.97.64:8090/api/cartDetails", {
-        headers: { Authorization: "Bearer " + sessionStorage.getItem("token") },
-      })
-      .then((response) => {
-        console.log(response)
-        setCartItems(response.data);
-        setData(response.data);
-      });
+   getAllItems();
   }, []);
+
+  function getAllItems(){
+    axios
+    .get("http://10.53.97.64:8090/api/cartDetails", {
+      headers: { Authorization: "Bearer " + sessionStorage.getItem("token") },
+    })
+    .then((response) => {
+      console.log(response)
+      setCartItems(response.data);
+      setData(response.data);
+    });
+  }
 
   console.log(data);
 
-  // const [cartDetails, setcartDetails] = useState([]);
+  
 
-  // useEffect(() => {
-
-  // // axios.get("https://api.escuelajs.co/api/v1/products").then((response) => {
-
-  // axios.get("http://10.53.97.64:8090/api/cart").then((response) => {
-
-  //     setCheckoutList(response.cartDetails);
-
-  // });
-
-  // }, []);
-
-  // console.log(checkoutList)
-
-  //product increment decrement
+  //product increment 
 
   const incrementQuantity = (itemId) => {
     const updatedItems = data.map((item) => {
-      if (item.id === itemId) {
+      if (item.productId === itemId) {
         return { ...item, quantity: item.quantity + 1 };
       }
 
@@ -171,9 +78,10 @@ export default function CheckoutPage() {
     setData(updatedItems);
   };
 
+  //product decrement
   const decrementQuantity = (itemId) => {
     const updatedItems = data.map((item) => {
-      if (item.id === itemId && item.quantity > 0) {
+      if (item.productId === itemId && item.quantity > 0) {
         return { ...item, quantity: item.quantity - 1 };
       }
 
@@ -205,13 +113,40 @@ export default function CheckoutPage() {
     return subTotal;
   };
 
+  //calculating order total
+
+const OrderTotal = 100 + calculateSubTotal();
+   
+
   //deleting items
 
   const deleteItem = (itemId) => {
-    const updatedItems = data.filter((item) => item.id !== itemId);
+    console.log(itemId)
 
-    setData(updatedItems);
+    axios
+      .delete(`http://10.53.97.64:8090/api/cartDetails/${itemId}`, {
+        headers: { Authorization: "Bearer " + sessionStorage.getItem("token") },
+      })
+      .then((response) => {
+        getAllItems();
+        console.log(response)
+        setCartItems(response.data);
+        setData(response.data);
+      });
+
   };
+  const deleteAllItemFromCart =()=>{
+
+    axios.delete(`http://10.53.97.64:8090/api/cart`,{
+      headers: { Authorization: "Bearer " + sessionStorage.getItem("token") },
+    })
+    .then(response=>{
+      console.log('all item deleted')
+    }).catch(error=>{
+      console.log('Error deleting items from cart', error);
+    })
+
+  }
 
   //forms
 
@@ -243,7 +178,17 @@ export default function CheckoutPage() {
 
   const navigate = useNavigate();
 
-  //
+  //checking if a user is signed-in
+
+  // const[isSignedIn, setIsSignedIn] = useState(false);
+  // // const navigate = useNavigate();
+  // const handlePlaceOrder = () =>{
+  //   if(isSignedIn){
+  //     navigate("/SuccessPopup");
+  //   }else{
+  //     navigate("/");
+  //   }
+  // }
 
   return (
     <Box sx={{ flexGrow: 1 }} style={{ position: "sticky" }}>
@@ -393,7 +338,7 @@ export default function CheckoutPage() {
                                     </Box>
 
                                     <button
-                                      onClick={() => incrementQuantity(item.id)}
+                                      onClick={() => incrementQuantity(item.productId)}
                                       variant="contained"
                                       style={{
                                         width: 20,
@@ -409,7 +354,7 @@ export default function CheckoutPage() {
                                     </button>
 
                                     <button
-                                      onClick={() => decrementQuantity(item.id)}
+                                      onClick={() => decrementQuantity(item.productId)}
                                       variant="contained"
                                       style={{
                                         width: 20,
@@ -446,7 +391,7 @@ export default function CheckoutPage() {
                                   <Grid item xs={8}>
                                     <DeleteIcon
                                       style={{ marginLeft: 20, marginTop: 20 }}
-                                      onClick={() => deleteItem(item.id)}
+                                      onClick={() => deleteItem(item.productId)}
                                     >
                                       Remove
                                     </DeleteIcon>
@@ -474,12 +419,14 @@ export default function CheckoutPage() {
 
               <hr />
 
+              
+
               <Typography
                 variant="h6"
                 gutterBottom
                 style={{ textAlign: "Left", fontSize: 16, marginLeft: 30 }}
               >
-                Address
+                Name : {sessionStorage.getItem("name")}
               </Typography>
 
               <Typography
@@ -487,7 +434,7 @@ export default function CheckoutPage() {
                 gutterBottom
                 style={{ textAlign: "Left", fontSize: 16, marginLeft: 30 }}
               >
-                Name
+                Mobile : {sessionStorage.getItem("phone")}
               </Typography>
 
               <Typography
@@ -495,7 +442,7 @@ export default function CheckoutPage() {
                 gutterBottom
                 style={{ textAlign: "Left", fontSize: 16, marginLeft: 30 }}
               >
-                Mobile
+                Email : {sessionStorage.getItem("email")}
               </Typography>
 
               <hr />
@@ -508,6 +455,7 @@ export default function CheckoutPage() {
                   name="address1"
                   placeholder=""
                   onChange={(event) => setAddress1(event.target.value)}
+                  required
                 ></input>
 
                 <label>Address Line 2</label>
@@ -562,15 +510,15 @@ export default function CheckoutPage() {
                 variant="h6"
                 style={{ textAlign: "Left", fontSize: 14, marginLeft: 30 }}
               >
-                Shipping
+                Shipping &nbsp;<span style={{ marginRight: 135 }}></span> $100
               </Typography>
 
               <Typography
                 variant="h6"
                 style={{ textAlign: "Left", fontSize: 14, marginLeft: 30 }}
               >
-                Order Total
-              </Typography>
+               Order Total &nbsp;<span style={{ marginRight: 120 }}></span> ${OrderTotal}
+              </Typography> 
 
               <hr />
 
@@ -585,9 +533,13 @@ export default function CheckoutPage() {
                   borderRadius: 0,
                 }}
                 onClick={() => {
+                  //handlePlaceOrder();
+                  deleteAllItemFromCart();
                   console.log("redirecting.....");
                   navigate("/SuccessPopup");
-                }}
+
+                  }  
+                }
               >
                 Place Order
               </Button>

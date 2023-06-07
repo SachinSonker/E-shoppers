@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { Box, IconButton, Typography, Divider, Button } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 // import { useHistory } from 'react-router-dom';
@@ -7,6 +7,7 @@ import img2 from '../../assets/22.png';
 import img3 from '../../assets/33.png';
 import CartItem from '../Cart Item/CartItem';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const Cart = ({ onClose, itemRemove }) => {
   const navigate = useNavigate();
@@ -41,6 +42,19 @@ const Cart = ({ onClose, itemRemove }) => {
       'price': 74
     }
   ]);
+
+  useEffect(() => {
+    axios
+      .get("http://10.53.97.64:8090/api/cartDetails", {
+        headers: { Authorization: "Bearer " + sessionStorage.getItem("token") },
+      })
+      .then((response) => {
+        console.log("from cart popup",response)
+        // setCartItems(response.data);
+        // setData(response.data);
+        setAddCartObject(response.data)
+      });
+  }, []);
 
   // Handle click event for "Go to Checkout" button
   const handleClick = () => {
@@ -101,7 +115,7 @@ const Cart = ({ onClose, itemRemove }) => {
           <Box sx={{display:'flex',flexDirection:'column',marginLeft:'13px',maxHeight:'424px',overflow:'auto'}}>
             {
           addCartObject.map((data) => (
-            <CartItem item={data} image={data.srcImage} name={(data.name.length >= 12) ? (data.name.slice(0, 12) + "...") : data.name} color={data.color} size={data.size} qty={data.quantity} price={data.price} addQuantity={() => increaseQty(data.id)} removeQuantity={() => decreaseQty(data.id)} deleteItem={() => deleteProduct(data.id)}  />
+            <CartItem item={data} image={"data:image/jpeg;base64,"+data.image} name={(data.name.length >= 12) ? (data.name.slice(0, 12) + "...") : data.name} color={data.color} size={data.size} qty={data.quantity} price={data.price} addQuantity={() => increaseQty(data.id)} removeQuantity={() => decreaseQty(data.id)} deleteItem={() => deleteProduct(data.id)}  />
              ))  
             }
 

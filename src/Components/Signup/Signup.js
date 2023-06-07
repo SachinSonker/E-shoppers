@@ -78,6 +78,22 @@ export default function Signup({ onClose, signin, loggedIn }) {
       delete errors.confirmPassword;
     }
   };
+
+  async function login(){
+      const data = {
+        "userName": email,
+        "password": password,
+    }
+
+      const result = await axios.post(constants.url.user.login, data).then((res)=>{
+        sessionStorage.setItem("token",res.data.jwtToken)
+        sessionStorage.setItem("name",res.data.name)
+        sessionStorage.setItem("phone",res.data.phoneNo)
+        sessionStorage.setItem("email",res.data.email)
+
+
+    })
+  }
   // Submit form data
   const onSubmit = async (e) => {
     if (Object.keys(errors).length === 0) {
@@ -87,12 +103,14 @@ export default function Signup({ onClose, signin, loggedIn }) {
         phoneNo: phone,
         password: password,
         role: "",
+        cart : {}
       };
       // const result = await axios.post(constants.url.user.register, data);
         const result = await axios.post(constants.url.user.register, data).then((res)=>{
 
-          sessionStorage.setItem("token",res.data.jwtToken)
-
+          // sessionStorage.setItem("token",res.data.jwtToken)
+          
+          login();
           loggedIn();
 
           onClose();  

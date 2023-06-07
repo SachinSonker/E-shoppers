@@ -33,7 +33,16 @@ const CartItem = (props) => {
                         </Typography>
                     </CardContent>
                     {/* Box to display quantity controls */}
- 
+                    <Box sx={{ display: 'flex', justifyContent: 'left' }}>
+                        {/* IconButton to decrease quantity */}
+                        <IconButton sx={{ padding: '0px !important' }} onClick={() => removeQuantity(id)}>
+                            <IndeterminateCheckBoxIcon />
+                        </IconButton>
+                        {/* IconButton to increase quantity */}
+                        <IconButton sx={{ padding: '0px !important' }} onClick={() => addQuantity(id)}>
+                            <AddBoxIcon />
+                        </IconButton>
+                    </Box>
                 </Box>
                 {/* Box to display price and delete button */}
                 <Box sx={{ display: 'flex', flexDirection: 'column', width: '70px', justifyContent: 'space-between' }}>

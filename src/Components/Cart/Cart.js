@@ -40,7 +40,7 @@ const Cart = ({ onClose, itemRemove }) => {
   // Increase the quantity of a cart item
   const increaseQty = (productId) => {
     const updatedProducts = addCartObject.map((product) => {
-      if (product.id === productId) {
+      if (product.productId === productId) {
         return { ...product, quantity: product.quantity + 1 };
       }
       return product;
@@ -51,7 +51,7 @@ const Cart = ({ onClose, itemRemove }) => {
   // Decrease the quantity of a cart item
   const decreaseQty = (productId) => {
     const updatedProducts = addCartObject.map((product) => {
-      if (product.id === productId) {
+      if (product.productId === productId) {
         return {
           ...product,
           quantity: product.quantity > 0 ? product.quantity - 1 : product.quantity

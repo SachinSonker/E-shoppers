@@ -372,7 +372,7 @@ export default function CheckoutPage() {
                                       marginLeft: 25,
                                     }}
                                   >
-                                    <var className="price">${item.price}</var>
+                                    <var className="price">₹{item.price}</var>
                                   </div>
                                 </td>
 
@@ -433,7 +433,7 @@ export default function CheckoutPage() {
                                     }}
                                   >
                                     <var className="price">
-                                      $
+                                      ₹
                                       {calculateTotalPrice(
                                         item.price,
                                         item.quantity
@@ -554,7 +554,7 @@ export default function CheckoutPage() {
                 variant="h6"
                 style={{ textAlign: "Left", fontSize: 14, marginLeft: 30 }}
               >
-                Sub Total &nbsp;<span style={{ marginRight: 130 }}></span> $
+                Sub Total &nbsp;<span style={{ marginRight: 130 }}></span> ₹
                 {calculateSubTotal()}
               </Typography>
 

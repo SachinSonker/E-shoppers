@@ -14,6 +14,16 @@ function ProductDetails() {
     const [prodObj, setProdObj] = useState({});
     const [params] = useSearchParams();
     const navigate = useNavigate()
+    const size = ["S", "M", "L", "XL"];
+    const color = ["White", "Olive", "Cream"];
+
+    function getRandomItem(arr) {
+        // get random index value
+        const randomIndex = Math.floor(Math.random() * arr.length);
+        // get random item
+        const item = arr[randomIndex];
+        return item;
+    }
 
     useEffect(() => {
         axios.get(`http://10.53.97.64:8090/api/product/${params.get('id')}`).then((response) => {
@@ -27,10 +37,10 @@ function ProductDetails() {
             alert("Please Login First...")
         } else {
             const data = {
-                "color": prodObj.color[0],
+                "color": getRandomItem(color),
                 "productId": params.get('id'),
                 "quantity": 1,
-                "size": "S"
+                "size": getRandomItem(size)
             }
 
             axios.post("http://10.53.97.64:8090/api/addtocart", data, {

@@ -71,6 +71,8 @@ const Navbar = () => {
 
     const openModal = () => {
         setModalOpen(true)
+        setOpen(false)
+        setAnchorEl(null)
     }
     function closeModal() {
         setModalOpen(false)

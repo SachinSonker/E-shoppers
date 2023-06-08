@@ -8,6 +8,7 @@ import { GoogleOAuthProvider } from '@react-oauth/google';
 import SuccessPopup from './Components/SuccessPopup/SuccessPopup';
 import Navbar from './Components/Navbar/Navbar';
 import Footer from './Components/Footer/Footer';
+import OrderTracking from './Components/OrderTracking/OrderTracking';
 import { Divider } from '@mui/material';
 
 function App() {
@@ -54,6 +55,17 @@ function App() {
             <div className='App'>
               <Navbar/>
               <SuccessPopup/>
+            </div>
+              <Footer />
+            </div>
+          } />
+
+          {/* Success Popup Route */}
+          <Route path="ordertracking/*" element={
+            <div>
+            <div className='App'>
+              <Navbar/>
+              <OrderTracking/>
             </div>
               <Footer />
             </div>

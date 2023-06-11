@@ -8,7 +8,8 @@ import './ProductDetails.css';
 import Stars from "./Stars";
 import { useSearchParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 function ProductDetails() {
     const [prodObj, setProdObj] = useState({});
     const [params] = useSearchParams();
@@ -33,7 +34,14 @@ function ProductDetails() {
 
     function addToCart() {
         if (sessionStorage.getItem("token") == null) {
-            alert("Please Login First...")
+            //alert("Please Login First...")
+            toast.info('Please Login First...', {
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                theme: 'colored'
+            });
         } else {
             const data = {
                 "color": getRandomItem(color),
@@ -46,7 +54,14 @@ function ProductDetails() {
                 headers: { Authorization: "Bearer " + sessionStorage.getItem("token") }
             }).then((response) => {
                 console.log(response)
-                alert("Item added successfully...")
+                //alert("Item added successfully...")
+                toast.success('Item added successfully...', {
+                    position: "top-center",
+                    autoClose: 3000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    theme: 'colored'
+                });
             });
         }
     }
@@ -90,6 +105,7 @@ function ProductDetails() {
                         <button className="buttonstl" onClick={() => {navigate('/checkout')}}>Go To Checkout </button>
                         <button className="buttonstl" onClick={addToCart}>Add To Cart</button>
                     </div>
+                    <ToastContainer />
                 </div>
             </div>
         </div>

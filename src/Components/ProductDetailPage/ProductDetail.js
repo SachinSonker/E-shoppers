@@ -7,7 +7,6 @@ import ProductImages from "./ProductImage";
 import './ProductDetails.css';
 import Stars from "./Stars";
 import { useSearchParams } from "react-router-dom";
-import Alert from '@mui/material/Alert';
 import { useNavigate } from "react-router-dom";
 
 function ProductDetails() {
@@ -30,7 +29,7 @@ function ProductDetails() {
             console.log(response.data)
             setProdObj(response.data)
         });
-    }, [params.get('id')]);
+    }, params.get('id'));
 
     function addToCart() {
         if (sessionStorage.getItem("token") == null) {

@@ -8,7 +8,6 @@ import { GoogleOAuthProvider } from '@react-oauth/google';
 import SuccessPopup from './Components/SuccessPopup/SuccessPopup';
 import Navbar from './Components/Navbar/Navbar';
 import Footer from './Components/Footer/Footer';
-import { Divider } from '@mui/material';
 
 function App() {
   return (
@@ -28,35 +27,35 @@ function App() {
 
           {/* Product Details Route */}
           <Route path="productdetails/*" element={
-            <div>
+            <>
             <div className='App'>
               <Navbar/>
               <ProductDetails/>
             </div>
               <Footer />
-            </div>
+            </>
           } />
 
           {/* Checkout Route */}
           <Route path="checkout/*" element={
-            <div>
+            <>
             <div className='App'>
               <Navbar/>
               <CheckoutPage/>
             </div>
               <Footer />
-            </div>
+            </>
           } />
 
           {/* Success Popup Route */}
           <Route path="SuccessPopup/*" element={
-            <div>
+            <>
             <div className='App'>
               <Navbar/>
               <SuccessPopup/>
             </div>
               <Footer />
-            </div>
+            </>
           } />
         </Routes>
       </BrowserRouter>

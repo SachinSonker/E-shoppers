@@ -1,0 +1,106 @@
+.popper-container{
+    background-color: white;
+        width: 344px;
+        height: 570px;
+        border: 2px solid;
+        margin-top: 10px;
+}
+@media screen and (max-width:1000px) {
+        .popper-container{
+            height: 462px !important;
+        }
+        .box2{
+            max-height: 250px !important;
+        }
+}
+@media screen and (max-width:800px){
+        .popper-container{
+            height: 412px !important;
+        }
+        .box2{
+            max-height: 200px !important;
+        }
+}
+@media screen and (max-width:690px) {
+        .popper-container{
+            width: 200px !important;
+            height: 380px !important;
+        }  
+        .box1{
+            width: 200px !important;
+        }  
+        .box2{
+            width: 200px !important; 
+            max-height: 168px !important;
+            overflow: auto !important;
+        }                    
+        .box3{
+            width: 200px !important;
+        }                        
+}
+.box1{
+    display: flex;
+    justify-content: space-between;
+}
+.cart-title{
+                margin-top: 25px !important;
+                margin-left: 14px !important;
+                margin-bottom: 17px !important;
+                font-family: "Ovo";
+                font-style: normal;
+}
+.box2{
+    display: flex;
+    flex-direction: column;
+    max-height: 424px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.box3{
+    position: fixed;
+    top: auto;
+    bottom: 0;
+    background-color:white;
+    width: 344px;
+    height: 133px;
+    border-top: 1px solid;
+    z-index: 1000;
+}
+.totalprice-box{
+    display: flex; 
+    justify-content: space-between; 
+    margin: 12px 17px 0;
+}
+.total{
+    font-family: "Muli SemiBold";
+    font-style: normal;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 27px;
+}
+.price{
+    font-family: "Muli SemiBold";
+    font-size: 15px;
+    line-height: 27px,
+}
+.checkout-box{
+    display: flex; 
+    justify-content: center; 
+    margin-top: 12px
+}
+.checkout-button{
+    background-color: black !important;
+    color: white !important;
+    width: 70%;
+    height: 10%;
+    font-family: "Mulish" !important;
+    font-style: normal;
+    font-weight: 700 !important;
+    font-size: 1rem !important;
+    line-height: 25px !important;
+}
+.checkout-button :hover{
+    background-color: black;
+    color: white
+}
+

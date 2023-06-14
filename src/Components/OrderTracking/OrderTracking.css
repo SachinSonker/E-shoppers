@@ -1,0 +1,20 @@
+.orderDetails {
+    display: flex;
+}
+
+.orderDetails-left {
+    flex: 50%;
+}
+
+.orderDetails-right {
+    flex: 50%;
+}
+
+.icons {
+    transform: sacle(1.8)
+}
+
+.detailsCard {
+    border-radius: 15px 15px 15px 15px !important;
+    box-shadow: -5px 5px 10px 0px rgba(110,110,110,1) !important;
+}

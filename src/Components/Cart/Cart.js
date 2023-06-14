@@ -3,6 +3,7 @@ import { Box, IconButton, Typography,Button } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import CartItem from '../Cart Item/CartItem';
 import { useNavigate } from 'react-router-dom';
+import EmptyCart from './EmptyCart';
 import axios from 'axios';
 import './Cart.css';
 const Cart = ({ onClose, itemRemove }) => {
@@ -82,7 +83,7 @@ const Cart = ({ onClose, itemRemove }) => {
       <Box className='box2'>
 
         {
-          addCartObject.length === 0 ? <Typography>Your Cart is Empty</Typography> : addCartObject.map((data) => (
+          addCartObject.length === 0 ? <EmptyCart /> : addCartObject.map((data) => (
             <CartItem item={data} key={data.productId} image={"data:image/jpeg;base64," + data.image} name={(data.name.length >= 12) ? (data.name.slice(0, 12) + "...") : data.name} color={data.color} size={data.size} qty={data.quantity} price={data.price} addQuantity={() => increaseQty(data.productId)} removeQuantity={() => decreaseQty(data.productId)} deleteItem={() => deleteProduct(data.productId)} />
           ))
         }

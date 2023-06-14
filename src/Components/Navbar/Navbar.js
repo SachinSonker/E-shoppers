@@ -9,7 +9,7 @@ import Cart from '../Cart/Cart';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios'
-import EmptyCart from '../Cart/EmptyCart';
+import EmptyCartBeforeLogin from '../Cart/EmptyCartBL';
 
 const Navbar = () => {
     const [isOpen, setModalOpen] = useState(false);
@@ -128,7 +128,7 @@ const Navbar = () => {
                                     onClose={handleClose}
                                     className='popper'>
                                     {signIn ? <Cart onClose={handleClose} itemRemove={itemDelete} /> : ""}
-                                    {!signIn ? <EmptyCart onClose={handleClose} openLogin={openModal}  /> : ""}
+                                    {!signIn ? <EmptyCartBeforeLogin onClose={handleClose} openLogin={openModal}  /> : ""}
                                     </Popper>) : null}
                                 {isOpen ? <Login onClose={closeModal} registration={createAccount} loggedIn={login} /> : ""}
                                 {registration ? <Signup onClose={() => setRegistration(false)} signin={openSignIn} loggedIn={login} /> : ""}

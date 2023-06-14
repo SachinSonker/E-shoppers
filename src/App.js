@@ -10,7 +10,7 @@ import Navbar from './Components/Navbar/Navbar';
 import Footer from './Components/Footer/Footer';
 import OrderTracking from './Components/OrderTracking/OrderTracking';
 import { Divider } from '@mui/material';
-
+import { ToastContainer } from 'react-toastify';
 function App() {
   return (
     <GoogleOAuthProvider clientId="307607756850-v5ohbkpfepkgfrd2duss39nd5cse9gta.apps.googleusercontent.com">
@@ -72,6 +72,7 @@ function App() {
           } />
         </Routes>
       </BrowserRouter>
+      <ToastContainer />
     </GoogleOAuthProvider>
   );
 }

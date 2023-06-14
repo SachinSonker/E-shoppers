@@ -5,7 +5,9 @@ import Modal from '@mui/material/Modal';
 import CloseIcon from '@mui/icons-material/Close';
 import { constants } from '../../shared/constant';
 import axios from 'axios';
-import { ToastContainer, toast } from 'react-toastify';
+// import { ToastContainer, toast } from 'react-toastify';
+// import 'react-toastify/dist/ReactToastify.css';
+import { showToast } from '../../services/toastService';
 import 'react-toastify/dist/ReactToastify.css';
 export default function Signup({ onClose, signin, loggedIn }) {
 
@@ -121,23 +123,11 @@ export default function Signup({ onClose, signin, loggedIn }) {
         if (err.request.status == 403) {
 
           //alert("Invalid username or password")
-          toast.error('Invalid username or password', {
-            position: "top-center",
-            autoClose: 3000,
-            hideProgressBar: true,
-            closeOnClick: true,
-            theme: 'colored'
-          });
+          showToast('Invalid username or password', 'error');
         }
         else {
           //alert("Something went wrong!")
-          toast.error('Something went wrong!', {
-            position: "top-center",
-            autoClose: 3000,
-            hideProgressBar: true,
-            closeOnClick: true,
-            theme: 'colored'
-          });
+          showToast('Something went wrong!', 'error');
         }
 
 
@@ -213,7 +203,6 @@ export default function Signup({ onClose, signin, loggedIn }) {
                     <div className='signInBtn'>
                       <button name="signin" onClick={onSubmit}>Sign Up</button>
                     </div>
-                    <ToastContainer />
                     <div>
                       <h5>Or continue with</h5>
                     </div>

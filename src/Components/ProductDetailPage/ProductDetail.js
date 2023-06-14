@@ -8,7 +8,9 @@ import './ProductDetails.css';
 import Stars from "./Stars";
 import { useSearchParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from 'react-toastify';
+// import { ToastContainer, toast } from 'react-toastify';
+// import 'react-toastify/dist/ReactToastify.css';
+import { showToast } from '../../services/toastService';
 import 'react-toastify/dist/ReactToastify.css';
 function ProductDetails() {
     const [prodObj, setProdObj] = useState({});
@@ -35,13 +37,7 @@ function ProductDetails() {
     function addToCart() {
         if (sessionStorage.getItem("token") == null) {
             //alert("Please Login First...")
-            toast.info('Please Login First...', {
-                position: "top-center",
-                autoClose: 3000,
-                hideProgressBar: true,
-                closeOnClick: true,
-                theme: 'colored'
-            });
+            showToast('Please Login First...', 'info');
         } else {
             const data = {
                 "color": getRandomItem(color),
@@ -55,13 +51,7 @@ function ProductDetails() {
             }).then((response) => {
                 console.log(response)
                 //alert("Item added successfully...")
-                toast.success('Item added successfully...', {
-                    position: "top-center",
-                    autoClose: 3000,
-                    hideProgressBar: true,
-                    closeOnClick: true,
-                    theme: 'colored'
-                });
+                showToast('Item added successfully...', 'success');
             });
         }
     }
@@ -105,7 +95,6 @@ function ProductDetails() {
                         <button className="buttonstl" onClick={() => {navigate('/checkout')}}>Go To Checkout </button>
                         <button className="buttonstl" onClick={addToCart}>Add To Cart</button>
                     </div>
-                    <ToastContainer />
                 </div>
             </div>
         </div>

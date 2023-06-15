@@ -16,6 +16,8 @@ import { Grid } from '@mui/material';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Spinner } from '../Spinner/Spinner';
+import { NavLink } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 const slider_images = [
     { url: sliderImg1 },
@@ -76,19 +78,24 @@ const cart_object = [
 ];
 
 
+const Landing=()=>{ 
+    
+const [categories, setCategories] = useState([]);
 
-function Landing() {
-    const [productList, setProductList] = useState([]);
+            useEffect(()=>{
+                axios.get('http://10.53.97.64:8090/api/category/')
+                .then(response=>{
+                    setCategories(response.data);
+                })
+                .catch(error=>{
+                    console.log(error);
+                });
+            },[]);
 
-    useEffect(() => {
-        axios.get("http://10.53.97.64:8090/api/product/").then((response) => {
-            setProductList(response.data);
-        });
-    }, []);
+            const navigate = useNavigate();
 
-    console.log(productList)
 
-    return productList.length == 0 ? (
+    return categories.length == 0 ? (
         <Spinner />
     ) : (
         <div className='landing-page'>
@@ -104,16 +111,18 @@ function Landing() {
 
             <h4 className='page-title'>PRODUCTS</h4>
             <Grid container spacing={4} className='product-card'>
-                {productList.map((s) => (
-                    <Grid item style={{ width: "25%", padding: "0px", textAlign: "center" }}>
-                        <LandingCard itemID={s.id} itemImage={"data:image/jpeg;base64," + s.image} itemName={s.name} itemPrice={s.price} itemStrikePrice={s.price}></LandingCard>
+                {categories.map(category => (
+                    <Grid item  key={category.id} style={{ width: "25%", padding: "0px", textAlign: "center"}}>
+                    <NavLink key={category.id}  to={`/products/${category.name}`} state={{'categoryName':category.name}} style={{textTransform:'capitalize',textDecoration:'none',fontSize:'30px'}}>
+                        <LandingCard className="card-title"itemID={category.id} itemImage={"data:image/jpeg;base64," + category.image} itemName={category.name}  cardType="category"></LandingCard>
+                    </NavLink>
                     </Grid>
+                    // <Grid item style={{ width: "25%", padding: "0px", textAlign: "center" }}>
+                    //     <LandingCard key={category.id} onClick = {() = >{ navigate("/ProductPage");}} itemImage={"data:image/jpeg;base64," + category.image} itemName={category.name}>
+                    //     </LandingCard>   
+                    // </Grid>
                 ))}
-                {/* {cart_object.map((s) =>(
-                    <Grid item style={{width: "25%", padding: "0px", textAlign: "center"}}>
-                    <LandingCard itemID= {s.id} itemImage={s.src} itemName={s.name} itemPrice={s.price} itemStrikePrice={s.strike_price}></LandingCard>
-                    </Grid>
-                ))} */}
+                
             </Grid>
         </div>
     );

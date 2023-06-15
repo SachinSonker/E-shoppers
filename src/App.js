@@ -9,6 +9,7 @@ import SuccessPopup from './Components/SuccessPopup/SuccessPopup';
 import Navbar from './Components/Navbar/Navbar';
 import Footer from './Components/Footer/Footer';
 import { Divider } from '@mui/material';
+import ProductPage from './Components/LandingPageComponent/ProductPage';
 
 function App() {
   return (
@@ -24,6 +25,17 @@ function App() {
               </div>
               <Footer />
             </React.Fragment>
+          } />
+
+          {/* ProductPage */}
+          <Route path="/products/:categoryId" element={
+            <div>
+            <div className='App'>
+              <Navbar/>
+              <ProductPage/>
+            </div>
+              <Footer />
+            </div>
           } />
 
           {/* Product Details Route */}
@@ -58,6 +70,7 @@ function App() {
               <Footer />
             </div>
           } />
+          
         </Routes>
       </BrowserRouter>
     </GoogleOAuthProvider>

@@ -17,11 +17,7 @@ import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./CheckoutPage.css";
-import img1 from "../../assets/11.png";
-import img2 from "../../assets/22.png";
-import img3 from "../../assets/33.png";
-import img4 from "../../assets/44.png";
-import img5 from "../../assets/55.png";
+import cartimg from '../../assets/cart-empty-img.png';
 import Login from '../Login/Login';
 
 const Item = styled("div")(({ theme }) => ({
@@ -44,6 +40,8 @@ export default function CheckoutPage() {
   const [cartItems, setCartItems] = useState({});
   const [data, setData] = useState([]);
   const [errors, setErrors] = useState({});
+  const [unAuthorised,setUnAuthorised] = useState(false);
+  const [isCartEmpty , setIsCartEmpty] = useState(false)
 
 
   useEffect(() => {
@@ -59,7 +57,21 @@ export default function CheckoutPage() {
         console.log(response)
         setCartItems(response.data);
         setData(response.data);
-      });
+        if(response.data.length==0){
+          setIsCartEmpty(true)
+        }else{
+          setIsCartEmpty(false)
+        }
+        setUnAuthorised(false)
+
+      })
+      .catch((err)=>{
+        if(err.response.status){
+          setUnAuthorised(true)
+        }
+        console.log("My error",err)
+      })
+      ;
   }
 
   console.log(data);
@@ -193,9 +205,30 @@ export default function CheckoutPage() {
       return true
     }
   }
+  const cart_image = [
+    {
+        "id": 1,
+        "src": cartimg,
+        "name": "Cart Empty Image",
+    }
+  ]
 
   
   return (
+    <div>
+    {unAuthorised ? <div>
+      <p>Please sign in first</p>
+      </div> : ""}
+
+    {
+      isCartEmpty ? <div className="" style={{textAlign:'center',paddingTop:'80px',paddingBottom:'80px',fontFamily: "ui-serif"}}>
+                      <h1> Your Cart is Empty </h1>
+                      <img style={{marginRight:'-195px'}} src={cartimg}/>
+                      <Button variant="contained" disableElevation style={{ backgroundColor: '#8B3DFF', marginTop: 90, marginBottom: 20, borderRadius: 0, borderRadius: 5, color: 'white' }} onClick={() => { console.log("redirecting....."); navigate("/"); }}>Continue Shopping</Button>
+                    </div>
+                  : ""
+    }
+    { !unAuthorised && !isCartEmpty ?
     <Box sx={{ flexGrow: 1 }} style={{ position: "sticky" }}>
       <Grid container spacing={2}>
         <Grid xs={8}>
@@ -557,5 +590,7 @@ export default function CheckoutPage() {
         </Grid>
       </Grid>
     </Box>
+    : "" }
+    </div>
   );
 }

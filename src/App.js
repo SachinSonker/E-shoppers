@@ -8,9 +8,11 @@ import { GoogleOAuthProvider } from '@react-oauth/google';
 import SuccessPopup from './Components/SuccessPopup/SuccessPopup';
 import Navbar from './Components/Navbar/Navbar';
 import Footer from './Components/Footer/Footer';
+import OrderTracking from './Components/OrderTracking/OrderTracking';
 import { Divider } from '@mui/material';
 import ProductPage from './Components/LandingPageComponent/ProductPage';
 
+import { ToastContainer } from 'react-toastify';
 function App() {
   return (
     <GoogleOAuthProvider clientId="307607756850-v5ohbkpfepkgfrd2duss39nd5cse9gta.apps.googleusercontent.com">
@@ -20,8 +22,8 @@ function App() {
           <Route path='/' element={
             <React.Fragment>
               <div className='App'>
-                <Navbar/>
-                <Landing/>
+                <Navbar />
+                <Landing />
               </div>
               <Footer />
             </React.Fragment>
@@ -41,10 +43,10 @@ function App() {
           {/* Product Details Route */}
           <Route path="productdetails/*" element={
             <div>
-            <div className='App'>
-              <Navbar/>
-              <ProductDetails/>
-            </div>
+              <div className='App'>
+                <Navbar />
+                <ProductDetails />
+              </div>
               <Footer />
             </div>
           } />
@@ -52,10 +54,10 @@ function App() {
           {/* Checkout Route */}
           <Route path="checkout/*" element={
             <div>
-            <div className='App'>
-              <Navbar/>
-              <CheckoutPage/>
-            </div>
+              <div className='App'>
+                <Navbar />
+                <CheckoutPage />
+              </div>
               <Footer />
             </div>
           } />
@@ -63,16 +65,28 @@ function App() {
           {/* Success Popup Route */}
           <Route path="SuccessPopup/*" element={
             <div>
-            <div className='App'>
-              <Navbar/>
-              <SuccessPopup/>
+              <div className='App'>
+                <Navbar />
+                <SuccessPopup />
+              </div>
+              <Footer />
             </div>
+          } />
+
+          {/* Success Popup Route */}
+          <Route path="ordertracking/*" element={
+            <div>
+              <div className='App'>
+                <Navbar />
+                <OrderTracking />
+              </div>
               <Footer />
             </div>
           } />
           
         </Routes>
       </BrowserRouter>
+      <ToastContainer />
     </GoogleOAuthProvider>
   );
 }

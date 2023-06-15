@@ -7,9 +7,11 @@ import ProductImages from "./ProductImage";
 import './ProductDetails.css';
 import Stars from "./Stars";
 import { useSearchParams } from "react-router-dom";
-import Alert from '@mui/material/Alert';
 import { useNavigate } from "react-router-dom";
-
+// import { ToastContainer, toast } from 'react-toastify';
+// import 'react-toastify/dist/ReactToastify.css';
+import { showToast } from '../../services/toastService';
+import 'react-toastify/dist/ReactToastify.css';
 function ProductDetails() {
     const [prodObj, setProdObj] = useState({});
     const [params] = useSearchParams();
@@ -30,11 +32,12 @@ function ProductDetails() {
             console.log(response.data)
             setProdObj(response.data)
         });
-    }, [params.get('id')]);
+    }, params.get('id'));
 
     function addToCart() {
         if (sessionStorage.getItem("token") == null) {
-            alert("Please Login First...")
+            //alert("Please Login First...")
+            showToast('Please Login First...', 'info');
         } else {
             const data = {
                 "color": getRandomItem(color),
@@ -47,7 +50,8 @@ function ProductDetails() {
                 headers: { Authorization: "Bearer " + sessionStorage.getItem("token") }
             }).then((response) => {
                 console.log(response)
-                alert("Item added successfully...")
+                //alert("Item added successfully...")
+                showToast('Item added successfully...', 'success');
             });
         }
     }

@@ -5,7 +5,10 @@ import Modal from '@mui/material/Modal';
 import CloseIcon from '@mui/icons-material/Close';
 import { constants } from '../../shared/constant';
 import axios from 'axios';
-
+// import { ToastContainer, toast } from 'react-toastify';
+// import 'react-toastify/dist/ReactToastify.css';
+import { showToast } from '../../services/toastService';
+import 'react-toastify/dist/ReactToastify.css';
 export default function Signup({ onClose, signin, loggedIn }) {
 
   // State variables for form inputs and errors
@@ -119,11 +122,12 @@ export default function Signup({ onClose, signin, loggedIn }) {
 
         if (err.request.status == 403) {
 
-          alert("Invalid username or password")
-
+          //alert("Invalid username or password")
+          showToast('Invalid username or password', 'error');
         }
         else {
-          alert("Something went wrong!")
+          //alert("Something went wrong!")
+          showToast('Something went wrong!', 'error');
         }
 
 

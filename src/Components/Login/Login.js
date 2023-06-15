@@ -5,7 +5,11 @@ import Modal from '@mui/material/Modal';
 import CloseIcon from '@mui/icons-material/Close';
 import axios from 'axios';
 import { constants } from '../../shared/constant';
+// import { ToastContainer, toast } from 'react-toastify';
 
+// import 'react-toastify/dist/ReactToastify.css';
+import { showToast } from '../../services/toastService';
+import 'react-toastify/dist/ReactToastify.css';
 // Login component
 export default function Login({ onClose, registration, loggedIn }) {
     const [email, setEmail] = useState("");
@@ -62,10 +66,11 @@ export default function Login({ onClose, registration, loggedIn }) {
 
                 if (err.request.status == 401) {
 
-                    alert("Invalid username or password")
-
+                    //alert("Invalid username or password")
+                    showToast('Invalid username or password', 'error');
                 } else {
-                    alert("Something went wrong!")
+                    //alert("Something went wrong!")
+                    showToast('Something went wrong!', 'error');
                 }
 
 
@@ -114,7 +119,6 @@ export default function Login({ onClose, registration, loggedIn }) {
                                         <div className='Btn'>
                                             <button value="signin" onClick={onSubmit}>Sign In</button>
                                         </div>
-
                                         <div>
                                             <p>or continue with</p>
                                         </div>

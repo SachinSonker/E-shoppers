@@ -1,0 +1,15 @@
+Typography {
+    color: inherit;
+    margin: 5px 14px 2px;
+    font-family: "Mulish";
+    font-size: 0.5rem !important;
+}
+.grid-container{
+    position: sticky;
+    width : 100% !important;
+    height: 15%;
+    margin-top: 0px !important; 
+    margin-left: 0px !important; 
+    background-color: #000000;
+    color: white
+}

@@ -10,6 +10,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios'
 import EmptyCartBeforeLogin from '../Cart/EmptyCartBL';
+import Account from '../Account/Account';
 
 const Navbar = () => {
     const [isOpen, setModalOpen] = useState(false);
@@ -136,9 +137,10 @@ const Navbar = () => {
                         </ClickAwayListener>
                         <Box>
                             {!signIn ? <Button className='sign-in' variant='contained' onClick={openModal}>Sign In</Button> : ""}
-                            {signIn ? (<>
-                            <Button className='logout' onClick={logout}><LogoutIcon  /></Button>
-                                <IconButton className='logout-icon'  onClick={logout}><LogoutIcon sx={{ color: '#8B3DFF' }} /></IconButton>
+                        {signIn ? (<>
+                            <Account logout={logout}/>
+                            {/* <Button className='logout' onClick={logout}><LogoutIcon  /></Button> */}
+                                {/* <IconButton className='logout-icon'  onClick={logout}><LogoutIcon sx={{ color: '#8B3DFF' }} /></IconButton> */}
                             </>) : ""}
                         </Box>
                 </Toolbar >

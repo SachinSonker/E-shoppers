@@ -1,7 +1,10 @@
+
 import React from 'react';
 import { Box, Card, CardContent, CardMedia, Divider, IconButton, Typography } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import './CartItem.css'
+import IndeterminateCheckBoxIcon from '@mui/icons-material/IndeterminateCheckBox';
+import AddBoxIcon from '@mui/icons-material/AddBox';
 const CartItem = (props) => {
     let { id, image, name, color, size, qty, price, addQuantity, removeQuantity, deleteItem } = props;
     return (
@@ -33,16 +36,16 @@ const CartItem = (props) => {
                         </Typography>
                     </CardContent>
                     {/* Box to display quantity controls */}
-                    {/* <Box sx={{ display: 'flex', justifyContent: 'left' }}> */}
+                    <Box sx={{ display: 'flex', justifyContent: 'left' }}>
                         {/* IconButton to decrease quantity */}
-                        {/* <IconButton sx={{ padding: '0px !important' }} onClick={() => removeQuantity(id)}>
+                         <IconButton sx={{ padding: '0px !important' }} onClick={() => removeQuantity(id)}>
                             <IndeterminateCheckBoxIcon />
-                        </IconButton> */}
+                        </IconButton> 
                         {/* IconButton to increase quantity */}
-                        {/* <IconButton sx={{ padding: '0px !important' }} onClick={() => addQuantity(id)}>
+                         <IconButton sx={{ padding: '0px !important' }} onClick={() => addQuantity(id)}>
                             <AddBoxIcon />
-                        </IconButton> */}
-                    {/* </Box> */}
+                        </IconButton> 
+                 </Box> 
                 </Box>
                 {/* Box to display price and delete button */}
                 <Box className='card-footer'>

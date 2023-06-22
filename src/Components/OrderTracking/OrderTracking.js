@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { styled } from '@mui/material/styles';
 import Stack from '@mui/material/Stack';
@@ -7,7 +8,6 @@ import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 import Check from '@mui/icons-material/Check';
 import StepConnector, { stepConnectorClasses } from '@mui/material/StepConnector';
-
 import './OrderTracking.css';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import SettingsIcon from '@mui/icons-material/Settings';
@@ -16,18 +16,12 @@ import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import CottageIcon from '@mui/icons-material/Cottage';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-
 import image from '../../assets/download.jfif'
-
-import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import CardMedia from '@mui/material/CardMedia';
-import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
-import PlayArrowIcon from '@mui/icons-material/PlayArrow';
-import SkipNextIcon from '@mui/icons-material/SkipNext';
-import { width } from '@mui/system';
+import axios from "axios";
+import { Spinner } from '../Spinner/Spinner';
 
 const QontoStepIconRoot = styled('div')(({ theme, ownerState }) => ({
   color: theme.palette.mode === 'dark' ? theme.palette.grey[700] : '#eaeaf0',
@@ -165,9 +159,26 @@ const steps = ['Order Confirmed', 'Processing Order', 'Dispatched', 'Out for Del
 
 export default function OrderTracking() {
 
-  const theme = useTheme();
+  const [orderTrackingDetails, setOrderTrackingDetails] = useState({});
 
-  return (
+  useEffect(() => {
+    axios
+    .get("http://10.53.97.64:8090/api/trackorder/153efd9c-7577-466d-bbf6-0c15f9047319/f06f324d-8698-4865-98e0-b8531ca36410", {
+      headers: { Authorization: "Bearer " + sessionStorage.getItem("token") },
+    })
+    .then((response) => {
+      setOrderTrackingDetails(response.data)
+      console.log(response.data)
+    })
+    .catch((err)=>{
+      console.log("My error",err)
+    })
+    ;
+  }, [])
+
+  return orderTrackingDetails.length === 0 ? (
+    <Spinner />
+  ) : (
     <React.Fragment>
     <br></br>
     <br></br>
@@ -176,7 +187,8 @@ export default function OrderTracking() {
       <CardMedia
         component="img"
         sx={{ width: 350, height: 450}}
-        image={image}
+        //image={image}
+        image={"data:image/jpeg;base64,"+orderTrackingDetails.productImage}
         alt="Product Image"
       />
       <Box sx={{ display: 'flex', flexDirection: 'column', width: '100%', marginLeft: '3%' }}>
@@ -193,29 +205,29 @@ export default function OrderTracking() {
 
         <CardContent sx={{ flex: '1 0 auto' }}>
           <Typography component="div" variant="h5">
-          Stalder Transparent Lantern Head
+          {orderTrackingDetails.productName}
           </Typography>
           <br></br>
           <Typography component="div" variant="p">
-          Order ID : 28acb3-dn89h-jh83g-90ik0
+          Order ID : {orderTrackingDetails.orderId}
           </Typography>
           <Typography component="div" variant="p">
-          Name : Krishna Ravat
+          Name : {orderTrackingDetails.userName}
           </Typography>
           <Typography component="div" variant="p">
-          Email : krishna@gmail.com
+          Email : {orderTrackingDetails.email}
           </Typography>
           <Typography component="div" variant="p">
-          Contact Number : 9146645638
+          Contact Number : {orderTrackingDetails.contactNo}
           </Typography>
           <Typography component="div" variant="p">
-          Order Total : ₹ 36,000
+          Order Total : ₹ {orderTrackingDetails.orderTotal}
           </Typography>
           <Typography component="div" variant="p">
-          Delivery Address : 301, Gokul Housing Society, Jagtap Dairy, Pune - 440013
+          Address : {orderTrackingDetails.deliveryAddress}
           </Typography>
           <Typography component="div" variant="p">
-          Delivery Date : 15-06-2023
+          Delivery Date : {orderTrackingDetails.deliveryDate}
           </Typography>
         </CardContent>
       </Box>

@@ -5,22 +5,14 @@ import Typography from '@mui/material/Typography';
 import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import { CardActionArea } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
 import './landing.css';
 
 // Functional component for a landing card
 function LandingCard(props) {
-    const navigate = useNavigate();
-
-    // Function to navigate to the product details page
-    const navigateToPDP = (itemID) => {
-        navigate('/productdetails?id=' + itemID);
-    }
-
     return (
         <div>
             {/* Clickable card area */}
-            <CardActionArea onClick={event => { navigateToPDP(props.itemID) }}>
+            <CardActionArea>
                 {/* Card component */}
                 <Card className='card-tile'>
                     {/* Card media (image) */}

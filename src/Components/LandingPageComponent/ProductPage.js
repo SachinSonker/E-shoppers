@@ -3,9 +3,9 @@ import { useParams } from "react-router-dom";
 import { useLocation } from "react-router";
 import axios from "axios";
 import { Grid } from "@mui/material";
-import Card from "@mui/material/Card";
 import { useNavigate } from "react-router-dom";
 import LandingCard from "./Card";
+import { NavLink } from 'react-router-dom';
 
 const ProductPage = () => {
   const { categoryId } = useParams();
@@ -30,11 +30,6 @@ const ProductPage = () => {
     }
   }, []);
 
-  //Function to navigate to the product details page
-  const navigateToPDP = (itemID) => {
-    navigate("/productdetails?id=" + itemID);
-  };
-
   return (
     <>
       <Grid container spacing={4} className="product-card">
@@ -43,6 +38,7 @@ const ProductPage = () => {
             item key={s.id}
             style={{ width: "25%", padding: "0px", textAlign: "center" }}
           >
+          <NavLink key={s.id}  to={`/productdetails?id=${s.id}`} state={{'categoryName':s.id}}>
             <LandingCard
               itemID={s.id}
               itemImage={"data:image/jpeg;base64," + s.image}
@@ -51,6 +47,7 @@ const ProductPage = () => {
               itemStrikePrice={s.price}
               cardType="product"
             ></LandingCard>
+          </NavLink>
           </Grid>
         ))}
       </Grid>

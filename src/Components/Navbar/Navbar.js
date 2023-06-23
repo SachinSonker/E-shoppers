@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { AppBar, Toolbar, Typography, Box, Button, IconButton, Popper, TextField, Container, ClickAwayListener } from '@mui/material';
+import { AppBar, Toolbar, Typography, Box, Button, IconButton, Popper, TextField, Container, ClickAwayListener, Badge } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import Login from '../Login/Login';
@@ -115,11 +115,13 @@ const Navbar = () => {
                         </Box>
                     </Box>
                         <ClickAwayListener onClickAway={handleClickAway}>
-                            <Box>
+                        <Box>
+                        
                                 <Button className='cart-button' variant="contained" endIcon={<ShoppingBagIcon />} onClick={handleClick('bottom')}>
                                     <Typography className='my-cart'>My Cart</Typography>
                                 </Button>
                                 <IconButton className='cart-icon' onClick={handleClick('bottom')}><ShoppingBagIcon sx={{ color: '#8B3DFF' }} /></IconButton>
+                            
                                 {open ? (<Popper
                                     open={open}
                                     disablePortal={false}
@@ -128,7 +130,9 @@ const Navbar = () => {
                                     placement={placement}
                                     onClose={handleClose}
                                     className='popper'>
-                                    {signIn ? <Cart onClose={handleClose} itemRemove={itemDelete} /> : ""}
+                                {signIn ?
+                                        <Cart onClose={handleClose} itemRemove={itemDelete} />
+                                    : ""}
                                     {!signIn ? <EmptyCartBeforeLogin onClose={handleClose} openLogin={openModal}  /> : ""}
                                     </Popper>) : null}
                                 {isOpen ? <Login onClose={closeModal} registration={createAccount} loggedIn={login} /> : ""}

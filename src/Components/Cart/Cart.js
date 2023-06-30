@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import EmptyCart from './EmptyCart';
 import axios from 'axios';
 import './Cart.css';
-const Cart = ({ onClose, itemRemove,cartLength }) => {
+const Cart = ({ onClose, itemRemove }) => {
   const navigate = useNavigate();
   
   // State to store the cart items
@@ -16,9 +16,6 @@ const Cart = ({ onClose, itemRemove,cartLength }) => {
   useEffect(() => {
     getAllCartItems();
   }, []);
-  //console.log(addCartObject);
-  cartLength = addCartObject.length;
-  //console.log(cartLength);
   const getAllCartItems = () => {
     axios
       .get("http://10.53.97.64:8090/api/cartDetails", {
@@ -73,12 +70,13 @@ const Cart = ({ onClose, itemRemove,cartLength }) => {
       })
     itemRemove()
   }
-  const calculateTotal = addCartObject.reduce((acc, item) => acc + item.quantity * (item.price - (item.price*0.14)), 0)
+  const calculateTotal = addCartObject.reduce((acc, item) => acc + item.quantity * (item.price - (item.price * 0.14)), 0)
+  //cartLength(addCartObject.length)
   return (
     <Box className='popper-container'>
       <Box className='box1'>
         <Typography className='cart-title'>
-          Your Bag ({cartLength} items)
+          Your Bag ({addCartObject.length} items)
         </Typography>
         <IconButton sx={{ marginTop: '12px', marginRight: '15px', '&: hover': { backgroundColor: 'white' } }} onClick={onClose}><CloseIcon /></IconButton>
       </Box>

@@ -19,7 +19,7 @@ const Navbar = () => {
     const [placement, setPlacement] = useState();
     const [open, setOpen] = useState(false);
     const [anchorEl, setAnchorEl] = useState(null);
-    const [noOfItem, setItem] = useState(3);
+    const [noOfItem, setItem] = useState(0);
     const [showOption, setShowOption] = useState(false)
     const [optionList, setOptionList] = useState([])
     const navigate = useNavigate();
@@ -118,7 +118,7 @@ const Navbar = () => {
                         <Box>
                         
                                 <Button className='cart-button' variant="contained" endIcon={<ShoppingBagIcon />} onClick={handleClick('bottom')}>
-                                    <Typography className='my-cart'>My Cart</Typography>
+                                <Typography className='my-cart'>My Cart</Typography>
                                 </Button>
                                 <IconButton className='cart-icon' onClick={handleClick('bottom')}><ShoppingBagIcon sx={{ color: '#8B3DFF' }} /></IconButton>
                             
@@ -131,7 +131,7 @@ const Navbar = () => {
                                     onClose={handleClose}
                                     className='popper'>
                                 {signIn ?
-                                        <Cart onClose={handleClose} itemRemove={itemDelete} />
+                                    <Cart onClose={handleClose} itemRemove={itemDelete} />
                                     : ""}
                                     {!signIn ? <EmptyCartBeforeLogin onClose={handleClose} openLogin={openModal}  /> : ""}
                                     </Popper>) : null}

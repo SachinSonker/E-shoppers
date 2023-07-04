@@ -11,6 +11,7 @@ import Footer from './Components/Footer/Footer';
 import OrderTracking from './Components/OrderTracking/OrderTracking';
 import { Divider } from '@mui/material';
 import ProductPage from './Components/LandingPageComponent/ProductPage';
+import Orders from './Components/Orders/Orders';
 
 import { ToastContainer } from 'react-toastify';
 function App() {
@@ -35,6 +36,17 @@ function App() {
             <div className='App'>
               <Navbar/>
               <ProductPage/>
+            </div>
+              <Footer />
+            </div>
+          } />
+
+          {/* OrdersPage */}
+          <Route path="/Orders" element={
+            <div>
+            <div className='App'>
+              <Navbar/>
+              <Orders />
             </div>
               <Footer />
             </div>

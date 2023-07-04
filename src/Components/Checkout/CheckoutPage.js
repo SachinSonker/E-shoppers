@@ -578,8 +578,6 @@ export default function CheckoutPage() {
                     navigate("/SuccessPopup");
                   }
                   console.log("redirecting.....");
-                  
-
                 }
                 }
               >

@@ -36,28 +36,35 @@ const Cart = ({ onClose, itemRemove }) => {
   };
 
   // Increase the quantity of a cart item
-  const increaseQty = (productId) => {
-    const updatedProducts = addCartObject.map((product) => {
-      if (product.productId === productId) {
-        return { ...product, quantity: product.quantity + 1 };
-      }
-      return product;
-    });
-    setAddCartObject(updatedProducts);
+  const increaseQty = (productId,quantity) => {
+    axios
+      .put("http://10.53.97.64:8090/api/cartDetails", {
+        productId:productId,
+        quantity: quantity + 1
+      }, {
+        headers: { Authorization: "Bearer " + sessionStorage.getItem("token") },
+      })
+      .then((response) => {
+        console.log("From increase quantity",response)
+        // setAddCartObject(response.data)
+        getAllCartItems()
+      })
   };
 
   // Decrease the quantity of a cart item
-  const decreaseQty = (productId) => {
-    const updatedProducts = addCartObject.map((product) => {
-      if (product.productId === productId) {
-        return {
-          ...product,
-          quantity: product.quantity > 0 ? product.quantity - 1 : product.quantity
-        };
-      }
-      return product;
-    });
-    setAddCartObject(updatedProducts);
+  const decreaseQty = (productId,quantity) => {
+    axios
+      .put("http://10.53.97.64:8090/api/cartDetails", {
+        productId: productId,
+        quantity: quantity > 0 ? quantity - 1 : quantity
+      }, {
+        headers: { Authorization: "Bearer " + sessionStorage.getItem("token") },
+      })
+      .then((response) => {
+        console.log("From decrease quantity", response)
+        // setAddCartObject(response.data)
+        getAllCartItems()
+      })
   };
 
   // Delete a cart item
@@ -85,7 +92,7 @@ const Cart = ({ onClose, itemRemove }) => {
 
         {
           addCartObject.length === 0 ? <EmptyCart /> : addCartObject.map((data) => (
-            <CartItem item={data} key={data.productId} image={"data:image/jpeg;base64," + data.image} name={(data.name.length >= 12) ? (data.name.slice(0, 12) + "...") : data.name} color={data.color} size={data.size} qty={data.quantity} price={data.price} addQuantity={() => increaseQty(data.productId)} removeQuantity={() => decreaseQty(data.productId)} deleteItem={() => deleteProduct(data.productId)} />
+            <CartItem item={data} key={data.productId} image={"data:image/jpeg;base64," + data.image} name={(data.name.length >= 12) ? (data.name.slice(0, 12) + "...") : data.name} color={data.color} size={data.size} qty={data.quantity} price={data.price} addQuantity={() => increaseQty(data.productId,data.quantity)} removeQuantity={() => decreaseQty(data.productId,data.quantity)} deleteItem={() => deleteProduct(data.productId)} />
           ))
         }
 

@@ -3,9 +3,11 @@ import {React,useState} from 'react'
 import AccountAvatars from '../Avatar/Avatar'
 import OutboxIcon from '@mui/icons-material/Outbox';
 import LogoutIcon from '@mui/icons-material/Logout';
+import { useNavigate } from 'react-router-dom';
 const Account = ({logout}) => {
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
+    const navigate = useNavigate()
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
@@ -55,7 +57,7 @@ const Account = ({logout}) => {
           <MenuItem>
             <Avatar sx={{ bgcolor:'#8B3DFF'}}/> My Profile
           </MenuItem>  
-          <MenuItem>
+          <MenuItem onClick={()=>{navigate('/orders')}}>
             <ListItemIcon>
               <OutboxIcon sx={{ color: '#8B3DFF' }} />
             </ListItemIcon>

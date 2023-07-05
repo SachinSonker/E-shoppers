@@ -36,16 +36,16 @@ const CartItem = (props) => {
                         </Typography>
                     </CardContent>
                     {/* Box to display quantity controls */}
-                    <Box sx={{ display: 'flex', justifyContent: 'left' }}>
+                    {/* <Box sx={{ display: 'flex', justifyContent: 'left' }}> */}
                         {/* IconButton to decrease quantity */}
-                         <IconButton sx={{ padding: '0px !important' }} onClick={() => removeQuantity(id)}>
-                            <IndeterminateCheckBoxIcon />
-                        </IconButton> 
+                         {/* <IconButton sx={{ padding: '0px !important' }} onClick={() => removeQuantity(id)}> */}
+                            {/* <IndeterminateCheckBoxIcon /> */}
+                        {/* </IconButton>  */}
                         {/* IconButton to increase quantity */}
-                         <IconButton sx={{ padding: '0px !important' }} onClick={() => addQuantity(id)}>
-                            <AddBoxIcon />
-                        </IconButton> 
-                 </Box> 
+                         {/* <IconButton sx={{ padding: '0px !important' }} onClick={() => addQuantity(id)}> */}
+                            {/* <AddBoxIcon /> */}
+                        {/* </IconButton>  */}
+                 {/* </Box>  */}
                 </Box>
                 {/* Box to display price and delete button */}
                 <Box className='card-footer'>

@@ -56,7 +56,7 @@ const Cart = ({ onClose, itemRemove }) => {
     axios
       .put("http://10.53.97.64:8090/api/cartDetails", {
         productId: productId,
-        quantity: quantity > 0 ? quantity - 1 : quantity
+        quantity: quantity > 0 ? quantity - 1 : deleteProduct(productId)
       }, {
         headers: { Authorization: "Bearer " + sessionStorage.getItem("token") },
       })

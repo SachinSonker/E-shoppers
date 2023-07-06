@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Typography, IconButton, Link, Button } from '@mui/material'
+import { Box, Typography, IconButton, Button } from '@mui/material'
 import LoginIcon from '@mui/icons-material/Login';
 import CloseIcon from '@mui/icons-material/Close';
 import EmptyCartImage from './EmptyCartImage';
@@ -19,8 +19,8 @@ const EmptyCartBeforeLogin = ({ onClose, openLogin }) => {
                     <Typography sx={{ fontSize: '0.8rem'}}>Please LogIn to view the previously added item</Typography>
                 </Box>
                 <Box sx={{ display: 'flex',flexDirection:'row',justifyContent:'space-around' }}> 
-                    <Button startIcon={<ArrowBackIcon />} sx={{border: '1px solid #8B3DFF', color: 'white !important',backgroundColor: '#8B3DFF !important',textTransform:'none',margin:'10px 0 10px' }}>Continue Shopping</Button>
-                    <Button startIcon={<LoginIcon />} sx={{ border: '1px solid #8B3DFF', color: 'white !important', backgroundColor: '#8B3DFF !important', textTransform: 'none', margin: '10px 0 10px' }} onClick={openLogin}>LogIn</Button>
+                    {/* <Button startIcon={<ArrowBackIcon />} sx={{ border: '1px solid #8B3DFF', color: 'white !important', backgroundColor: '#8B3DFF !important', textTransform: 'none', margin: '10px 0 10px'}} >Continue Shopping</Button> */}
+                    <Button startIcon={<LoginIcon />} sx={{ border: '1px solid #8B3DFF', color: 'white !important', backgroundColor: '#8B3DFF !important', textTransform: 'none', margin: '10px 0 10px', width:'30%' }} onClick={openLogin}>LogIn</Button>
                 </Box>
             </Box>
         </div>

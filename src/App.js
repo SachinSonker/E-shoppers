@@ -9,11 +9,11 @@ import SuccessPopup from './Components/SuccessPopup/SuccessPopup';
 import Navbar from './Components/Navbar/Navbar';
 import Footer from './Components/Footer/Footer';
 import OrderTracking from './Components/OrderTracking/OrderTracking';
-import { Divider } from '@mui/material';
 import ProductPage from './Components/LandingPageComponent/ProductPage';
 import Orders from './Components/Orders/Orders';
 
 import { ToastContainer } from 'react-toastify';
+import Wishlist from './Components/Wishlist/Wishlist';
 function App() {
   return (
     <GoogleOAuthProvider clientId="307607756850-v5ohbkpfepkgfrd2duss39nd5cse9gta.apps.googleusercontent.com">
@@ -95,7 +95,15 @@ function App() {
               <Footer />
             </div>
           } />
-          
+          <Route path="wishlist/*" element={
+            <div>
+              <div className='App'>
+                <Navbar />
+                <Wishlist />
+              </div>
+              <Footer />
+            </div>
+          } />
         </Routes>
       </BrowserRouter>
       <ToastContainer />

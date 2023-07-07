@@ -1,0 +1,13 @@
+.wishlist-header{
+    display: flex;
+    justify-content: space-between;
+}
+.wishlist-title{
+        font-family: "Palanquin Dark" !important;
+        font-style: normal;
+        font-weight: 400 !important;
+        font-size: 48px !important;
+        line-height: 25px !important;
+        letter-spacing: -0.055em !important;
+        color: black;
+}

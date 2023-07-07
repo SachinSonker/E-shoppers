@@ -75,28 +75,27 @@ export default function CheckoutPage() {
   console.log(data);
 
   //product increment 
-  const incrementQuantity = (itemId) => {
-    const updatedItems = data.map((item) => {
-      if (item.productId === itemId) {
-        return { ...item, quantity: item.quantity + 1 };
-      }
-
-      return item;
-    });
-
-    setData(updatedItems);
+  const incrementQuantity = (itemId,quantity) => {
+    axios
+      .put("http://10.53.97.64:8090/api/cartDetails", {
+        productId: itemId,
+        quantity: quantity + 1
+      }, {
+        headers: { Authorization: "Bearer " + sessionStorage.getItem("token") },
+      })
+      .then((response) => {
+        console.log("From increase quantity", response)
+        // setAddCartObject(response.data)
+        getAllItems()
+      })
   };
 
   //product decrement
-  const decrementQuantity = (itemId) => {
-    const updatedItems = data.map((item) => {
-      if (item.productId === itemId && item.quantity > 0) {
-        return { ...item, quantity: item.quantity - 1 };
-      }
-      return item;
-    });
-
-    setData(updatedItems);
+  const decrementQuantity = (itemId,quantity) => {
+    console.log(quantity, "Decrease request");
+    quantity > 1
+      ? updateCartItem(itemId, quantity)
+      : deleteItem(itemId) 
   };
 
   //Payment
@@ -150,6 +149,21 @@ export default function CheckoutPage() {
       return response.data
       // setOrderList(response.data);
     });
+  }
+
+  const updateCartItem = (itemId, quantity) => {
+    axios
+      .put("http://10.53.97.64:8090/api/cartDetails", {
+        productId: itemId,
+        quantity: quantity - 1
+      }, {
+        headers: { Authorization: "Bearer " + sessionStorage.getItem("token") },
+      })
+      .then((response) => {
+        console.log("From decrease quantity", response)
+        // setAddCartObject(response.data)
+        getAllItems()
+      })
   }
 
   // Order place
@@ -403,7 +417,7 @@ export default function CheckoutPage() {
                                         </Box>
 
                                         <button
-                                          onClick={() => incrementQuantity(item.productId)}
+                                          onClick={() => incrementQuantity(item.productId,item.quantity)}
                                           variant="contained"
                                           style={{
                                             width: 20,
@@ -419,7 +433,7 @@ export default function CheckoutPage() {
                                         </button>
 
                                         <button
-                                          onClick={() => decrementQuantity(item.productId)}
+                                          onClick={() => decrementQuantity(item.productId,item.quantity)}
                                           variant="contained"
                                           style={{
                                             width: 20,

@@ -90,10 +90,16 @@ export default function CheckoutPage() {
 
   //product decrement
   const decrementQuantity = (itemId,quantity) => {
+    console.log(quantity, "Decrease request");
+    quantity > 1
+      ? updateCartItem(itemId, quantity)
+      : deleteItem(itemId) 
+  };
+  const updateCartItem = (itemId, quantity) => {
     axios
       .put("http://10.53.97.64:8090/api/cartDetails", {
         productId: itemId,
-        quantity: quantity > 0 ? quantity - 1 : quantity
+        quantity: quantity - 1
       }, {
         headers: { Authorization: "Bearer " + sessionStorage.getItem("token") },
       })
@@ -102,8 +108,7 @@ export default function CheckoutPage() {
         // setAddCartObject(response.data)
         getAllItems()
       })
-  };
-
+  }
   // Order place
   const handlePlaceOrder = () => {
     axios.post(`http://10.53.97.64:8090/api/placeorder/${OrderTotal}/${address1 + ', ' + address2}`, {}, {

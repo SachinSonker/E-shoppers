@@ -52,11 +52,17 @@ const Cart = ({ onClose, itemRemove }) => {
   };
 
   // Decrease the quantity of a cart item
-  const decreaseQty = (productId,quantity) => {
+  const decreaseQty = (productId, quantity) => {
+    console.log(quantity, "Decrease request");
+    quantity > 1   
+    ? updateCartItem(productId, quantity)
+    : deleteProduct(productId)  
+  };
+  const updateCartItem = (productId,quantity) => {
     axios
       .put("http://10.53.97.64:8090/api/cartDetails", {
         productId: productId,
-        quantity: quantity > 0 ? quantity - 1 : deleteProduct(productId)
+        quantity: quantity - 1
       }, {
         headers: { Authorization: "Bearer " + sessionStorage.getItem("token") },
       })
@@ -65,7 +71,7 @@ const Cart = ({ onClose, itemRemove }) => {
         // setAddCartObject(response.data)
         getAllCartItems()
       })
-  };
+  }
 
   // Delete a cart item
   const deleteProduct = (productId) => {

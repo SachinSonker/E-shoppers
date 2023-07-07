@@ -6,6 +6,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useState, useEffect } from "react";
+import useRazorpay from "react-razorpay";
 import {
   CountryDropdown,
   RegionDropdown
@@ -25,6 +26,7 @@ const Item = styled("div")(({ theme }) => ({
 }));
 
 export default function CheckoutPage() {
+  const Razorpay = useRazorpay();
   const [cartItems, setCartItems] = useState({});
   const [data, setData] = useState([]);
   const [errors, setErrors] = useState({});
@@ -97,13 +99,67 @@ export default function CheckoutPage() {
     setData(updatedItems);
   };
 
-  // Order place
-  const handlePlaceOrder = () => {
-    axios.post(`http://10.53.97.64:8090/api/placeorder/${OrderTotal}/${address1 + ', ' + address2}`, {}, {
+  //Payment
+  const handlePayment = async (orderId, OrderTotal) => {
+    //const order = await createOrder(params); //  Create order on your backend
+  
+    const options = {
+      key: "rzp_test_DHE0D98Cg7lMgY", // Enter the Key ID generated from the Dashboard
+      amount: OrderTotal*100, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+      currency: "INR",
+      name: "Shoppers",
+      order_id: orderId, //This is a sample Order ID. Pass the `id` obtained in the response of createOrder().
+      handler: function (response) {
+        // alert(response.razorpay_payment_id);
+        // alert(response.razorpay_order_id);
+        // alert(response.razorpay_signature);
+        if (validate()) {
+          handleOrder(orderId)
+        }
+        console.log("redirecting.....");
+      },
+      theme: {
+        color: "#3399cc",
+      },
+    };
+  
+    const rzp1 = new Razorpay(options);
+  
+    rzp1.on("payment.failed", function (response) {
+      alert(response.error.code);
+      alert(response.error.description);
+      alert(response.error.source);
+      alert(response.error.step);
+      alert(response.error.reason);
+      alert(response.error.metadata.order_id);
+      alert(response.error.metadata.payment_id);
+    });
+  
+    rzp1.open();
+  };
+
+  const handleOrder = (orderId) => {
+    axios.post(`http://10.53.97.64:8090/api/placeorder`, {
+      "address": address1 + ', ' + address2,
+      "orderId": orderId,
+      "totalAmount": OrderTotal
+    }, {
       headers: { Authorization: "Bearer " + sessionStorage.getItem("token") },
     }).then((response) => {
-      console.log(response.data)
+      navigate("/SuccessPopup");
+      return response.data
       // setOrderList(response.data);
+    });
+  }
+
+  // Order place
+  const handleOrderId = () => {
+    axios.get(`http://10.53.97.64:8090/api/payment/${OrderTotal}`, {
+      headers: { Authorization: "Bearer " + sessionStorage.getItem("token") },
+    }).then((response) => {
+      console.log(response.data, "Inside")
+      handlePayment(response.data, OrderTotal);
+      return response.data
     });
   }
 
@@ -541,12 +597,13 @@ export default function CheckoutPage() {
                       borderRadius: 0,
                     }}
                     onClick={() => {
-                      handlePlaceOrder();
+                      const orderId = handleOrderId();
                       //deleteAllItemFromCart();
-                      if (validate()) {
-                        navigate("/SuccessPopup");
-                      }
-                      console.log("redirecting.....");
+
+                      // if (validate()) {
+                      //   navigate("/SuccessPopup");
+                      // }
+                      // console.log("redirecting.....");
                     }
                     }
                   >

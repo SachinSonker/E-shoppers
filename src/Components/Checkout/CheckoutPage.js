@@ -17,8 +17,11 @@ import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./CheckoutPage.css";
-import cartimg from '../../assets/cart-empty-img.png';
-import Login from '../Login/Login';
+import cartimg from "../../assets/cart-empty-img.png";
+import Login from "../Login/Login";
+import Coupon from "../Coupon/Coupon";
+import Modal from "@mui/material/Modal";
+
 
 const Item = styled("div")(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -35,18 +38,20 @@ const Item = styled("div")(({ theme }) => ({
 }));
 
 export default function CheckoutPage() {
-
   //gettings items data from backend
   const [cartItems, setCartItems] = useState({});
   const [data, setData] = useState([]);
   const [errors, setErrors] = useState({});
-  const [unAuthorised,setUnAuthorised] = useState(false);
-  const [isCartEmpty , setIsCartEmpty] = useState(false)
+  const [unAuthorised, setUnAuthorised] = useState(false);
+  const [isCartEmpty, setIsCartEmpty] = useState(false);
 
+  const [hasRender, setRender] = useState(false);
+  const onShow = (() => setRender(true));
+  const onClose = (() => {setRender(false);});
 
   useEffect(() => {
     getAllItems();
-  }, []);
+  }, [hasRender]);
 
   function getAllItems() {
     axios
@@ -54,32 +59,27 @@ export default function CheckoutPage() {
         headers: { Authorization: "Bearer " + sessionStorage.getItem("token") },
       })
       .then((response) => {
-        console.log(response)
+        console.log(response);
         setCartItems(response.data);
         setData(response.data);
-        if(response.data.length==0){
-          setIsCartEmpty(true)
-        }else{
-          setIsCartEmpty(false)
+        if (response.data.length == 0) {
+          setIsCartEmpty(true);
+        } else {
+          setIsCartEmpty(false);
         }
-        setUnAuthorised(false)
-
+        setUnAuthorised(false);
       })
-      .catch((err)=>{
-        if(err.response.status){
-          setUnAuthorised(true)
+      .catch((err) => {
+        if (err.response) {
+          setUnAuthorised(true);
         }
-        console.log("My error",err)
-      })
-      ;
+        console.log("My error", err);
+      });
   }
 
   console.log(data);
 
-
-
-  //product increment 
-  
+  //product increment
 
   const incrementQuantity = (itemId) => {
     const updatedItems = data.map((item) => {
@@ -122,21 +122,22 @@ export default function CheckoutPage() {
     let subTotal = 0;
 
     data.map((item) => {
-      subTotal += (item.price - item.price*0.14) * item.quantity;
+      subTotal += (item.price - item.price * 0.14) * item.quantity;
     });
 
     return Math.round(subTotal);
   };
 
   //calculating order total
-
-  const OrderTotal = 100 + calculateSubTotal();
-
+  
+ 
+    const OrderTotal = 100 + calculateSubTotal();
+   
 
   //deleting items
 
   const deleteItem = (itemId) => {
-    console.log(itemId)
+    console.log(itemId);
 
     axios
       .delete(`http://10.53.97.64:8090/api/cartDetails/${itemId}`, {
@@ -144,27 +145,26 @@ export default function CheckoutPage() {
       })
       .then((response) => {
         getAllItems();
-        console.log(response)
+        console.log(response);
         setCartItems(response.data);
         setData(response.data);
-        alert('Are you sure You want to delete this Item...');
+        alert("Are you sure You want to delete this Item...");
       });
-
   };
 
   //clearing cart on placing order
   const deleteAllItemFromCart = () => {
-
-    axios.delete(`http://10.53.97.64:8090/api/cart`, {
-      headers: { Authorization: "Bearer " + sessionStorage.getItem("token") },
-    })
-      .then(response => {
-        console.log('all item deleted')
-      }).catch(error => {
-        console.log('Error deleting items from cart', error);
+    axios
+      .delete(`http://10.53.97.64:8090/api/cart`, {
+        headers: { Authorization: "Bearer " + sessionStorage.getItem("token") },
       })
-
-  }
+      .then((response) => {
+        console.log("all item deleted");
+      })
+      .catch((error) => {
+        console.log("Error deleting items from cart", error);
+      });
+  };
 
   //forms
 
@@ -196,399 +196,496 @@ export default function CheckoutPage() {
 
   const navigate = useNavigate();
 
-  function validate(){
-    if(address1=="" || address2=="" || postalcode==""){
+  function validate() {
+    if (address1 == "" || address2 == "" || postalcode == "") {
       setErrors({ ...errors, ["invalid"]: "Required" });
-      return false
-    }else{
-      delete errors.invalid
-      return true
+      return false;
+    } else {
+      delete errors.invalid;
+      return true;
     }
   }
   const cart_image = [
     {
-        "id": 1,
-        "src": cartimg,
-        "name": "Cart Empty Image",
-    }
-  ]
+      id: 1,
+      src: cartimg,
+      name: "Cart Empty Image",
+    },
+  ];
 
-  
   return (
     <div>
-    {unAuthorised ? <div>
-      <p>Please sign in first</p>
-      </div> : ""}
+      {unAuthorised ? (
+        <div>
+          <p>Please sign in first</p>
+        </div>
+      ) : (
+        ""
+      )}
 
-    {
-      isCartEmpty ? <div className="" style={{textAlign:'center',paddingTop:'80px',paddingBottom:'80px',fontFamily: "ui-serif"}}>
-                      <h1> Your Cart is Empty </h1>
-                      <img style={{marginRight:'-195px'}} src={cartimg}/>
-                      <Button variant="contained" disableElevation style={{ backgroundColor: '#8B3DFF', marginTop: 90, marginBottom: 20, borderRadius: 0, borderRadius: 5, color: 'white' }} onClick={() => { console.log("redirecting....."); navigate("/"); }}>Continue Shopping</Button>
-                    </div>
-                  : ""
-    }
-    { !unAuthorised && !isCartEmpty ?
-    <Box sx={{ flexGrow: 1 }} style={{ position: "sticky" }}>
-      <Grid container spacing={2}>
-        <Grid xs={8}>
-          <Item style={{ borderRadius: 0, border: "none" }}>
-            <section className="section-pagetop bg">
-              <div className="container">
-                <h2
-                  className="title-page"
-                  style={{
-                    textAlign: "Left",
-                    paddingLeft: 75,
-                    fontSize: 30,
-                    fontWeight: 400,
-                    fontFamily: "ui-serif",
-                  }}
-                >
-                  Your Shopping Bag
-                </h2>
-              </div>
-            </section>
+      {isCartEmpty ? (
+        <div
+          className=""
+          style={{
+            textAlign: "center",
+            paddingTop: "80px",
+            paddingBottom: "80px",
+            fontFamily: "ui-serif",
+          }}
+        >
+          <h1> Your Cart is Empty </h1>
+          <img style={{ marginRight: "-195px" }} src={cartimg} />
+          <Button
+            variant="contained"
+            disableElevation
+            style={{
+              backgroundColor: "#8B3DFF",
+              marginTop: 90,
+              marginBottom: 20,
+              borderRadius: 0,
+              borderRadius: 5,
+              color: "white",
+            }}
+            onClick={() => {
+              console.log("redirecting.....");
+              navigate("/");
+            }}
+          >
+            Continue Shopping
+          </Button>
+        </div>
+      ) : (
+        ""
+      )}
+      {!unAuthorised && !isCartEmpty ? (
+        <Box sx={{ flexGrow: 1 }} style={{ position: "sticky" }}>
+          <Grid container spacing={2}>
+            <Grid xs={8}>
+              <Item style={{ borderRadius: 0, border: "none" }}>
+                <section className="section-pagetop bg">
+                  <div className="container">
+                    <h2
+                      className="title-page"
+                      style={{
+                        textAlign: "Left",
+                        paddingLeft: 75,
+                        fontSize: 30,
+                        fontWeight: 400,
+                        fontFamily: "ui-serif",
+                      }}
+                    >
+                      Your Shopping Bag
+                    </h2>
+                  </div>
+                </section>
 
-            <section className="section-content padding-y">
-              <div className="container">
-                <div className="row">
-                  <main className="col-md-9">
-                    <div className="card">
-                      <table className="table table-borderless table-shopping-cart">
-                        <thead
-                          className="text-muted"
-                          style={{ backgroundColor: "#8B3DFF", color: "white" }}
-                        >
-                          <tr className="small text-uppercase">
-                            <th className="table_heading" scope="col">
-                              Product Name
-                            </th>
-
-                            <th
-                              className="table_heading"
-                              scope="col"
-                              width="120"
+                <section className="section-content padding-y">
+                  <div className="container">
+                    <div className="row">
+                      <main className="col-md-9">
+                        <div className="card">
+                          <table className="table table-borderless table-shopping-cart">
+                            <thead
+                              className="text-muted"
+                              style={{
+                                backgroundColor: "#8B3DFF",
+                                color: "white",
+                              }}
                             >
-                              Unit Price
-                            </th>
+                              <tr className="small text-uppercase">
+                                <th className="table_heading" scope="col">
+                                  Product Name
+                                </th>
 
-                            <th
-                              className="table_heading"
-                              scope="col"
-                              width="120"
-                            >
-                              Qunatity
-                            </th>
+                                <th
+                                  className="table_heading"
+                                  scope="col"
+                                  width="120"
+                                >
+                                  Unit Price
+                                </th>
 
-                            <th
-                              className="table_heading"
-                              scope="col"
-                              width="120"
-                            >
-                              Sub Total
-                            </th>
+                                <th
+                                  className="table_heading"
+                                  scope="col"
+                                  width="120"
+                                >
+                                  Qunatity
+                                </th>
 
-                            <th
-                              className="table_heading"
-                              scope="col"
-                              width="120"
-                            >
-                              Remove
-                            </th>
-                          </tr>
-                        </thead>
+                                <th
+                                  className="table_heading"
+                                  scope="col"
+                                  width="120"
+                                >
+                                  Sub Total
+                                </th>
 
-                        <tbody>
-                          {data.map((item) => {
-                            return (
-                              <tr key={item.id}>
-                                <td>
-                                  <figure
-                                    className="itemside"
-                                    style={{ display: "flex" }}
-                                  >
-                                    <div className="aside">
-                                      <img
-                                        src={"data:image/jpeg;base64," + item.image}
-                                        style={{ width: 100, height: 100 }}
-                                      />
-                                    </div>
-
-                                    <figcaption
-                                      className="info"
-                                      style={{ padding: 5 }}
-                                    >
-                                      <a
-                                        href="#"
-                                        className="title text-dark"
-                                        style={{
-                                          textDecoration: "none",
-                                          color: "black",
-                                          fontSize: 16,
-                                          fontFamily: "ui-serif",
-                                        }}
-                                      >
-                                        {item.name.length > 10 ? item.name.slice(0,10)+"..." : item.name}
-                                      </a>
-
-                                      <p
-                                        className="text-muted small"
-                                        style={{
-                                          textDecoration: "none",
-                                          color: "black",
-                                          fontSize: 16,
-                                          fontFamily: "ui-serif",
-                                        }}
-                                      >
-                                        Color: {item.color}
-                                      </p>
-                                    </figcaption>
-                                  </figure>
-                                </td>
-
-                                <td>
-                                  <div
-                                    className="price-wrap"
-                                    style={{
-                                      position: "absolute",
-                                      marginLeft: 25,
-                                    }}
-                                  >
-                                    <var className="price">₹{Math.round(item.price - item.price*0.14)}</var>
-                                  </div>
-                                </td>
-
-                                <td>
-                                  <div style={{ display: "flex" }}>
-                                    <Box
-                                      component="span"
-                                      border={1}
-                                      borderColor="black"
-                                      style={{
-                                        width: 20,
-                                        height: 20,
-                                        marginTop: 20,
-                                        marginLeft: 15,
-                                      }}
-                                    >
-                                      {item.quantity}
-                                    </Box>
-
-                                    <button
-                                      onClick={() => incrementQuantity(item.productId)}
-                                      variant="contained"
-                                      style={{
-                                        width: 20,
-                                        height: 20,
-                                        backgroundColor: "black",
-                                        color: "white",
-                                        marginTop: 20,
-                                        marginRight: 15,
-                                        marginLeft: 15,
-                                      }}
-                                    >
-                                      +
-                                    </button>
-
-                                    <button
-                                      onClick={() => decrementQuantity(item.productId)}
-                                      variant="contained"
-                                      style={{
-                                        width: 20,
-                                        height: 20,
-                                        backgroundColor: "black",
-                                        color: "white",
-                                        marginTop: 20,
-                                      }}
-                                    >
-                                      -
-                                    </button>
-                                  </div>
-                                </td>
-
-                                <td>
-                                  <div
-                                    className="price-wrap"
-                                    style={{
-                                      position: "absolute",
-                                      marginLeft: 25,
-                                    }}
-                                  >
-                                    <var className="price">
-                                      ₹
-                                      {Math.round(calculateTotalPrice(
-                                        item.price,
-                                        item.quantity - item.quantity*0.14
-                                      ))}
-                                    </var>
-                                  </div>
-                                </td>
-
-                                <td>
-                                  <Grid item xs={8}>
-                                    <DeleteIcon
-                                      style={{ marginLeft: 20, marginTop: 20 }}
-                                      onClick={() => deleteItem(item.productId)}
-                                    >
-                                      Remove
-                                    </DeleteIcon>
-                                  </Grid>
-                                </td>
+                                <th
+                                  className="table_heading"
+                                  scope="col"
+                                  width="120"
+                                >
+                                  Remove
+                                </th>
                               </tr>
-                            );
-                          })}
-                        </tbody>
-                      </table>
+                            </thead>
+
+                            <tbody>
+                              {data.map((item) => {
+                                return (
+                                  <tr key={item.id}>
+                                    <td>
+                                      <figure
+                                        className="itemside"
+                                        style={{ display: "flex" }}
+                                      >
+                                        <div className="aside">
+                                          <img
+                                            src={
+                                              "data:image/jpeg;base64," +
+                                              item.image
+                                            }
+                                            style={{ width: 100, height: 100 }}
+                                          />
+                                        </div>
+
+                                        <figcaption
+                                          className="info"
+                                          style={{ padding: 5 }}
+                                        >
+                                          <a
+                                            href="#"
+                                            className="title text-dark"
+                                            style={{
+                                              textDecoration: "none",
+                                              color: "black",
+                                              fontSize: 16,
+                                              fontFamily: "ui-serif",
+                                            }}
+                                          >
+                                            {item.name.length > 10
+                                              ? item.name.slice(0, 10) + "..."
+                                              : item.name}
+                                          </a>
+
+                                          <p
+                                            className="text-muted small"
+                                            style={{
+                                              textDecoration: "none",
+                                              color: "black",
+                                              fontSize: 16,
+                                              fontFamily: "ui-serif",
+                                            }}
+                                          >
+                                            Color: {item.color}
+                                          </p>
+                                        </figcaption>
+                                      </figure>
+                                    </td>
+
+                                    <td>
+                                      <div
+                                        className="price-wrap"
+                                        style={{
+                                          position: "absolute",
+                                          marginLeft: 25,
+                                        }}
+                                      >
+                                        <var className="price">
+                                          ₹
+                                          {Math.round(
+                                            item.price - item.price * 0.14
+                                          )}
+                                        </var>
+                                      </div>
+                                    </td>
+
+                                    <td>
+                                      <div style={{ display: "flex" }}>
+                                        <Box
+                                          component="span"
+                                          border={1}
+                                          borderColor="black"
+                                          style={{
+                                            width: 20,
+                                            height: 20,
+                                            marginTop: 20,
+                                            marginLeft: 15,
+                                          }}
+                                        >
+                                          {item.quantity}
+                                        </Box>
+
+                                        <button
+                                          onClick={() =>
+                                            incrementQuantity(item.productId)
+                                          }
+                                          variant="contained"
+                                          style={{
+                                            width: 20,
+                                            height: 20,
+                                            backgroundColor: "black",
+                                            color: "white",
+                                            marginTop: 20,
+                                            marginRight: 15,
+                                            marginLeft: 15,
+                                          }}
+                                        >
+                                          +
+                                        </button>
+
+                                        <button
+                                          onClick={() =>
+                                            decrementQuantity(item.productId)
+                                          }
+                                          variant="contained"
+                                          style={{
+                                            width: 20,
+                                            height: 20,
+                                            backgroundColor: "black",
+                                            color: "white",
+                                            marginTop: 20,
+                                          }}
+                                        >
+                                          -
+                                        </button>
+                                      </div>
+                                    </td>
+
+                                    <td>
+                                      <div
+                                        className="price-wrap"
+                                        style={{
+                                          position: "absolute",
+                                          marginLeft: 25,
+                                        }}
+                                      >
+                                        <var className="price">
+                                          ₹
+                                          {Math.round(
+                                            calculateTotalPrice(
+                                              item.price,
+                                              item.quantity -
+                                                item.quantity * 0.14
+                                            )
+                                          )}
+                                        </var>
+                                      </div>
+                                    </td>
+
+                                    <td>
+                                      <Grid item xs={8}>
+                                        <DeleteIcon
+                                          style={{
+                                            marginLeft: 20,
+                                            marginTop: 20,
+                                          }}
+                                          onClick={() =>
+                                            deleteItem(item.productId)
+                                          }
+                                        >
+                                          Remove
+                                        </DeleteIcon>
+                                      </Grid>
+                                    </td>
+                                  </tr>
+                                );
+                              })}
+                            </tbody>
+                          </table>
+                        </div>
+                      </main>
                     </div>
-                  </main>
-                </div>
-              </div>
-            </section>
-          </Item>
-        </Grid>
+                  </div>
+                </section>
+              </Item>
+            </Grid>
+           {/*Checkout Form*/}
+            <Grid xs={4} style={{ paddingTop: 70, paddingRight: 30 }}>
+              <Item style={{ borderRadius: 0 }}>
+                <div className="cart-form">
+                  <Typography variant="h6" gutterBottom>
+                    Summary
+                  </Typography>
 
-        <Grid xs={4} style={{ paddingTop: 70, paddingRight: 30 }}>
-          <Item style={{ borderRadius: 0 }}>
-            <div className="cart-form">
-              <Typography variant="h6" gutterBottom>
-                Summary
-              </Typography>
+                  <hr />
 
-              <hr />
+                  <Typography
+                    variant="h6"
+                    gutterBottom
+                    style={{ textAlign: "Left", fontSize: 16, marginLeft: 30 }}
+                  >
+                    Name : {sessionStorage.getItem("name")}
+                  </Typography>
 
+                  <Typography
+                    variant="h6"
+                    gutterBottom
+                    style={{ textAlign: "Left", fontSize: 16, marginLeft: 30 }}
+                  >
+                    Mobile : {sessionStorage.getItem("phone")}
+                  </Typography>
 
+                  <Typography
+                    variant="h6"
+                    gutterBottom
+                    style={{ textAlign: "Left", fontSize: 16, marginLeft: 30 }}
+                  >
+                    Email : {sessionStorage.getItem("email")}
+                  </Typography>
 
-              <Typography
-                variant="h6"
-                gutterBottom
-                style={{ textAlign: "Left", fontSize: 16, marginLeft: 30 }}
-              >
-                Name : {sessionStorage.getItem("name")}
-              </Typography>
+                  <hr />
 
-              <Typography
-                variant="h6"
-                gutterBottom
-                style={{ textAlign: "Left", fontSize: 16, marginLeft: 30 }}
-              >
-                Mobile : {sessionStorage.getItem("phone")}
-              </Typography>
+                  <div className="details">
+                    <label>Address Line 1</label>
 
-              <Typography
-                variant="h6"
-                gutterBottom
-                style={{ textAlign: "Left", fontSize: 16, marginLeft: 30 }}
-              >
-                Email : {sessionStorage.getItem("email")}
-              </Typography>
+                    <input
+                      type="text"
+                      name="address1"
+                      placeholder=""
+                      onChange={(event) => setAddress1(event.target.value)}
+                      required
+                    ></input>
+                    {errors.invalid && (
+                      <span className="errorMsg">{errors.invalid}</span>
+                    )}
 
-              <hr />
+                    <label>Address Line 2</label>
 
-              <div className="details">
-                <label>Address Line 1</label>
+                    <input
+                      type="text"
+                      name="address2"
+                      placeholder=""
+                      onChange={(event) => setAddress2(event.target.value)}
+                    ></input>
+                    {errors.invalid && (
+                      <span className="errorMsg">{errors.invalid}</span>
+                    )}
 
-                <input
-                  type="text"
-                  name="address1"
-                  placeholder=""
-                  onChange={(event) => setAddress1(event.target.value)}
-                  required
-                ></input>
-                {errors.invalid && <span className='errorMsg'>{errors.invalid}</span>}
+                    <div className="wrapper" style={{ display: "flex" }}>
+                      <span className="selectrow">
+                        <CountryDropdown
+                          value={country}
+                          country={country}
+                          onChange={(val) => selectCountry(val)}
+                        />
+                      </span>
 
-                <label>Address Line 2</label>
+                      <span className="selectrow">
+                        <RegionDropdown
+                          country={country}
+                          value={region}
+                          onChange={(val) => selectRegion(val)}
+                        />
+                      </span>
+                    </div>
 
-                <input
-                  type="text"
-                  name="address2"
-                  placeholder=""
-                  onChange={(event) => setAddress2(event.target.value)}
-                ></input>
-                {errors.invalid && <span className='errorMsg'>{errors.invalid}</span>}
+                    <label>Postal Code</label>
 
+                    <input
+                      type="text"
+                      name="postalcode"
+                      placeholder=""
+                      style={{ width: 140 }}
+                      onChange={(event) => setPostalCode(event.target.value)}
+                    ></input>
+                    {errors.invalid && (
+                      <span className="errorMsg">{errors.invalid}</span>
+                    )}
+                  </div>
                 <div className="wrapper" style={{ display: "flex" }}>
-                  <span className="selectrow">
-                    <CountryDropdown
-                      value={country}
-                      country={country}
-                      onChange={(val) => selectCountry(val)}
-                    />
+                  <span>
+                  {/* <label>Address Line 1</label> */}
+                  <input
+                  type="text"
+                  name="Coupons"
+                  placeholder="Enter Coupon Code"
+                  style={{width: '100%',
+                    height: '92%',
+                    left: '8%',
+                    position: 'relative',
+                    top: '-1%',
+                    paddingLeft:5,
+                    textAlign:'left',
+                  }}
+                  // onChange={(event) => setAddress1(event.target.value)}
+                  required
+                 ></input>
                   </span>
-
-                  <span className="selectrow">
-                    <RegionDropdown
-                      country={country}
-                      value={region}
-                      onChange={(val) => selectRegion(val)}
-                    />
+                  <span>
+                  <Button
+                    variant="contained"
+                    style={{
+                      backgroundColor: "#8B3DFF",
+                      borderRadius: 0,
+                      color: "White",
+                    }}
+                    onClick={onShow}
+                  >
+                    APPLY COUPON
+                  </Button>
+                  {hasRender ? <Coupon onClose={onClose} OrderTotal={OrderTotal}/> : ""}
                   </span>
                 </div>
+                  <hr />
 
-                <label>Postal Code</label>
+                  <Typography
+                    variant="h6"
+                    style={{ textAlign: "Left", fontSize: 14, marginLeft: 30 }}
+                  >
+                    Sub Total &nbsp;<span style={{ marginRight: 130 }}></span> ₹{" "}
+                    {calculateSubTotal()}
+                  </Typography>
 
-                <input
-                  type="text"
-                  name="postalcode"
-                  placeholder=""
-                  style={{ width: 140 }}
-                  onChange={(event) => setPostalCode(event.target.value)}
-                ></input>
-                {errors.invalid && <span className='errorMsg'>{errors.invalid}</span>}
-              </div>
+                  <Typography
+                    variant="h6"
+                    style={{ textAlign: "Left", fontSize: 14, marginLeft: 30 }}
+                  >
+                    Shipping &nbsp;<span style={{ marginRight: 135 }}></span> ₹
+                    100
+                  </Typography>
 
-              <hr />
+                  <Typography
+                    variant="h6"
+                    style={{ textAlign: "Left", fontSize: 14, marginLeft: 30 }}
+                  >
+                    Order Total &nbsp;<span style={{ marginRight: 120 }}></span>{" "}
+                    ₹ {Math.round(OrderTotal)}
+                    
+                    
+                  </Typography>
+                  
+                  <hr />
 
-              <Typography
-                variant="h6"
-                style={{ textAlign: "Left", fontSize: 14, marginLeft: 30 }}
-              >
-                Sub Total &nbsp;<span style={{ marginRight: 130 }}></span> ₹ {calculateSubTotal()}
-              </Typography>
-
-              <Typography
-                variant="h6"
-                style={{ textAlign: "Left", fontSize: 14, marginLeft: 30 }}
-              >
-                Shipping &nbsp;<span style={{ marginRight: 135 }}></span> ₹ 100
-              </Typography>
-
-              <Typography
-                variant="h6"
-                style={{ textAlign: "Left", fontSize: 14, marginLeft: 30 }}
-              >
-                Order Total &nbsp;<span style={{ marginRight: 120 }}></span> ₹ {Math.round(OrderTotal)}
-              </Typography>
-
-              <hr />
-
-              <Button
-                variant="contained"
-                disableElevation
-                style={{
-                  backgroundColor: "#8B3DFF",
-                  width: "80%",
-                  marginTop: 20,
-                  marginBottom: 20,
-                  borderRadius: 0,
-                }}
-                onClick={() => {
-                  deleteAllItemFromCart();
-                  if(validate()){
-                    navigate("/SuccessPopup");
-                  }
-                  console.log("redirecting.....");
-                }
-                }
-              >
-                Place Order
-              </Button>
-            </div>
-          </Item>
-        </Grid>
-      </Grid>
-    </Box>
-    : "" }
+                  <Button
+                    variant="contained"
+                    disableElevation
+                    style={{
+                      backgroundColor: "#8B3DFF",
+                      width: "80%",
+                      marginTop: 20,
+                      marginBottom: 20,
+                      borderRadius: 0,
+                    }}
+                    onClick={() => {
+                      deleteAllItemFromCart();
+                      if (validate()) {
+                        navigate("/SuccessPopup");
+                      }
+                      console.log("redirecting.....");
+                    }}
+                  >
+                    Place Order
+                  </Button>
+                </div>
+              </Item>
+            </Grid>
+          </Grid>
+        </Box>
+      ) : (
+        ""
+      )}
     </div>
   );
 }

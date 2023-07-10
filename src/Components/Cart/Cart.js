@@ -18,7 +18,7 @@ const Cart = ({ onClose, itemRemove }) => {
   }, []);
   const getAllCartItems = () => {
     axios
-      .get("http://10.53.97.64:8090/api/cartDetails", {
+      .get("http://65.0.17.17:8090/api/cartDetails", {
         headers: { Authorization: "Bearer " + sessionStorage.getItem("token") },
       })
       .then((response) => {
@@ -38,7 +38,7 @@ const Cart = ({ onClose, itemRemove }) => {
   // Increase the quantity of a cart item
   const increaseQty = (productId,quantity) => {
     axios
-      .put("http://10.53.97.64:8090/api/cartDetails", {
+      .put("http://65.0.17.17:8090/api/cartDetails", {
         productId:productId,
         quantity: quantity + 1
       }, {
@@ -60,7 +60,7 @@ const Cart = ({ onClose, itemRemove }) => {
   };
   const updateCartItem = (productId,quantity) => {
     axios
-      .put("http://10.53.97.64:8090/api/cartDetails", {
+      .put("http://65.0.17.17:8090/api/cartDetails", {
         productId: productId,
         quantity: quantity - 1
       }, {
@@ -75,7 +75,7 @@ const Cart = ({ onClose, itemRemove }) => {
 
   // Delete a cart item
   const deleteProduct = (productId) => {
-    axios.delete(`http://10.53.97.64:8090/api/cartDetails/${productId}`, {
+    axios.delete(`http://65.0.17.17:8090/api/cartDetails/${productId}`, {
       headers: { Authorization: "Bearer " + sessionStorage.getItem("token") },
     })
       .then((response) => {

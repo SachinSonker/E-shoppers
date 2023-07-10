@@ -6,6 +6,7 @@ import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import { CardActionArea } from '@mui/material';
 import './landing.css';
+import Stars from '../ProductDetailPage/Stars';
 
 // Functional component for a landing card
 function LandingCard(props) {
@@ -30,7 +31,9 @@ function LandingCard(props) {
                         {/* Item price and rating */}
                         {props.cardType == "product" ? <Typography color="text.secondary">
                             <p className='alignleft'>Price: <b>₹ {Math.round((props.itemPrice - (props.itemPrice * 0.14)))}</b> &nbsp;<s>₹ {Math.round(props.itemStrikePrice)}</s></p>
-                            <p className='alignright'>⭐⭐⭐</p>
+                            <Stars ratings={props.itemRating} reviews={25} />
+                            {console.log(props.itemRating)}
+                            {/* <p className='alignright'>⭐⭐⭐</p> */}
                         </Typography> : ""}
                     </CardContent>
                 </Card>

@@ -11,6 +11,7 @@ import Footer from './Components/Footer/Footer';
 import OrderTracking from './Components/OrderTracking/OrderTracking';
 import ProductPage from './Components/LandingPageComponent/ProductPage';
 import Orders from './Components/Orders/Orders';
+import Coupon from './Components/Coupon/Coupon';
 
 import { ToastContainer } from 'react-toastify';
 import Wishlist from './Components/Wishlist/Wishlist';
@@ -91,6 +92,16 @@ function App() {
               <div className='App'>
                 <Navbar />
                 <OrderTracking />
+              </div>
+              <Footer />
+            </div>
+          } />
+          {/* Success Popup Route */}
+          <Route path="coupon/*" element={
+            <div>
+              <div className='App'>
+                <Navbar />
+                <Coupon />
               </div>
               <Footer />
             </div>

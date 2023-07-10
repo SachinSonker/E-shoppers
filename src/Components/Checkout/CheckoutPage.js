@@ -14,7 +14,11 @@ import {
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./CheckoutPage.css";
-import cartimg from '../../assets/cart-empty-img.png';
+import cartimg from "../../assets/cart-empty-img.png";
+import Login from "../Login/Login";
+import Coupon from "../Coupon/Coupon";
+import Modal from "@mui/material/Modal";
+
 
 const Item = styled("div")(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -26,6 +30,7 @@ const Item = styled("div")(({ theme }) => ({
 }));
 
 export default function CheckoutPage() {
+  //gettings items data from backend
   const Razorpay = useRazorpay();
   const [cartItems, setCartItems] = useState({});
   const [data, setData] = useState([]);
@@ -42,10 +47,13 @@ export default function CheckoutPage() {
     region: "",
   });
 
+  const [hasRender, setRender] = useState(false);
+  const onShow = (() => setRender(true));
+  const onClose = (() => {setRender(false);});
 
   useEffect(() => {
     getAllItems();
-  }, []);
+  }, [hasRender]);
 
   function getAllItems() {
     axios
@@ -53,7 +61,7 @@ export default function CheckoutPage() {
         headers: { Authorization: "Bearer " + sessionStorage.getItem("token") },
       })
       .then((response) => {
-        console.log(response)
+        console.log(response);
         setCartItems(response.data);
         setData(response.data);
         if (response.data.length == 0) {
@@ -61,8 +69,7 @@ export default function CheckoutPage() {
         } else {
           setIsCartEmpty(false)
         }
-        setUnAuthorised(false)
-
+        setUnAuthorised(false);
       })
       .catch((err) => {
         if (err.response.status) {
@@ -205,10 +212,10 @@ export default function CheckoutPage() {
       })
       .then((response) => {
         getAllItems();
-        console.log(response)
+        console.log(response);
         setCartItems(response.data);
         setData(response.data);
-        alert('Are you sure You want to delete this Item...');
+        alert("Are you sure You want to delete this Item...");
       });
   };
 
@@ -222,7 +229,7 @@ export default function CheckoutPage() {
       }).catch(error => {
         console.log('Error deleting items from cart', error);
       })
-  }
+  };
 
   //forms
   const selectCountry = (val) => {
@@ -237,13 +244,14 @@ export default function CheckoutPage() {
 
   //routing for checkout Page
   const navigate = useNavigate();
+
   function validate() {
     if (address1 == "" || address2 == "" || postalcode == "") {
       setErrors({ ...errors, ["invalid"]: "Required" });
-      return false
+      return false;
     } else {
-      delete errors.invalid
-      return true
+      delete errors.invalid;
+      return true;
     }
   }
   const cart_image = [
@@ -299,7 +307,10 @@ export default function CheckoutPage() {
                           <table className="table table-borderless table-shopping-cart">
                             <thead
                               className="text-muted"
-                              style={{ backgroundColor: "#8B3DFF", color: "white" }}
+                              style={{
+                                backgroundColor: "#8B3DFF",
+                                color: "white",
+                              }}
                             >
                               <tr className="small text-uppercase">
                                 <th className="table_heading" scope="col">
@@ -396,7 +407,12 @@ export default function CheckoutPage() {
                                           marginLeft: 25,
                                         }}
                                       >
-                                        <var className="price">₹{Math.round(item.price - item.price * 0.14)}</var>
+                                        <var className="price">
+                                          ₹
+                                          {Math.round(
+                                            item.price - item.price * 0.14
+                                          )}
+                                        </var>
                                       </div>
                                     </td>
 
@@ -469,8 +485,13 @@ export default function CheckoutPage() {
                                     <td>
                                       <Grid item xs={8}>
                                         <DeleteIcon
-                                          style={{ marginLeft: 20, marginTop: 20 }}
-                                          onClick={() => deleteItem(item.productId)}
+                                          style={{
+                                            marginLeft: 20,
+                                            marginTop: 20,
+                                          }}
+                                          onClick={() =>
+                                            deleteItem(item.productId)
+                                          }
                                         >
                                           Remove
                                         </DeleteIcon>
@@ -488,6 +509,7 @@ export default function CheckoutPage() {
                 </section>
               </Item>
             </Grid>
+           {/*Checkout Form*/}
 
             <Grid xs={4} style={{ paddingTop: 70, paddingRight: 30 }}>
               <Item style={{ borderRadius: 0 }}>
@@ -497,6 +519,7 @@ export default function CheckoutPage() {
                   </Typography>
 
                   <hr />
+
                   <Typography
                     variant="h6"
                     gutterBottom
@@ -533,7 +556,9 @@ export default function CheckoutPage() {
                       onChange={(event) => setAddress1(event.target.value)}
                       required
                     ></input>
-                    {errors.invalid && <span className='errorMsg'>{errors.invalid}</span>}
+                    {errors.invalid && (
+                      <span className="errorMsg">{errors.invalid}</span>
+                    )}
 
                     <label>Address Line 2</label>
 
@@ -543,7 +568,9 @@ export default function CheckoutPage() {
                       placeholder=""
                       onChange={(event) => setAddress2(event.target.value)}
                     ></input>
-                    {errors.invalid && <span className='errorMsg'>{errors.invalid}</span>}
+                    {errors.invalid && (
+                      <span className="errorMsg">{errors.invalid}</span>
+                    )}
 
                     <div className="wrapper" style={{ display: "flex" }}>
                       <span className="selectrow">
@@ -572,32 +599,72 @@ export default function CheckoutPage() {
                       style={{ width: 140 }}
                       onChange={(event) => setPostalCode(event.target.value)}
                     ></input>
-                    {errors.invalid && <span className='errorMsg'>{errors.invalid}</span>}
+                    {errors.invalid && (
+                      <span className="errorMsg">{errors.invalid}</span>
+                    )}
                   </div>
-
+                <div className="wrapper" style={{ display: "flex" }}>
+                  <span>
+                  {/* <label>Address Line 1</label> */}
+                  <input
+                  type="text"
+                  name="Coupons"
+                  placeholder="Enter Coupon Code"
+                  style={{width: '100%',
+                    height: '92%',
+                    left: '8%',
+                    position: 'relative',
+                    top: '-1%',
+                    paddingLeft:5,
+                    textAlign:'left',
+                  }}
+                  // onChange={(event) => setAddress1(event.target.value)}
+                  required
+                 ></input>
+                  </span>
+                  <span>
+                  <Button
+                    variant="contained"
+                    style={{
+                      backgroundColor: "#8B3DFF",
+                      borderRadius: 0,
+                      color: "White",
+                    }}
+                    onClick={onShow}
+                  >
+                    APPLY COUPON
+                  </Button>
+                  {hasRender ? <Coupon onClose={onClose} OrderTotal={OrderTotal}/> : ""}
+                  </span>
+                </div>
                   <hr />
 
                   <Typography
                     variant="h6"
                     style={{ textAlign: "Left", fontSize: 14, marginLeft: 30 }}
                   >
-                    Sub Total &nbsp;<span style={{ marginRight: 130 }}></span> ₹ {calculateSubTotal()}
+                    Sub Total &nbsp;<span style={{ marginRight: 130 }}></span> ₹{" "}
+                    {calculateSubTotal()}
                   </Typography>
 
                   <Typography
                     variant="h6"
                     style={{ textAlign: "Left", fontSize: 14, marginLeft: 30 }}
                   >
-                    Shipping &nbsp;<span style={{ marginRight: 135 }}></span> ₹ 100
+                    Shipping &nbsp;<span style={{ marginRight: 135 }}></span> ₹
+                    100
                   </Typography>
 
                   <Typography
                     variant="h6"
                     style={{ textAlign: "Left", fontSize: 14, marginLeft: 30 }}
                   >
-                    Order Total &nbsp;<span style={{ marginRight: 120 }}></span> ₹ {Math.round(OrderTotal)}
+                    Order Total &nbsp;<span style={{ marginRight: 120 }}></span>{" "}
+                    ₹ {Math.round(OrderTotal)}
+                    
+                    
                   </Typography>
-
+                  
                   <hr />
 
                   <Button

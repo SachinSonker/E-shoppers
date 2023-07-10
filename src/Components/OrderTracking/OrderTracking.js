@@ -193,7 +193,7 @@ export default function OrderTracking() {
         <Box sx={{ display: 'flex', flexDirection: 'column', width: '100%', marginLeft: '3%' }}>
 
           <Stack sx={{ width: '100%', marginTop: 4, marginBottom: 6, }} spacing={4}>
-            <Stepper alternativeLabel activeStep={2} connector={<ColorlibConnector />}>
+            <Stepper alternativeLabel activeStep={orderTrackingDetails.status-1} connector={<ColorlibConnector />}>
               {steps.map((label) => (
                 <Step key={label}>
                   <StepLabel StepIconComponent={ColorlibStepIcon}>{label}</StepLabel>

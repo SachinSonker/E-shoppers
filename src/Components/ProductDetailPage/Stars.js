@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import "./ProductDetails.css";
 
 
-const Stars = ({ ratings, reviews }) => {
+const Stars = ({ ratings, reviews, from }) => {
    const ratingStar = Array.from({ length: 5 }, (elem, index) => {
       let number = index + 0.5;
       return (
@@ -25,7 +25,7 @@ const Stars = ({ ratings, reviews }) => {
       <Wrapper>
          <div>
             <div />
-            {ratingStar}<span className="review">  ({reviews} Customer Ratings)</span>
+            {ratingStar}<span className="review">  {from == "productDetails" ? <span>({reviews} Customer Ratings)</span> : null}</span>
          </div>
       </Wrapper>
    )

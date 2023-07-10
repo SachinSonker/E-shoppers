@@ -42,6 +42,7 @@ const ProductPage = () => {
                 itemName={s.name}
                 itemPrice={s.price}
                 itemStrikePrice={s.price}
+                itemRating={s.ratings}
                 cardType="product"
               ></LandingCard>
             </NavLink>

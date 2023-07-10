@@ -13,7 +13,7 @@ const ProductPage = () => {
     try {
       const response = axios
         .get(
-          `http://10.53.97.64:8090/api/product/category/${location.state.categoryName}`
+          `http://65.0.17.17:8090/api/product/category/${location.state.categoryName}`
         )
         .then((response) => {
           var arr = [response.data];

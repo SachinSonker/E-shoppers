@@ -162,7 +162,7 @@ export default function OrderTracking() {
 
   useEffect(() => {
     axios
-      .get(`http://10.53.97.64:8090/api/trackorder/${params.get('orderId')}/${params.get('trackingId')}`, {
+      .get(`http://65.0.17.17:8090/api/trackorder/${params.get('orderId')}/${params.get('trackingId')}`, {
         headers: { Authorization: "Bearer " + sessionStorage.getItem("token") },
       })
       .then((response) => {

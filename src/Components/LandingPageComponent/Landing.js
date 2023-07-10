@@ -83,7 +83,7 @@ const Landing=()=>{
 const [categories, setCategories] = useState([]);
 
             useEffect(()=>{
-                axios.get('http://10.53.97.64:8090/api/category/')
+                axios.get('http://65.0.17.17:8090/api/category/')
                 .then(response=>{
                     setCategories(response.data);
                 })

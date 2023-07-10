@@ -27,8 +27,8 @@
 .product-card{
     margin: 0px !important;
     display: flex;
-    align-items: center;
-    justify-content:center;
+    align-items: left;
+    justify-content:left;
     width: 100% !important;
 }
 

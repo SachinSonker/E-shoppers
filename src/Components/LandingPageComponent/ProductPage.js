@@ -1,23 +1,19 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
 import { useLocation } from "react-router";
 import axios from "axios";
 import { Grid } from "@mui/material";
-import { useNavigate } from "react-router-dom";
 import LandingCard from "./Card";
 import { NavLink } from 'react-router-dom';
 
 const ProductPage = () => {
-  const { categoryId } = useParams();
   const [products, setProducts] = useState([]);
   const location = useLocation();
-  const navigate = useNavigate();
 
   useEffect(() => {
     try {
       const response = axios
         .get(
-          `http://10.53.97.64:8090/api/product/category/${location.state.categoryName}`
+          `http://65.0.17.17:8090/api/product/category/${location.state.categoryName}`
         )
         .then((response) => {
           var arr = [response.data];
@@ -32,6 +28,7 @@ const ProductPage = () => {
 
   return (
     <>
+      <h4 className='page-title'>PRODUCTS</h4>
       <Grid container spacing={4} className="product-card">
         {products.map((s) => (
           <Grid

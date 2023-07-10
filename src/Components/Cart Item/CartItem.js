@@ -14,7 +14,7 @@ const CartItem = (props) => {
                 {/* CardMedia to display the item image */}
                 <CardMedia
                     component="img"
-                    sx={{ width: '65px', height: '100px' }}
+                    sx={{ width: '65px', height: '120px' }}
                     image={image}
                     alt='Chair'
                 />
@@ -45,7 +45,7 @@ const CartItem = (props) => {
                          <IconButton sx={{ padding: '0px !important' }} onClick={() => addQuantity(id)}>
                             <AddBoxIcon />
                         </IconButton> 
-                 </Box> 
+                    </Box> 
                 </Box>
                 {/* Box to display price and delete button */}
                 <Box className='card-footer'>

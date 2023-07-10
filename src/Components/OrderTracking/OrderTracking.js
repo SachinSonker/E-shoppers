@@ -16,12 +16,12 @@ import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import CottageIcon from '@mui/icons-material/Cottage';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import image from '../../assets/download.jfif'
 import Box from '@mui/material/Box';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import axios from "axios";
 import { Spinner } from '../Spinner/Spinner';
+import { useSearchParams } from "react-router-dom";
 
 const QontoStepIconRoot = styled('div')(({ theme, ownerState }) => ({
   color: theme.palette.mode === 'dark' ? theme.palette.grey[700] : '#eaeaf0',
@@ -46,7 +46,6 @@ const QontoStepIconRoot = styled('div')(({ theme, ownerState }) => ({
 
 function QontoStepIcon(props) {
   const { active, completed, className } = props;
-
   return (
     <QontoStepIconRoot ownerState={{ active }} className={className}>
       {completed ? (
@@ -123,11 +122,11 @@ function ColorlibStepIcon(props) {
   const { active, completed, className } = props;
 
   const icons = {
-    1: <ShoppingCartIcon/>,
-    2: <SettingsIcon/>,
-    3: <LocalPostOfficeIcon/>,
-    4: <LocalShippingIcon/>,
-    5: <CottageIcon/>,
+    1: <ShoppingCartIcon />,
+    2: <SettingsIcon />,
+    3: <LocalPostOfficeIcon />,
+    4: <LocalShippingIcon />,
+    5: <CottageIcon />,
   };
 
   return (
@@ -158,83 +157,83 @@ ColorlibStepIcon.propTypes = {
 const steps = ['Order Confirmed', 'Processing Order', 'Dispatched', 'Out for Delivery', 'Delivered'];
 
 export default function OrderTracking() {
-
+  const [params] = useSearchParams();
   const [orderTrackingDetails, setOrderTrackingDetails] = useState({});
 
   useEffect(() => {
     axios
-    .get("http://10.53.97.64:8090/api/trackorder/153efd9c-7577-466d-bbf6-0c15f9047319/f06f324d-8698-4865-98e0-b8531ca36410", {
-      headers: { Authorization: "Bearer " + sessionStorage.getItem("token") },
-    })
-    .then((response) => {
-      setOrderTrackingDetails(response.data)
-      console.log(response.data)
-    })
-    .catch((err)=>{
-      console.log("My error",err)
-    })
-    ;
+      .get(`http://65.0.17.17:8090/api/trackorder/${params.get('orderId')}/${params.get('trackingId')}`, {
+        headers: { Authorization: "Bearer " + sessionStorage.getItem("token") },
+      })
+      .then((response) => {
+        setOrderTrackingDetails(response.data)
+        console.log(response.data)
+      })
+      .catch((err) => {
+        console.log("My error", err)
+      })
+      ;
   }, [])
 
   return orderTrackingDetails.length === 0 ? (
     <Spinner />
   ) : (
     <React.Fragment>
-    <br></br>
-    <br></br>
-    <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
       <Card sx={{ display: 'flex' }} className="detailsCard">
-      <CardMedia
-        component="img"
-        sx={{ width: 350, height: 450}}
-        //image={image}
-        image={"data:image/jpeg;base64,"+orderTrackingDetails.productImage}
-        alt="Product Image"
-      />
-      <Box sx={{ display: 'flex', flexDirection: 'column', width: '100%', marginLeft: '3%' }}>
+        <CardMedia
+          component="img"
+          sx={{ width: 350, height: 450 }}
+          //image={image}
+          image={"data:image/jpeg;base64," + orderTrackingDetails.productImage}
+          alt="Product Image"
+        />
+        <Box sx={{ display: 'flex', flexDirection: 'column', width: '100%', marginLeft: '3%' }}>
 
-        <Stack sx={{ width: '100%', marginTop: 4, marginBottom: 6, }} spacing={4}>
-          <Stepper alternativeLabel activeStep={2} connector={<ColorlibConnector />}>
-            {steps.map((label) => (
-              <Step key={label}>
-                <StepLabel StepIconComponent={ColorlibStepIcon}>{label}</StepLabel>
-              </Step>
-            ))}
-          </Stepper>
-        </Stack>
+          <Stack sx={{ width: '100%', marginTop: 4, marginBottom: 6, }} spacing={4}>
+            <Stepper alternativeLabel activeStep={2} connector={<ColorlibConnector />}>
+              {steps.map((label) => (
+                <Step key={label}>
+                  <StepLabel StepIconComponent={ColorlibStepIcon}>{label}</StepLabel>
+                </Step>
+              ))}
+            </Stepper>
+          </Stack>
 
-        <CardContent sx={{ flex: '1 0 auto' }}>
-          <Typography component="div" variant="h5">
-          {orderTrackingDetails.productName}
-          </Typography>
-          <br></br>
-          <Typography component="div" variant="p">
-          Order ID : {orderTrackingDetails.orderId}
-          </Typography>
-          <Typography component="div" variant="p">
-          Name : {orderTrackingDetails.userName}
-          </Typography>
-          <Typography component="div" variant="p">
-          Email : {orderTrackingDetails.email}
-          </Typography>
-          <Typography component="div" variant="p">
-          Contact Number : {orderTrackingDetails.contactNo}
-          </Typography>
-          <Typography component="div" variant="p">
-          Order Total : ₹ {orderTrackingDetails.orderTotal}
-          </Typography>
-          <Typography component="div" variant="p">
-          Address : {orderTrackingDetails.deliveryAddress}
-          </Typography>
-          <Typography component="div" variant="p">
-          Delivery Date : {orderTrackingDetails.deliveryDate}
-          </Typography>
-        </CardContent>
-      </Box>
-    </Card>
-    <br></br>
-    <br></br>
-    <br></br>
+          <CardContent sx={{ flex: '1 0 auto' }}>
+            <Typography component="div" variant="h5">
+              {orderTrackingDetails.productName}
+            </Typography>
+            <br></br>
+            <Typography component="div" variant="p">
+              Order ID : {orderTrackingDetails.orderId}
+            </Typography>
+            <Typography component="div" variant="p">
+              Name : {orderTrackingDetails.userName}
+            </Typography>
+            <Typography component="div" variant="p">
+              Email : {orderTrackingDetails.email}
+            </Typography>
+            <Typography component="div" variant="p">
+              Contact Number : {orderTrackingDetails.contactNo}
+            </Typography>
+            <Typography component="div" variant="p">
+              Order Total : ₹ {orderTrackingDetails.orderTotal}
+            </Typography>
+            <Typography component="div" variant="p">
+              Address : {orderTrackingDetails.deliveryAddress}
+            </Typography>
+            <Typography component="div" variant="p">
+              Delivery Date : {orderTrackingDetails.deliveryDate}
+            </Typography>
+          </CardContent>
+        </Box>
+      </Card>
+      <br></br>
+      <br></br>
+      <br></br>
     </React.Fragment>
   );
 }

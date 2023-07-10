@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+ import React, { useState } from "react";
 import { TbTruckDelivery, TbReplace } from "react-icons/tb";
 import { useEffect } from "react";
 import axios from "axios";
@@ -28,7 +28,7 @@ function ProductDetails() {
     }
 
     useEffect(() => {
-        axios.get(`http://10.53.97.64:8090/api/product/${params.get('id')}`).then((response) => {
+        axios.get(`http://65.0.17.17:8090/api/product/${params.get('id')}`).then((response) => {
             console.log(response.data)
             setProdObj(response.data)
         });
@@ -46,7 +46,7 @@ function ProductDetails() {
                 "size": getRandomItem(size)
             }
 
-            axios.post("http://10.53.97.64:8090/api/addtocart", data, {
+            axios.post("http://65.0.17.17:8090/api/addtocart", data, {
                 headers: { Authorization: "Bearer " + sessionStorage.getItem("token") }
             }).then((response) => {
                 console.log(response)

@@ -4,16 +4,13 @@ import Grid from "@mui/system/Unstable_Grid";
 import styled from "@mui/system/styled";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import TextField from "@mui/material/TextField";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useState, useEffect } from "react";
+import useRazorpay from "react-razorpay";
 import {
   CountryDropdown,
-  RegionDropdown,
-  CountryRegionData,
+  RegionDropdown
 } from "react-country-region-selector";
-import { useForm, Controller } from "react-hook-form";
-import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./CheckoutPage.css";
@@ -25,25 +22,30 @@ import Modal from "@mui/material/Modal";
 
 const Item = styled("div")(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
-
   border: "1px solid",
-
   borderColor: theme.palette.mode === "dark" ? "#444d58" : "#ced7e0",
-
   padding: theme.spacing(1),
-
   borderRadius: "4px",
-
   textAlign: "center",
 }));
 
 export default function CheckoutPage() {
   //gettings items data from backend
+  const Razorpay = useRazorpay();
   const [cartItems, setCartItems] = useState({});
   const [data, setData] = useState([]);
   const [errors, setErrors] = useState({});
   const [unAuthorised, setUnAuthorised] = useState(false);
   const [isCartEmpty, setIsCartEmpty] = useState(false);
+  const [address1, setAddress1] = useState("");
+  const [address2, setAddress2] = useState("");
+  const [postalcode, setPostalCode] = useState("");
+
+  //getting state and country data
+  const [state, setState] = useState({
+    country: "",
+    region: "",
+  });
 
   const [hasRender, setRender] = useState(false);
   const onShow = (() => setRender(true));
@@ -55,7 +57,7 @@ export default function CheckoutPage() {
 
   function getAllItems() {
     axios
-      .get("http://10.53.97.64:8090/api/cartDetails", {
+      .get("http://65.0.17.17:8090/api/cartDetails", {
         headers: { Authorization: "Bearer " + sessionStorage.getItem("token") },
       })
       .then((response) => {
@@ -63,84 +65,149 @@ export default function CheckoutPage() {
         setCartItems(response.data);
         setData(response.data);
         if (response.data.length == 0) {
-          setIsCartEmpty(true);
+          setIsCartEmpty(true)
         } else {
-          setIsCartEmpty(false);
+          setIsCartEmpty(false)
         }
         setUnAuthorised(false);
       })
       .catch((err) => {
-        if (err.response) {
-          setUnAuthorised(true);
+        if (err.response.status) {
+          setUnAuthorised(true)
         }
-        console.log("My error", err);
+        console.log("My error", err)
       });
   }
 
   console.log(data);
 
-  //product increment
-
-  const incrementQuantity = (itemId) => {
-    const updatedItems = data.map((item) => {
-      if (item.productId === itemId) {
-        return { ...item, quantity: item.quantity + 1 };
-      }
-
-      return item;
-    });
-
-    setData(updatedItems);
+  //product increment 
+  const incrementQuantity = (itemId,quantity) => {
+    axios
+      .put("http://65.0.17.17:8090/api/cartDetails", {
+        productId: itemId,
+        quantity: quantity + 1
+      }, {
+        headers: { Authorization: "Bearer " + sessionStorage.getItem("token") },
+      })
+      .then((response) => {
+        console.log("From increase quantity", response)
+        // setAddCartObject(response.data)
+        getAllItems()
+      })
   };
 
   //product decrement
-  const decrementQuantity = (itemId) => {
-    const updatedItems = data.map((item) => {
-      if (item.productId === itemId && item.quantity > 0) {
-        return { ...item, quantity: item.quantity - 1 };
-      }
-
-      return item;
-    });
-
-    setData(updatedItems);
+  const decrementQuantity = (itemId,quantity) => {
+    console.log(quantity, "Decrease request");
+    quantity > 1
+      ? updateCartItem(itemId, quantity)
+      : deleteItem(itemId) 
   };
 
-  //calculating Total price
+  //Payment
+  const handlePayment = async (orderId, OrderTotal) => {
+    //const order = await createOrder(params); //  Create order on your backend
+  
+    const options = {
+      key: "rzp_test_DHE0D98Cg7lMgY", // Enter the Key ID generated from the Dashboard
+      amount: OrderTotal*100, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+      currency: "INR",
+      name: "Shoppers",
+      order_id: orderId, //This is a sample Order ID. Pass the `id` obtained in the response of createOrder().
+      handler: function (response) {
+        // alert(response.razorpay_payment_id);
+        // alert(response.razorpay_order_id);
+        // alert(response.razorpay_signature);
+        if (validate()) {
+          handleOrder(orderId)
+        }
+        console.log("redirecting.....");
+      },
+      theme: {
+        color: "#3399cc",
+      },
+    };
+  
+    const rzp1 = new Razorpay(options);
+  
+    rzp1.on("payment.failed", function (response) {
+      alert(response.error.code);
+      alert(response.error.description);
+      alert(response.error.source);
+      alert(response.error.step);
+      alert(response.error.reason);
+      alert(response.error.metadata.order_id);
+      alert(response.error.metadata.payment_id);
+    });
+  
+    rzp1.open();
+  };
 
+  const handleOrder = (orderId) => {
+    axios.post(`http://65.0.17.17:8090/api/placeorder`, {
+      "address": address1 + ', ' + address2,
+      "orderId": orderId,
+      "totalAmount": OrderTotal
+    }, {
+      headers: { Authorization: "Bearer " + sessionStorage.getItem("token") },
+    }).then((response) => {
+      navigate("/SuccessPopup");
+      return response.data
+      // setOrderList(response.data);
+    });
+  }
+
+  const updateCartItem = (itemId, quantity) => {
+    axios
+      .put("http://65.0.17.17:8090/api/cartDetails", {
+        productId: itemId,
+        quantity: quantity - 1
+      }, {
+        headers: { Authorization: "Bearer " + sessionStorage.getItem("token") },
+      })
+      .then((response) => {
+        console.log("From decrease quantity", response)
+        // setAddCartObject(response.data)
+        getAllItems()
+      })
+  }
+
+  // Order place
+  const handleOrderId = () => {
+    axios.get(`http://65.0.17.17:8090/api/payment/${OrderTotal}`, {
+      headers: { Authorization: "Bearer " + sessionStorage.getItem("token") },
+    }).then((response) => {
+      console.log(response.data, "Inside")
+      handlePayment(response.data, OrderTotal);
+      return response.data
+    });
+  }
+
+  //calculating Total price
   const calculateTotalPrice = (price, quantity) => {
     let totalPrice = 0;
-
     totalPrice += price * quantity;
-
     return totalPrice;
   };
 
   //Calculating Subtotal
-
   const calculateSubTotal = () => {
     let subTotal = 0;
-
     data.map((item) => {
       subTotal += (item.price - item.price * 0.14) * item.quantity;
     });
-
     return Math.round(subTotal);
   };
 
   //calculating order total
-  
- 
-    const OrderTotal = 100 + calculateSubTotal();
-   
+  const OrderTotal = 100 + calculateSubTotal();
 
   //deleting items
-
   const deleteItem = (itemId) => {
-    console.log(itemId);
-
+    console.log(itemId)
     axios
-      .delete(`http://10.53.97.64:8090/api/cartDetails/${itemId}`, {
+      .delete(`http://65.0.17.17:8090/api/cartDetails/${itemId}`, {
         headers: { Authorization: "Bearer " + sessionStorage.getItem("token") },
       })
       .then((response) => {
@@ -167,21 +234,6 @@ export default function CheckoutPage() {
   };
 
   //forms
-
-  const [address1, setAddress1] = useState("");
-
-  const [address2, setAddress2] = useState("");
-
-  const [postalcode, setPostalCode] = useState("");
-
-  //getting state and country data
-
-  const [state, setState] = useState({
-    country: "",
-
-    region: "",
-  });
-
   const selectCountry = (val) => {
     setState({ ...state, country: val });
   };
@@ -193,7 +245,6 @@ export default function CheckoutPage() {
   const { country, region } = state;
 
   //routing for checkout Page
-
   const navigate = useNavigate();
 
   function validate() {
@@ -207,57 +258,28 @@ export default function CheckoutPage() {
   }
   const cart_image = [
     {
-      id: 1,
-      src: cartimg,
-      name: "Cart Empty Image",
-    },
-  ];
+      "id": 1,
+      "src": cartimg,
+      "name": "Cart Empty Image",
+    }
+  ]
+
 
   return (
     <div>
-      {unAuthorised ? (
-        <div>
-          <p>Please sign in first</p>
-        </div>
-      ) : (
-        ""
-      )}
+      {unAuthorised ? <div>
+        <p>Please sign in first</p>
+      </div> : ""}
 
-      {isCartEmpty ? (
-        <div
-          className=""
-          style={{
-            textAlign: "center",
-            paddingTop: "80px",
-            paddingBottom: "80px",
-            fontFamily: "ui-serif",
-          }}
-        >
+      {
+        isCartEmpty ? <div className="" style={{ textAlign: 'center', paddingTop: '80px', paddingBottom: '80px', fontFamily: "ui-serif" }}>
           <h1> Your Cart is Empty </h1>
-          <img style={{ marginRight: "-195px" }} src={cartimg} />
-          <Button
-            variant="contained"
-            disableElevation
-            style={{
-              backgroundColor: "#8B3DFF",
-              marginTop: 90,
-              marginBottom: 20,
-              borderRadius: 0,
-              borderRadius: 5,
-              color: "white",
-            }}
-            onClick={() => {
-              console.log("redirecting.....");
-              navigate("/");
-            }}
-          >
-            Continue Shopping
-          </Button>
+          <img style={{ marginRight: '-195px' }} src={cartimg} />
+          <Button variant="contained" disableElevation style={{ backgroundColor: '#8B3DFF', marginTop: 90, marginBottom: 20, borderRadius: 0, borderRadius: 5, color: 'white' }} onClick={() => { console.log("redirecting....."); navigate("/"); }}>Continue Shopping</Button>
         </div>
-      ) : (
-        ""
-      )}
-      {!unAuthorised && !isCartEmpty ? (
+          : ""
+      }
+      {!unAuthorised && !isCartEmpty ?
         <Box sx={{ flexGrow: 1 }} style={{ position: "sticky" }}>
           <Grid container spacing={2}>
             <Grid xs={8}>
@@ -342,10 +364,7 @@ export default function CheckoutPage() {
                                       >
                                         <div className="aside">
                                           <img
-                                            src={
-                                              "data:image/jpeg;base64," +
-                                              item.image
-                                            }
+                                            src={"data:image/jpeg;base64," + item.image}
                                             style={{ width: 100, height: 100 }}
                                           />
                                         </div>
@@ -364,9 +383,7 @@ export default function CheckoutPage() {
                                               fontFamily: "ui-serif",
                                             }}
                                           >
-                                            {item.name.length > 10
-                                              ? item.name.slice(0, 10) + "..."
-                                              : item.name}
+                                            {item.name.length > 10 ? item.name.slice(0, 10) + "..." : item.name}
                                           </a>
 
                                           <p
@@ -418,9 +435,7 @@ export default function CheckoutPage() {
                                         </Box>
 
                                         <button
-                                          onClick={() =>
-                                            incrementQuantity(item.productId)
-                                          }
+                                          onClick={() => incrementQuantity(item.productId,item.quantity)}
                                           variant="contained"
                                           style={{
                                             width: 20,
@@ -436,9 +451,7 @@ export default function CheckoutPage() {
                                         </button>
 
                                         <button
-                                          onClick={() =>
-                                            decrementQuantity(item.productId)
-                                          }
+                                          onClick={() => decrementQuantity(item.productId,item.quantity)}
                                           variant="contained"
                                           style={{
                                             width: 20,
@@ -463,13 +476,10 @@ export default function CheckoutPage() {
                                       >
                                         <var className="price">
                                           ₹
-                                          {Math.round(
-                                            calculateTotalPrice(
-                                              item.price,
-                                              item.quantity -
-                                                item.quantity * 0.14
-                                            )
-                                          )}
+                                          {Math.round(calculateTotalPrice(
+                                            item.price,
+                                            item.quantity - item.quantity * 0.14
+                                          ))}
                                         </var>
                                       </div>
                                     </td>
@@ -502,6 +512,7 @@ export default function CheckoutPage() {
               </Item>
             </Grid>
            {/*Checkout Form*/}
+
             <Grid xs={4} style={{ paddingTop: 70, paddingRight: 30 }}>
               <Item style={{ borderRadius: 0 }}>
                 <div className="cart-form">
@@ -669,12 +680,15 @@ export default function CheckoutPage() {
                       borderRadius: 0,
                     }}
                     onClick={() => {
-                      deleteAllItemFromCart();
-                      if (validate()) {
-                        navigate("/SuccessPopup");
-                      }
-                      console.log("redirecting.....");
-                    }}
+                      const orderId = handleOrderId();
+                      //deleteAllItemFromCart();
+
+                      // if (validate()) {
+                      //   navigate("/SuccessPopup");
+                      // }
+                      // console.log("redirecting.....");
+                    }
+                    }
                   >
                     Place Order
                   </Button>
@@ -683,9 +697,7 @@ export default function CheckoutPage() {
             </Grid>
           </Grid>
         </Box>
-      ) : (
-        ""
-      )}
+        : ""}
     </div>
   );
 }

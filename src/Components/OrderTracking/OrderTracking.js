@@ -223,7 +223,13 @@ export default function OrderTracking() {
               Order Total : ₹ {orderTrackingDetails.orderTotal}
             </Typography>
             <Typography component="div" variant="p">
+              Quantity : {orderTrackingDetails.quantity}
+            </Typography>
+            <Typography component="div" variant="p">
               Address : {orderTrackingDetails.deliveryAddress}
+            </Typography>
+            <Typography component="div" variant="p">
+              Order Date : {orderTrackingDetails.orderedDate}
             </Typography>
             <Typography component="div" variant="p">
               Delivery Date : {orderTrackingDetails.deliveryDate}

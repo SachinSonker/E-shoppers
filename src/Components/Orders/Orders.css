@@ -23,7 +23,7 @@ h4,p{
   margin-bottom: 10px;
 }
 .orderList{
-  margin: 10px 15% 0px 15%;
+  margin: 0px 15% 0px 15%;
 }
 .orderBox{
   width: -webkit-fill-available;
@@ -41,4 +41,43 @@ h4,p{
   padding: 5px;
   border-radius: 15px;
   cursor: pointer;
+}
+
+
+.buttons{
+  /* size: 1cm; */
+  display: flex;
+  gap: 3rem;
+  align-items: right;
+}
+.buttonsl{
+background-color: RGB(139 61 255);
+border-radius: 4px; 
+border-style: none;
+box-sizing: border-box;
+color: #fff;
+cursor: pointer;
+display: inline-block;
+font-family: "Farfetch Basis","Helvetica Neue",Arial,sans-serif;
+font-size: 16px;
+font-weight: 700; 
+padding: 9px 20px 8px;
+position: relative;
+text-align: center;
+}
+
+.buttonsl:hover{
+  background-color: #222;
+ 
+}
+.card-Content{
+  display: flex;
+  flex-direction: row;
+}
+
+.button-Div{
+
+  margin-left: auto;
+  margin-top: 10px;
+  margin-right: 30px
 }

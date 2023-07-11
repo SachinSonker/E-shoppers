@@ -35,13 +35,14 @@ const ProductPage = () => {
             item key={s.id}
             style={{ width: "25%", padding: "0px", textAlign: "center" }}
           >
-          <NavLink key={s.id}  to={`/productdetails?id=${s.id}`}>
+          <NavLink key={s.id}  to={`/productdetails?id=${s.id}`} style={{textDecoration:'none'}}>
             <LandingCard
               itemID={s.id}
               itemImage={"data:image/jpeg;base64," + s.image}
               itemName={s.name}
               itemPrice={s.price}
               itemStrikePrice={s.price}
+              itemRating={s.ratings}
               cardType="product"
             ></LandingCard>
           </NavLink>

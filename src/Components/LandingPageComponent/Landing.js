@@ -16,7 +16,7 @@ import { Grid } from '@mui/material';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Spinner } from '../Spinner/Spinner';
-import { NavLink } from 'react-router-dom';
+import { NavLink ,Link} from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 
 const slider_images = [
@@ -113,9 +113,9 @@ const [categories, setCategories] = useState([]);
             <Grid container spacing={4} className='product-card'>
                 {categories.map(category => (
                     <Grid item  key={category.id} style={{ width: "25%", padding: "0px", textAlign: "center"}}>
-                    <NavLink key={category.id}  to={`/products/${category.name}`} state={{'categoryName':category.name}} style={{textTransform:'capitalize',textDecoration:'none',fontSize:'30px'}}>
+                    <Link key={category.id}  to={`/products/${category.name}`} style={{textTransform:'capitalize', fontSize:'30px', textDecoration:'none'}}>
                         <LandingCard className="card-title" itemID={category.id} itemImage={"data:image/jpeg;base64," + category.image} itemName={category.name} cardType="category"></LandingCard>
-                    </NavLink>
+                    </Link>
                     </Grid>
                     // <Grid item style={{ width: "25%", padding: "0px", textAlign: "center" }}>
                     //     <LandingCard key={category.id} onClick = {() = >{ navigate("/ProductPage");}} itemImage={"data:image/jpeg;base64," + category.image} itemName={category.name}>

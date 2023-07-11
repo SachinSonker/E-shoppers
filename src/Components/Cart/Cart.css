@@ -1,16 +1,16 @@
 .popper-container{
-    background-color: white;
+        background-color: white;
         width: 344px;
         height: 570px;
         border: 2px solid;
-        margin-top: 10px;
 }
 @media screen and (max-width:1000px) {
-        .popper-container{
+        /* .popper-container{
             height: 462px !important;
-        }
+        } */
         .box2{
-            max-height: 250px !important;
+            max-height: 370px !important;
+            overflow: auto !important;
         }
 }
 @media screen and (max-width:800px){
@@ -52,7 +52,7 @@
 .box2{
     display: flex;
     flex-direction: column;
-    max-height: 424px;
+    max-height: 370px;
     overflow-y: auto;
     overflow-x: hidden;
 }
@@ -62,7 +62,7 @@
     bottom: 0;
     background-color:white;
     width: 344px;
-    height: 133px;
+    height: 134px;
     border-top: 1px solid;
     z-index: 1000;
 }

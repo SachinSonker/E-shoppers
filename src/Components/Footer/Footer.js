@@ -27,16 +27,16 @@ const Footer = () => {
                 <Typography variant='h6'>Customer Service</Typography>
                 <List>
                   <ListItem disablePadding> 
-                    <ListItemText primary='FAQ' />
+                    <ListItemText primary='FAQ' onClick={()=>window.open('/')} sx={{cursor:'pointer'}} />
                   </ListItem>
                   <ListItem disablePadding>
-                    <ListItemText primary='My Account' />
+                    <ListItemText primary='My Account' onClick={() => window.open('/')} sx={{ cursor: 'pointer' }} />
                   </ListItem>
                   <ListItem disablePadding>
-                    <ListItemText primary='Help' />
+                    <ListItemText primary='Help' onClick={() => window.open('/')} sx={{ cursor: 'pointer' }} />
                   </ListItem>
                   <ListItem disablePadding>
-                    <ListItemText primary='Return Policy' />
+                    <ListItemText primary='Return Policy' onClick={() => window.open('/')} sx={{ cursor: 'pointer' }} />
                   </ListItem>
                 </List>
 
@@ -46,7 +46,7 @@ const Footer = () => {
                   <Typography variant='h6'>Contact Us</Typography>
                   <List>
                   <ListItem disablePadding>
-                    <ListItemText primary='Locations'></ListItemText>
+                      <ListItemText primary='Locations' onClick={() => window.open('https://www.google.co.in/maps')} sx={{ cursor: 'pointer' }}></ListItemText>
                   </ListItem>
                   </List>
                 </Box>
@@ -54,7 +54,7 @@ const Footer = () => {
                 <Typography variant='h6'>Feedback & Reviews</Typography>
                 <List>
                   <ListItem disablePadding>
-                    <ListItemText primary='Leave a Feedback'></ListItemText>
+                      <ListItemText primary='Leave a Feedback' onClick={() => window.open('/')} sx={{ cursor: 'pointer' }}></ListItemText>
                   </ListItem>
                   </List>
                 </Box>
@@ -63,17 +63,17 @@ const Footer = () => {
               <Grid item xs={4} md={4} sx={{ mb: '10px' }}>
                 <Typography variant='h6'>Social Media</Typography>
                 <Grid container columnSpacing={1} className='follow-icons'>  
-                  <Grid item sx={{paddingRight:'3px'}}>
-                    <Typography><InstagramIcon /></Typography>
+                  <Grid item sx={{paddingRight:'3px',cursor:'pointer'}}>
+                    <Typography onClick={() => window.open('https://www.instagram.com')}><InstagramIcon /></Typography>
                   </Grid>
-                  <Grid item sx={{ paddingRight: '3px' }}>
-                    <Typography><FacebookIcon /></Typography>
+                  <Grid item sx={{ paddingRight: '3px',cursor:'pointer' }}>
+                    <Typography onClick={() => window.open('https://www.facebook.com')}><FacebookIcon /></Typography>
                   </Grid>
-                  <Grid item sx={{ paddingRight: '3px' }}>  
-                    <Typography><TwitterIcon /></Typography>
+                  <Grid item sx={{ paddingRight: '3px',cursor:'pointer' }}>  
+                    <Typography onClick={() => window.open('https://twitter.com')}><TwitterIcon /></Typography>
                   </Grid>
-                  <Grid item>
-                    <Typography><LinkedInIcon /></Typography>
+                  <Grid item sx={{cursor:'pointer'}}>
+                    <Typography onClick={() => window.open('https://in.linkedin.com')}><LinkedInIcon /></Typography>
                   </Grid>  
                 </Grid>
               </Grid>

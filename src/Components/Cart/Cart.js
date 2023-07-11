@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import EmptyCart from './EmptyCart';
 import axios from 'axios';
 import './Cart.css';
+import { Spinner } from '../Spinner/Spinner';
 const Cart = ({ onClose, itemRemove }) => {
   const navigate = useNavigate();
   
@@ -95,12 +96,11 @@ const Cart = ({ onClose, itemRemove }) => {
       </Box>
 
       <Box className='box2'>
-
         {
           addCartObject.length === 0 ? <EmptyCart /> : addCartObject.map((data) => (
             <CartItem item={data} key={data.productId} image={"data:image/jpeg;base64," + data.image} name={(data.name.length >= 12) ? (data.name.slice(0, 12) + "...") : data.name} color={data.color} size={data.size} qty={data.quantity} price={data.price} addQuantity={() => increaseQty(data.productId,data.quantity)} removeQuantity={() => decreaseQty(data.productId,data.quantity)} deleteItem={() => deleteProduct(data.productId)} />
           ))
-        }
+        } 
 
       </Box>
 

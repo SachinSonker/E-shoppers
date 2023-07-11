@@ -4,6 +4,7 @@ import AccountAvatars from '../Avatar/Avatar'
 import OutboxIcon from '@mui/icons-material/Outbox';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { useNavigate } from 'react-router-dom';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 const Account = ({logout}) => {
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
@@ -55,7 +56,10 @@ const Account = ({logout}) => {
               anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
             >
           <MenuItem>
-            <Avatar sx={{ bgcolor:'#8B3DFF'}}/> My Profile
+            <ListItemIcon>
+              <AccountCircleIcon sx={{ color:'#8B3DFF'}} /> 
+            </ListItemIcon>
+            My Profile
           </MenuItem>  
           <MenuItem onClick={()=>{navigate('/orders')}}>
             <ListItemIcon>

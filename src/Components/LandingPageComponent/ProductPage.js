@@ -4,6 +4,7 @@ import axios from "axios";
 import { Grid } from "@mui/material";
 import LandingCard from "./Card";
 import { NavLink } from 'react-router-dom';
+import './ProductPage.css';
 
 const ProductPage = () => {
   const [products, setProducts] = useState([]);
@@ -32,10 +33,11 @@ const ProductPage = () => {
       <Grid container spacing={4} className="product-card">
         {products.map((s) => (
           <Grid
+            className="box"
             item key={s.id}
-            style={{ width: "25%", padding: "0px", textAlign: "center" }}
+            style={{ width: "25%", paddingTop: "20px", paddingBottom:"20px", paddingLeft:0,paddingRight:0, textAlign: "center" }}
           >
-          <NavLink key={s.id}  to={`/productdetails?id=${s.id}`}>
+          <NavLink key={s.id}  to={`/productdetails?id=${s.id}`} style={{textDecoration:'none'}}>
             <LandingCard
               itemID={s.id}
               itemImage={"data:image/jpeg;base64," + s.image}

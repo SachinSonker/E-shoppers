@@ -6,6 +6,8 @@ import Modal from '@mui/material/Modal';
 import {useState , useEffect} from 'react';
 import Checkbox from '@mui/material/Checkbox';
 import './Coupon.css';
+import CheckoutPage from '../Checkout/CheckoutPage';
+import axios from "axios";
 
 const style = {
     position: 'absolute',
@@ -18,17 +20,31 @@ const style = {
     boxShadow: 24,
     p: 4,
 };
+
 function Modalpopup(props) {
+
+    const [coupon, setCoupon] = useState([]);
     const [open, setOpen] = React.useState(true);
     const handleOpen = () => setOpen(true);
-    const handleClose = ()=> props.onClose(false);
+    const handleClose = ()=> {props.onClose(false);
+        props.setOrderTotalAgain1(secdiscount.toFixed(2));
+    }
     const [discountPrice , setDiscountPrice]= useState(0);
     const [secdiscount, setSecDiscount] = useState(0);
     const [click , setClick]= useState(false);
     const [click2 , setClick2]= useState(false);
-
+    const totalPrice = props.OrderTotal;
+    const [hasRender, setRender] = useState(false);
+    
     useEffect(()=>{
-    },[props.OrderTotal]);
+        axios
+        .get("http://65.0.17.17:8090/api/coupon", {
+            headers: { "Authorization": "Bearer " + sessionStorage.getItem("token") }
+          })
+          .then ((response) =>{
+            console.log("Coupon Code" + response)
+          })
+    },[]);
 
 
     const CalculateDiscountPrice=()=>{
@@ -45,29 +61,32 @@ function Modalpopup(props) {
         const secdiscounted = totalPrice - discounttwo;
         setSecDiscount(secdiscounted);
         setClick2(true);
-    }
+    };
+
    
+    
     return (
         <div>
             <Modal
                 open={open}
-               
                 onClose={handleClose}
                 aria-labelledby="modal-modal-title"
              >
                <Box sx={style}>
                 <Button 
                 style={{left:'95%',marginTop:-25,color:'black'}}
-                onClick={handleClose}>✖</Button>
+                onClick={handleClose}>*</Button>
                 <div>
                     <Typography id="modal-modal-title" style={{fontSize:30, fontFamily:'ui-serif'}}>
                         See Available Coupon's For You
                     </Typography>
+                    
+                        {coupon.map((deal)=>(
                     <div style={{borderStyle:'dashed',padding:20,marginTop:20}}>
                     <Typography id="modal-modal-description" sx={{ mt: 2 }} style={{fontSize:25,fontFamily:'ui-serif'}}>
-                        Flat 50% Percent off &nbsp;&nbsp;
+                        Flat {deal.discountPercent} Percent off &nbsp;&nbsp;
                        <br/>
-                       <Typography style={{paddingTop:20,paddingBottom:20}}>COUPON CODE :- FLAT50</Typography>
+                       <Typography style={{paddingTop:20,paddingBottom:20}}>COUPON CODE :- {deal.couponName}</Typography>
                     </Typography>
                     <Button
                            variant="contained"
@@ -76,16 +95,18 @@ function Modalpopup(props) {
                            borderRadius: 0,
                         color: "White",
                        }}
-                        onClick={CalculateDiscountPrice}>
+                        onClick={SecondDiscount}>
                         APPLY COUPON
                         
                        </Button>
                        {(click)?<div style={{marginLeft:165,marginTop:-45}}><Typography>Original price: {props.OrderTotal}</Typography>
-                        <Typography >Coupon Discounted price: {discountPrice.toFixed(2)}</Typography>
+                       
+                        <Typography >Coupon Discounted price: {secdiscount.toFixed(2)}</Typography> {props.setOrderTotalAgain1(secdiscount.toFixed(2))}
                         </div>:null
                     }
                     </div>
-                    <div style={{borderStyle:'dashed',padding:20,marginTop:20}}>
+                    ))}
+                    {/* <div style={{borderStyle:'dashed',padding:20,marginTop:20}}>
                     <Typography id="modal-modal-description" sx={{ mt: 2 }} style={{fontSize:25,fontFamily:'ui-serif'}}>
                       Flat 20% Percent off &nbsp;&nbsp;
                       <br/>
@@ -103,15 +124,16 @@ function Modalpopup(props) {
                         
                        </Button>
                        {(click2)?<div style={{marginLeft:165,marginTop:-45}}><Typography>Original price: {props.OrderTotal}</Typography>
-                        <Typography >Coupon Discounted price: {secdiscount.toFixed(2)}</Typography>
+                        <Typography >Coupon Discounted price: {secdiscount.toFixed(2)}</Typography> {props.setOrderTotalAgain1(secdiscount.toFixed(2))}
                          </div> :null      
                         }
-                    </div>
+                    </div> */}
                     </div>
                 </Box>
             </Modal>
            
         </div>
+    
     )
 }
 

@@ -29,7 +29,7 @@ const Item = styled("div")(({ theme }) => ({
   textAlign: "center",
 }));
 
-export default function CheckoutPage() {
+export default function CheckoutPage(props) {
   //gettings items data from backend
   const Razorpay = useRazorpay();
   const [cartItems, setCartItems] = useState({});
@@ -40,6 +40,13 @@ export default function CheckoutPage() {
   const [address1, setAddress1] = useState("");
   const [address2, setAddress2] = useState("");
   const [postalcode, setPostalCode] = useState("");
+  const [orderTotal, setOrderTotal] = useState(0);
+  const token=sessionStorage.getItem('token');
+
+
+  const setOrderTotalAgain = (num) => {
+    setOrderTotal(num)
+  }
 
   //getting state and country data
   const [state, setState] = useState({
@@ -52,8 +59,10 @@ export default function CheckoutPage() {
   const onClose = (() => {setRender(false);});
 
   useEffect(() => {
+
     getAllItems();
-  }, [hasRender]);
+    console.log(orderTotal, "Order Total")
+  }, [orderTotal, hasRender]);
 
   function getAllItems() {
     axios
@@ -197,11 +206,15 @@ export default function CheckoutPage() {
     data.map((item) => {
       subTotal += (item.price - item.price * 0.14) * item.quantity;
     });
+    
+    //setOrderTotal(Math.round(subTotal) + 100);
     return Math.round(subTotal);
   };
 
   //calculating order total
   const OrderTotal = 100 + calculateSubTotal();
+  console.log(OrderTotal);
+  //setOrderTotal(OrderTotal);
 
   //deleting items
   const deleteItem = (itemId) => {
@@ -267,9 +280,12 @@ export default function CheckoutPage() {
 
   return (
     <div>
-      {unAuthorised ? <div>
-        <p>Please sign in first</p>
-      </div> : ""}
+      {unAuthorised ? <div style={{display: 'flex',
+                                   justifyContent: 'center',
+                                   paddingTop: '60px',
+                                  color: 'red'}}>
+                                 <p>Please sign in first</p>
+      </div>:""}
 
       {
         isCartEmpty ? <div className="" style={{ textAlign: 'center', paddingTop: '80px', paddingBottom: '80px', fontFamily: "ui-serif" }}>
@@ -605,25 +621,25 @@ export default function CheckoutPage() {
                       <span className="errorMsg">{errors.invalid}</span>
                     )}
                   </div>
-                <div className="wrapper" style={{ display: "flex" }}>
-                  <span>
-                  {/* <label>Address Line 1</label> */}
+                <div className="wrapper">
+                  {/* <span>
+                   <label>Address Line 1</label> }
                   <input
                   type="text"
                   name="Coupons"
                   placeholder="Enter Coupon Code"
                   style={{width: '100%',
-                    height: '92%',
+                    height: '87%',
                     left: '8%',
                     position: 'relative',
-                    top: '-1%',
+                    top: '0%',
                     paddingLeft:5,
                     textAlign:'left',
                   }}
-                  // onChange={(event) => setAddress1(event.target.value)}
+                   onChange={(event) => setAddress1(event.target.value)}
                   required
                  ></input>
-                  </span>
+                  </span> */}
                   <span>
                   <Button
                     variant="contained"
@@ -631,12 +647,13 @@ export default function CheckoutPage() {
                       backgroundColor: "#8B3DFF",
                       borderRadius: 0,
                       color: "White",
+                      width:'91%',
                     }}
                     onClick={onShow}
                   >
-                    APPLY COUPON
+                    SEE AVAILABLE COUPON'S
                   </Button>
-                  {hasRender ? <Coupon onClose={onClose} OrderTotal={OrderTotal}/> : ""}
+                  {hasRender ? <Coupon onClose={onClose} OrderTotal={OrderTotal} setOrderTotalAgain1={setOrderTotalAgain} orderTotal={orderTotal}/> : ""}
                   </span>
                 </div>
                   <hr />
@@ -663,12 +680,25 @@ export default function CheckoutPage() {
                   >
                     Order Total &nbsp;<span style={{ marginRight: 120 }}></span>{" "}
                     ₹ {Math.round(OrderTotal)}
-                    
-                    
+                  </Typography>
+
+                  <Typography
+                    variant="h6"
+                    style={{ textAlign: "Left", fontSize: 14, marginLeft: 30 }}
+                  >
+                    Coupon Discount: &nbsp;<span style={{ marginRight: 78 }}></span>{" "}
+                    ₹ {orderTotal==0? 0:Math.round(OrderTotal-orderTotal)}
+                      
                   </Typography>
                   
+                  <Typography
+                    variant="h6"
+                    style={{ textAlign: "Left", fontSize: 14, marginLeft: 30 }}
+                  >
+                    Final Price: &nbsp;<span style={{ marginRight: 120 }}></span>{" "}
+                    ₹ {orderTotal}    
+                  </Typography>                 
                   <hr />
-
                   <Button
                     variant="contained"
                     disableElevation

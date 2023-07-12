@@ -113,7 +113,7 @@ const [categories, setCategories] = useState([]);
             <Grid container spacing={4} className='product-card'>
                 {categories.map(category => (
                     <Grid item  key={category.id} style={{ width: "25%", padding: "0px", textAlign: "center"}}>
-                    <Link key={category.id}  to={`/products/${category.name}`} style={{textTransform:'capitalize', fontSize:'30px', textDecoration:'none'}}>
+                    <Link key={category.id}  to={`/products?categoryName=${category.name}`} style={{textTransform:'capitalize', fontSize:'30px', textDecoration:'none'}}>
                         <LandingCard className="card-title" itemID={category.id} itemImage={"data:image/jpeg;base64," + category.image} itemName={category.name} cardType="category"></LandingCard>
                     </Link>
                     </Grid>

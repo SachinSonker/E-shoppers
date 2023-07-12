@@ -68,11 +68,12 @@ function ProductDetails() {
             <div className="product-data">
                 <h1 className="heading">{prodObj.name}</h1>
                 <Stars ratings={prodObj.ratings} reviews={25} from="productDetails"/>
-                <p className="product-data-price ">Price: <s>₹ {Math.round(prodObj.price)}</s></p>
-                <p className="product-data-price product-data-real-price">Deal of the day : ₹  {Math.round(prodObj.price - (prodObj.price * (prodObj.discountPercent/100)))}({prodObj.discountPercent}% OFF)</p>
+                <p className="product-data-price ">Price <s>₹{Math.round(prodObj.price)}</s></p>
+                <p className="product-data-price product-data-real-price">Offer Price ₹{Math.round(prodObj.price - (prodObj.price * (prodObj.discountPercent/100)))} ({prodObj.discountPercent}% OFF)</p>
+                <br></br>
                 <p>
                     <span>
-                        Description:&nbsp;</span>
+                        Description&nbsp;</span>
                     <div dangerouslySetInnerHTML={{ __html: prodObj.description }} />
                 </p>&nbsp;
                 <div className="specs">
@@ -92,7 +93,7 @@ function ProductDetails() {
                     </div>&nbsp;
                 </div>
                 <div className="product-data-info">
-                    <p className="text-data">Available:
+                    <p className="text-data">Available&nbsp;
                         <span>{prodObj.totalStock > 0 ? "In Stock" : " Out of Stock"}</span>
                     </p>
                     {prodObj.totalStock > 0 ? (

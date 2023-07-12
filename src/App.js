@@ -32,7 +32,7 @@ function App() {
           } />
 
           {/* ProductPage */}
-          <Route path="/products/:categoryId" element={
+          <Route path="/products/*" element={
             <div>
             <div className='App'>
               <Navbar/>

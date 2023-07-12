@@ -18,6 +18,7 @@ function ProductDetails() {
     const navigate = useNavigate()
     const size = ["S", "M", "L", "XL"];
     const color = ["White", "Olive", "Cream"];
+    
 
     function getRandomItem(arr) {
         // get random index value
@@ -58,9 +59,10 @@ function ProductDetails() {
 
     return (
         <div className="productDetails" >
-            <div className="product_images">
+                {/* <div className='image-selector'>
+                    <img src={"data:image/jpeg;base64," + prodObj.image}  />
+                </div> */}
                 <ProductImages prodImage={"data:image/jpeg;base64," + prodObj.image} />
-            </div>
             <div className="product-data">
                 <h1 className="heading">{prodObj.name}</h1>
                 <Stars ratings={prodObj.ratings} reviews={25} from="productDetails"/>

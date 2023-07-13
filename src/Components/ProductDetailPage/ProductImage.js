@@ -3,17 +3,17 @@ import img1 from '../../assets/11.png';
 import "./ProductDetails.css";
 import ReactImageMagnify from 'react-image-magnify';
 function ProductImages(props) {
-    const [imgId, setImgId] = useState(0)
-    useEffect(() => { 
-    },[imgId])
-    const images = [
-        {
-            imgUrl:props.prodImage
-        },
-        {
-            imgUrl:img1
-        }
-    ]
+    // const [imgId, setImgId] = useState(0)
+    // useEffect(() => { 
+    // },[imgId])
+    // const images = [
+    //     {
+    //         imgUrl:props.prodImage
+    //     },
+    //     {
+    //         imgUrl:img1
+    //     }
+    // ]
     return (
         // <figure>
         //     <img
@@ -22,7 +22,7 @@ function ProductImages(props) {
         //     />
         // </figure>
         <div className="product-images">
-            <div className="image-grid">
+            {/* <div className="image-grid">
                 <ul className="image-list">
                     {
                         images.map((images, id) => (
@@ -34,16 +34,16 @@ function ProductImages(props) {
                         ))
                     }
                 </ul>
-            </div>
+            </div> */}
             <figure>
             <ReactImageMagnify {...{
                 smallImage: {
                     alt: 'xyz',
                     isFluidWidth: true,
-                    src: images[imgId].imgUrl,
+                    src: props.prodImage,
                 },
                 largeImage: {
-                    src: images[imgId].imgUrl,
+                    src: props.prodImage,
                     width: 1800,
                     height: 2500
                     },

@@ -23,6 +23,7 @@ function ProductDetails() {
     const size = ["S", "M", "L", "XL"];
     const color = ["White", "Olive", "Cream"];
 
+
     function getRandomItem(arr) {
         // get random index value
         const randomIndex = Math.floor(Math.random() * arr.length);
@@ -37,12 +38,12 @@ function ProductDetails() {
             setProdObj(response.data)
         });
         axios.get(`http://65.0.17.17:8090/api/product/recommend/${params.get('id')}`)
-        .then(response=>{
-            setProducts(response.data);
-        })
-        .catch(error=>{
-            console.log(error);
-        });
+            .then(response => {
+                setProducts(response.data);
+            })
+            .catch(error => {
+                console.log(error);
+            });
     }, params.get('id'));
 
     function notifyMe() {
@@ -73,82 +74,83 @@ function ProductDetails() {
 
     return (
         <React.Fragment>
-            <div className="productDetails" >
-                <div className="product_images">
-                    <ProductImages prodImage={"data:image/jpeg;base64," + prodObj.image} />
+  <div className="productDetails" >
+                {/* <div className='image-selector'>
+                    <img src={"data:image/jpeg;base64," + prodObj.image}  />
+                </div> */}
+                <ProductImages prodImage={"data:image/jpeg;base64," + prodObj.image} />
+            <div className="product-data">
+                <h1 className="heading">{prodObj.name}</h1>
+                <Stars ratings={prodObj.ratings} reviews={25} from="productDetails"/>
+                <p className="product-data-price ">Price <s>₹{Math.round(prodObj.price)}</s></p>
+                <p className="product-data-price product-data-real-price">Offer Price ₹{Math.round(prodObj.price - (prodObj.price * (prodObj.discountPercent/100)))} ({prodObj.discountPercent}% OFF)</p>
+                <br></br>
+                <p>
+                    <span>
+                        Description&nbsp;</span>
+                    <div dangerouslySetInnerHTML={{ __html: prodObj.description }} />
+                </p>&nbsp;
+                <div className="specs">
+                    <div className="product-data-warranty">
+                        <div className="product-warranty-data">
+                            <TbTruckDelivery className="warranty-icon" />
+                            <p className="wardata">Free Delivery</p>
+                        </div>
+                        <div className="product-warranty-data">
+                            <TbReplace className="warranty-icon" />
+                            <p className="wardata">30 days Replacement</p>
+                        </div>
+                        <div className="product-warranty-data">
+                            <MdSecurity className="warranty-icon" />
+                            <p className="wardata">2 Years Warranty</p>
+                        </div>
+                    </div>&nbsp;
                 </div>
-                <div className="product-data">
-                    <h1 className="heading">{prodObj.name}</h1>
-                    <Stars ratings={prodObj.ratings} reviews={25} from="productDetails" />
-                    <p className="product-data-price ">Price <s>₹{Math.round(prodObj.price)}</s></p>
-                    <p className="product-data-price product-data-real-price">Offer Price ₹{Math.round(prodObj.price - (prodObj.price * (prodObj.discountPercent / 100)))} ({prodObj.discountPercent}% OFF)</p>
-                    <br></br>
-                    <p>
-                        <span>
-                            Description&nbsp;</span>
-                        <div dangerouslySetInnerHTML={{ __html: prodObj.description }} />
-                    </p>&nbsp;
-                    <div className="specs">
-                        <div className="product-data-warranty">
-                            <div className="product-warranty-data">
-                                <TbTruckDelivery className="warranty-icon" />
-                                <p className="wardata">Free Delivery</p>
-                            </div>
-                            <div className="product-warranty-data">
-                                <TbReplace className="warranty-icon" />
-                                <p className="wardata">30 days Replacement</p>
-                            </div>
-                            <div className="product-warranty-data">
-                                <MdSecurity className="warranty-icon" />
-                                <p className="wardata">2 Years Warranty</p>
-                            </div>
-                        </div>&nbsp;
-                    </div>
-                    <div className="product-data-info">
-                        <p className="text-data">Available&nbsp;
-                            <span>{prodObj.totalStock > 0 ? "In Stock" : " Out of Stock"}</span>
-                        </p>
-                        {prodObj.totalStock > 0 ? (
-                            <div className="buttons">
-                                <button className="buttonstl" onClick={() => { navigate('/checkout') }}>Go To Checkout </button>
-                                <button className="buttonstl" onClick={addToCart}>Add To Cart</button>
-                            </div>
-                        ) : (
-                            <div className="buttons">
-                                <button className="buttonst2" onClick={notifyMe}>Notify Me </button>
-                            </div>
-                        )}
-
-                    </div>
+                <div className="product-data-info">
+                    <p className="text-data">Available&nbsp;
+                        <span>{prodObj.totalStock > 0 ? "In Stock" : " Out of Stock"}</span>
+                    </p>
+                    {prodObj.totalStock > 0 ? (
+                        <div className="buttons">
+                            <button className="buttonstl" onClick={() => {navigate('/checkout')}}>Go To Checkout </button>
+                            <button className="buttonstl" onClick={addToCart}>Add To Cart</button>
+                        </div>
+                    ) : (
+                        <div className="buttons">
+                            <button className="buttonst2" onClick={notifyMe}>Notify Me </button>
+                        </div>
+                    )}
+                    
                 </div>
             </div>
-            <br></br>
-            <>
-                <h4 className='page-title-recomend'>Recomendation</h4>
-                <Grid container spacing={4} className="product-card">
-                    {products.map((s) => (
-                        <Grid
-                            item key={s.id}
-                            style={{ width: "25%", padding: "0px", textAlign: "center" }}
-                        >
-                            <NavLink key={s.id} to={`/productdetails?id=${s.id}`} style={{ textDecoration: 'none' }}>
-                                <LandingCard
-                                    itemID={s.id}
-                                    itemImage={"data:image/jpeg;base64," + s.image}
-                                    itemName={s.name}
-                                    itemPrice={s.price}
-                                    itemStrikePrice={s.price}
-                                    itemRating={s.ratings}
-                                    cardType="product"
-                                ></LandingCard>
-                            </NavLink>
+        </div>
+                    <br></br>
+                    <>
+                        <h4 className='page-title-recomend'>Recomendation</h4>
+                        <Grid container spacing={4} className="product-card">
+                            {products.map((s) => (
+                                <Grid
+                                    item key={s.id}
+                                    style={{ width: "25%", padding: "0px", textAlign: "center" }}
+                                >
+                                    <NavLink key={s.id} to={`/productdetails?id=${s.id}`} style={{ textDecoration: 'none' }}>
+                                        <LandingCard
+                                            itemID={s.id}
+                                            itemImage={"data:image/jpeg;base64," + s.image}
+                                            itemName={s.name}
+                                            itemPrice={s.price}
+                                            itemStrikePrice={s.price}
+                                            itemRating={s.ratings}
+                                            cardType="product"
+                                        ></LandingCard>
+                                    </NavLink>
+                                </Grid>
+                            ))}
                         </Grid>
-                    ))}
-                </Grid>
-            </>
-        </React.Fragment>
-    )
+                    </>
+                </React.Fragment>
+                )
 }
 
 
-export default ProductDetails;
+                export default ProductDetails;

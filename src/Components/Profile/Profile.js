@@ -22,7 +22,7 @@ import {
   MDBListGroup,
   MDBListGroupItem
 } from 'mdb-react-ui-kit';
-//import './Profile.css'
+import './Profile.css'
 import { useState } from 'react';
 import { useEffect } from 'react';
 
@@ -94,7 +94,7 @@ export default function ProfilePage() {
         })
         .then((response) => {
             setProfileDetails(response.data)
-            handleClose();
+            handleClose()
             console.log(response.data)
         })
         .catch((err)=>{

@@ -350,7 +350,7 @@ export default function CheckoutPage(props) {
                                   scope="col"
                                   width="120"
                                 >
-                                  Qunatity
+                                  Quantity
                                 </th>
 
                                 <th

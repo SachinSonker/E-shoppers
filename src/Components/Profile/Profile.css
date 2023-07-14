@@ -1,0 +1,34 @@
+.profileHeading{
+  display: flex;
+  align-content: center;
+  background: beige;
+  flex-direction: column;
+}
+.title{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+}
+.line{
+  width: 50% !important;
+}
+.actionButton{
+  margin-top: 15px;
+}
+.closeBtn,.editProfile{
+  margin-left: 10px;
+  border: 1px solid #8B3DFF !important;
+  color: #8B3DFF !important;
+}
+.editBtn{
+  background-color: #8B3DFF !important;
+  border: 1px solid #8B3DFF !important;
+}
+.editBtn:hover{
+  background-color: #7300e6 !important;
+}
+.closeBtn:hover,.editProfile:hover{
+  background-color: #8B3DFF !important;
+  color: white !important;
+}

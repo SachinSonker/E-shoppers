@@ -209,6 +209,9 @@ export default function OrderTracking() {
             <br></br>
             <Typography component="div" variant="p">
               Order ID : {orderTrackingDetails.orderId}
+            </Typography>  
+            <Typography component="div" variant="p">
+                Tracking ID : { params.get('trackingId') }
             </Typography>
             <Typography component="div" variant="p">
               Name : {orderTrackingDetails.userName}

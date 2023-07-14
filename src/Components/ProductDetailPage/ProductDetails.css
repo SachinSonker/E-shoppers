@@ -96,7 +96,7 @@ hr {
 .product-images {
     display: flex;
     justify-content: center;
-    align-items: center;
+    flex-direction: row;
 }
 .specs{
     display: flex;
@@ -160,9 +160,8 @@ hr {
   
   
 .box-image--style{
-    height: 100%;
-    width: 100%;
-
+    height: 100% ;
+    width: 100% ;
 }
 
 .wardata{
@@ -184,5 +183,30 @@ hr {
 }
 .review{
     margin-bottom: 5px;
+}
+.zoomed-image{
+ z-index: 1;
+}
+.image-grid{
+    display: flex;
+    flex-direction: column;
+}
+.image-list{
+    list-style-type: none;
+    
+}
+.image-selector{
+    width:70px;
+    height: 80px;
+    cursor: pointer;
+    border: 1px solid #eee;
+    margin-bottom: 10px;
+}
+.image-selector img{
+    width: 70px;
+    height: 80px;
+}
+.image-selector :hover{
+    border:1px solid #8B3DFF;
 }
 

@@ -1,4 +1,4 @@
- import React, { useState } from "react";
+import React, { useState } from "react";
 import { TbTruckDelivery, TbReplace } from "react-icons/tb";
 import { useEffect } from "react";
 import axios from "axios";
@@ -8,16 +8,21 @@ import './ProductDetails.css';
 import Stars from "./Stars";
 import { useSearchParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { Grid } from "@mui/material";
+import LandingCard from "../LandingPageComponent/Card";
+import { NavLink } from 'react-router-dom';
 // import { ToastContainer, toast } from 'react-toastify';
 // import 'react-toastify/dist/ReactToastify.css';
 import { showToast } from '../../services/toastService';
 import 'react-toastify/dist/ReactToastify.css';
 function ProductDetails() {
     const [prodObj, setProdObj] = useState({});
+    const [products, setProducts] = useState([]);
     const [params] = useSearchParams();
     const navigate = useNavigate()
     const size = ["S", "M", "L", "XL"];
     const color = ["White", "Olive", "Cream"];
+
 
     function getRandomItem(arr) {
         // get random index value
@@ -32,6 +37,13 @@ function ProductDetails() {
             console.log(response.data)
             setProdObj(response.data)
         });
+        axios.get(`http://65.0.17.17:8090/api/product/recommend/${params.get('id')}`)
+            .then(response => {
+                setProducts(response.data);
+            })
+            .catch(error => {
+                console.log(error);
+            });
     }, params.get('id'));
 
     function notifyMe() {
@@ -61,10 +73,12 @@ function ProductDetails() {
     }
 
     return (
-        <div className="productDetails" >
-            <div className="product_images">
+        <React.Fragment>
+  <div className="productDetails" >
+                {/* <div className='image-selector'>
+                    <img src={"data:image/jpeg;base64," + prodObj.image}  />
+                </div> */}
                 <ProductImages prodImage={"data:image/jpeg;base64," + prodObj.image} />
-            </div>
             <div className="product-data">
                 <h1 className="heading">{prodObj.name}</h1>
                 <Stars ratings={prodObj.ratings} reviews={25} from="productDetails"/>
@@ -110,8 +124,33 @@ function ProductDetails() {
                 </div>
             </div>
         </div>
-    )
+                    <br></br>
+                    <>
+                        <h4 className='page-title-recomend'>Recomendation</h4>
+                        <Grid container spacing={4} className="product-card">
+                            {products.map((s) => (
+                                <Grid
+                                    item key={s.id}
+                                    style={{ width: "25%", padding: "0px", textAlign: "center" }}
+                                >
+                                    <NavLink key={s.id} to={`/productdetails?id=${s.id}`} style={{ textDecoration: 'none' }}>
+                                        <LandingCard
+                                            itemID={s.id}
+                                            itemImage={"data:image/jpeg;base64," + s.image}
+                                            itemName={s.name}
+                                            itemPrice={s.price}
+                                            itemStrikePrice={s.price}
+                                            itemRating={s.ratings}
+                                            cardType="product"
+                                        ></LandingCard>
+                                    </NavLink>
+                                </Grid>
+                            ))}
+                        </Grid>
+                    </>
+                </React.Fragment>
+                )
 }
 
 
-export default ProductDetails;
+                export default ProductDetails;

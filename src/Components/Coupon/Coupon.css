@@ -1,3 +1,6 @@
 .css-12wnr2w-MuiButtonBase-root-MuiCheckbox-root.Mui-checked{
     color: #8b3dff !important;
 }
+.cross:hover{
+    background-color: #8B3DFF!important;
+}

@@ -41,11 +41,15 @@ export default function CheckoutPage(props) {
   const [address2, setAddress2] = useState("");
   const [postalcode, setPostalCode] = useState("");
   const [orderTotal, setOrderTotal] = useState(0);
+  const [coupon, setCoupon] = useState("");
   const token=sessionStorage.getItem('token');
 
 
   const setOrderTotalAgain = (num) => {
     setOrderTotal(num)
+  }
+  const setCouponCode = (sum) =>{
+    setCoupon(sum)
   }
 
   //getting state and country data
@@ -62,7 +66,7 @@ export default function CheckoutPage(props) {
 
     getAllItems();
     console.log(orderTotal, "Order Total")
-  }, [orderTotal, hasRender]);
+  }, [orderTotal, hasRender,coupon]);
 
   function getAllItems() {
     axios
@@ -184,11 +188,11 @@ export default function CheckoutPage(props) {
 
   // Order place
   const handleOrderId = () => {
-    axios.get(`http://65.0.17.17:8090/api/payment/${OrderTotal}`, {
+    axios.get(`http://65.0.17.17:8090/api/payment/${orderTotal}`, {
       headers: { Authorization: "Bearer " + sessionStorage.getItem("token") },
     }).then((response) => {
       console.log(response.data, "Inside")
-      handlePayment(response.data, OrderTotal);
+      handlePayment(response.data, orderTotal);
       return response.data
     });
   }
@@ -234,16 +238,14 @@ export default function CheckoutPage(props) {
 
   //clearing cart on placing order
   const deleteAllItemFromCart = () => {
-    axios
-      .delete(`http://10.53.97.64:8090/api/cart`, {
-        headers: { Authorization: "Bearer " + sessionStorage.getItem("token") },
+    axios.delete(`http://65.0.17.17:8090/api/cart`, {
+      headers: { Authorization: "Bearer " + sessionStorage.getItem("token") },
+    })
+      .then(response => {
+        console.log('all item deleted')
+      }).catch(error => {
+        console.log('Error deleting items from cart', error);
       })
-      .then((response) => {
-        console.log("all item deleted");
-      })
-      .catch((error) => {
-        console.log("Error deleting items from cart", error);
-      });
   };
 
   //forms
@@ -622,24 +624,6 @@ export default function CheckoutPage(props) {
                     )}
                   </div>
                 <div className="wrapper">
-                  {/* <span>
-                   <label>Address Line 1</label> }
-                  <input
-                  type="text"
-                  name="Coupons"
-                  placeholder="Enter Coupon Code"
-                  style={{width: '100%',
-                    height: '87%',
-                    left: '8%',
-                    position: 'relative',
-                    top: '0%',
-                    paddingLeft:5,
-                    textAlign:'left',
-                  }}
-                   onChange={(event) => setAddress1(event.target.value)}
-                  required
-                 ></input>
-                  </span> */}
                   <span>
                   <Button
                     variant="contained"
@@ -653,7 +637,7 @@ export default function CheckoutPage(props) {
                   >
                     SEE AVAILABLE COUPON'S
                   </Button>
-                  {hasRender ? <Coupon onClose={onClose} OrderTotal={OrderTotal} setOrderTotalAgain1={setOrderTotalAgain} orderTotal={orderTotal}/> : ""}
+                  {hasRender ? <Coupon onClose={onClose} OrderTotal={OrderTotal} setOrderTotalAgain1={setOrderTotalAgain} orderTotal={orderTotal} setCouponCode1={setCouponCode} coupon={coupon}/> : ""}
                   </span>
                 </div>
                   <hr />
@@ -686,8 +670,16 @@ export default function CheckoutPage(props) {
                     variant="h6"
                     style={{ textAlign: "Left", fontSize: 14, marginLeft: 30 }}
                   >
-                    Coupon Discount: &nbsp;<span style={{ marginRight: 78 }}></span>{" "}
-                    ₹ {orderTotal==0? 0:Math.round(OrderTotal-orderTotal)}
+                    Coupon Applied &nbsp;<span style={{ marginRight: 90 }}></span>{" "}
+                    <span style={{color:'red'}}>{coupon}</span>
+                  </Typography>
+
+                  <Typography
+                    variant="h6"
+                    style={{ textAlign: "Left", fontSize: 14, marginLeft: 30 }}
+                  >
+                    Coupon Discount &nbsp;<span style={{ marginRight: 78 }}></span>{" "}
+                    <span style={{color:'green'}}>{orderTotal==0 ? "":-Math.round(OrderTotal-orderTotal)}</span>
                       
                   </Typography>
                   
@@ -695,8 +687,8 @@ export default function CheckoutPage(props) {
                     variant="h6"
                     style={{ textAlign: "Left", fontSize: 14, marginLeft: 30 }}
                   >
-                    Final Price: &nbsp;<span style={{ marginRight: 120 }}></span>{" "}
-                    ₹ {orderTotal}    
+                    Final Price &nbsp;<span style={{ marginRight: 120 }}></span>{" "}
+                    <span style={{color:'red'}}>₹ {orderTotal} </span>   
                   </Typography>                 
                   <hr />
                   <Button
@@ -711,12 +703,6 @@ export default function CheckoutPage(props) {
                     }}
                     onClick={() => {
                       const orderId = handleOrderId();
-                      //deleteAllItemFromCart();
-
-                      // if (validate()) {
-                      //   navigate("/SuccessPopup");
-                      // }
-                      // console.log("redirecting.....");
                     }
                     }
                   >

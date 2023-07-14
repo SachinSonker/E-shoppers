@@ -1,3 +1,7 @@
+.box{
+    display: flex;
+    flex-grow: 1;
+}
 Typography {
     color: inherit;
     margin: 5px 14px 2px;
@@ -7,9 +11,24 @@ Typography {
 .grid-container{
     position: sticky;
     width : 100% !important;
-    height: 15%;
+    height: 20%;
     margin-top: 0px !important; 
     margin-left: 0px !important; 
     background-color: #000000;
     color: white
+}
+.first{
+    padding-bottom: 40px;
+    padding-top: 40px;
+}
+.footer-title{
+    margin:40px 0 0 80px !important
+}
+.follow-icons{
+    padding-top: 10px;
+}
+.second{
+    justify-content: center;
+    gap: 20px;
+    padding-bottom: 10px;
 }

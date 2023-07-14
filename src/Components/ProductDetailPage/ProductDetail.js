@@ -34,6 +34,10 @@ function ProductDetails() {
         });
     }, params.get('id'));
 
+    function notifyMe() {
+        showToast('Subscribed Successfully !!!', 'success');
+    }
+
     function addToCart() {
         if (sessionStorage.getItem("token") == null) {
             //alert("Please Login First...")
@@ -64,11 +68,12 @@ function ProductDetails() {
             <div className="product-data">
                 <h1 className="heading">{prodObj.name}</h1>
                 <Stars ratings={prodObj.ratings} reviews={25} from="productDetails"/>
-                <p className="product-data-price ">Price: <s>₹ {Math.round(prodObj.price)}</s></p>
-                <p className="product-data-price product-data-real-price">Deal of the day : ₹  {Math.round(prodObj.price - (prodObj.price * 0.14))}(14% OFF)</p>
+                <p className="product-data-price ">Price <s>₹{Math.round(prodObj.price)}</s></p>
+                <p className="product-data-price product-data-real-price">Offer Price ₹{Math.round(prodObj.price - (prodObj.price * (prodObj.discountPercent/100)))} ({prodObj.discountPercent}% OFF)</p>
+                <br></br>
                 <p>
                     <span>
-                        Description:&nbsp;</span>
+                        Description&nbsp;</span>
                     <div dangerouslySetInnerHTML={{ __html: prodObj.description }} />
                 </p>&nbsp;
                 <div className="specs">
@@ -88,13 +93,20 @@ function ProductDetails() {
                     </div>&nbsp;
                 </div>
                 <div className="product-data-info">
-                    <p className="text-data">Available:
-                        <span>{prodObj.totalStock > 0 ? "In Stock" : "Not Available"}</span>
+                    <p className="text-data">Available&nbsp;
+                        <span>{prodObj.totalStock > 0 ? "In Stock" : " Out of Stock"}</span>
                     </p>
-                    <div className="buttons">
-                        <button className="buttonstl" onClick={() => {navigate('/checkout')}}>Go To Checkout </button>
-                        <button className="buttonstl" onClick={addToCart}>Add To Cart</button>
-                    </div>
+                    {prodObj.totalStock > 0 ? (
+                        <div className="buttons">
+                            <button className="buttonstl" style={{fontFamily: "ui-serif"}} onClick={() => {navigate('/checkout')}}>Go To Checkout </button>
+                            <button className="buttonstl" style={{fontFamily: "ui-serif"}} onClick={addToCart}>Add To Cart</button>
+                        </div>
+                    ) : (
+                        <div className="buttons">
+                            <button className="buttonst2" onClick={notifyMe}>Notify Me </button>
+                        </div>
+                    )}
+                    
                 </div>
             </div>
         </div>

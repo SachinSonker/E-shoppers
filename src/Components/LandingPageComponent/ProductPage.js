@@ -5,16 +5,18 @@ import { Grid } from "@mui/material";
 import LandingCard from "./Card";
 import { NavLink } from 'react-router-dom';
 import './ProductPage.css';
+import { useSearchParams } from "react-router-dom";
 
 const ProductPage = () => {
   const [products, setProducts] = useState([]);
   const location = useLocation();
+  const [params] = useSearchParams();
 
   useEffect(() => {
     try {
       const response = axios
         .get(
-          `http://65.0.17.17:8090/api/product/category/${location.state.categoryName}`
+          `http://65.0.17.17:8090/api/product/category/${params.get('categoryName')}`
         )
         .then((response) => {
           var arr = [response.data];
@@ -44,6 +46,7 @@ const ProductPage = () => {
               itemName={s.name}
               itemPrice={s.price}
               itemStrikePrice={s.price}
+              itemRating={s.ratings}
               cardType="product"
             ></LandingCard>
           </NavLink>

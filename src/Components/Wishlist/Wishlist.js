@@ -7,7 +7,7 @@ const Wishlist = () => {
   return (
     <div>
         <div className='wishlist-header'>
-              <Typography variant="h4" className='wislist-title'>
+              <Typography className='wishlist-title'>
                   Wishlist(0)
               </Typography>
         </div>

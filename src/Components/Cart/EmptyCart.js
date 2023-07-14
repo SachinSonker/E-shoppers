@@ -1,6 +1,7 @@
 import React from 'react'
 import { Box, Typography } from '@mui/material'
 import EmptyCartImage from './EmptyCartImage';
+import { Spinner } from '../Spinner/Spinner';
 const EmptyCart = () => {
   return (
     <div>
@@ -10,9 +11,9 @@ const EmptyCart = () => {
         </Box>
         <Box sx={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center' }}>
           <Typography sx={{ fontSize: '1.5rem' }}>Your cart is Empty</Typography>
-                </Box>
-            </Box>
-        </div>
+        </Box>
+      </Box>
+    </div>
     )
 }
 

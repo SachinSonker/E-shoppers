@@ -117,8 +117,8 @@ function ProductDetails() {
                     </p>
                     {prodObj.totalStock > 0 ? (
                         <div className="buttons">
-                            <button className="buttonstl" onClick={() => {navigate('/checkout')}}>Go To Checkout </button>
-                            <button className="buttonstl" onClick={addToCart}>Add To Cart</button>
+                            <button className="buttonstl" style={{fontFamily: "ui-serif"}} onClick={() => {navigate('/checkout')}}>Go To Checkout </button>
+                            <button className="buttonstl" style={{fontFamily: "ui-serif"}} onClick={addToCart}>Add To Cart</button>
                         </div>
                     ) : (
                         <div className="buttons">

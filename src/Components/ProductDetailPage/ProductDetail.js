@@ -15,6 +15,8 @@ import { NavLink } from 'react-router-dom';
 // import 'react-toastify/dist/ReactToastify.css';
 import { showToast } from '../../services/toastService';
 import 'react-toastify/dist/ReactToastify.css';
+import {Spinner} from "../Spinner/Spinner";
+
 function ProductDetails() {
     const [prodObj, setProdObj] = useState({});
     const [products, setProducts] = useState([]);
@@ -33,6 +35,7 @@ function ProductDetails() {
     }
 
     useEffect(() => {
+        window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
         axios.get(`http://65.0.17.17:8090/api/product/${params.get('id')}`).then((response) => {
             console.log(response.data)
             setProdObj(response.data)
@@ -72,7 +75,9 @@ function ProductDetails() {
         }
     }
 
-    return (
+    return prodObj.length === 0 ? (
+        <Spinner />
+    ) : (
         <React.Fragment>
   <div className="productDetails" >
                 {/* <div className='image-selector'>

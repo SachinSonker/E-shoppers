@@ -6,6 +6,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useState, useEffect } from "react";
+import { showToast } from '../../services/toastService';
 import useRazorpay from "react-razorpay";
 import {
   CountryDropdown,
@@ -52,6 +53,7 @@ export default function CheckoutPage() {
   const onClose = (() => {setRender(false);});
 
   useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
     getAllItems();
   }, [hasRender]);
 
@@ -175,6 +177,7 @@ export default function CheckoutPage() {
 
   // Order place
   const handleOrderId = () => {
+    if (Object.keys(errors).length === 0 && address1!=="" && address2!=="") {
     axios.get(`http://65.0.17.17:8090/api/payment/${OrderTotal}`, {
       headers: { Authorization: "Bearer " + sessionStorage.getItem("token") },
     }).then((response) => {
@@ -182,7 +185,11 @@ export default function CheckoutPage() {
       handlePayment(response.data, OrderTotal);
       return response.data
     });
+  }else{
+    showToast('Please enter details!', 'error');
   }
+  }
+
 
   //calculating Total price
   const calculateTotalPrice = (price, quantity) => {
@@ -253,6 +260,10 @@ export default function CheckoutPage() {
       delete errors.invalid;
       return true;
     }
+  }
+
+  function validatePostalCode(){
+    
   }
   const cart_image = [
     {

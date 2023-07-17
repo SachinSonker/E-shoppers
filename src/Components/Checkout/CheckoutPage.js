@@ -64,11 +64,8 @@ export default function CheckoutPage(props) {
   const onClose = (() => {setRender(false);});
 
   useEffect(() => {
-<<<<<<< HEAD
     window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
-=======
 
->>>>>>> 1555de58fc6196b61f23c6cbb7407d9474e2da65
     getAllItems();
     console.log(orderTotal, "Order Total")
   }, [orderTotal, hasRender,coupon]);

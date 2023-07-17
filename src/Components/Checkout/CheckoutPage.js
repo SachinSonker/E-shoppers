@@ -190,12 +190,8 @@ export default function CheckoutPage(props) {
 
   // Order place
   const handleOrderId = () => {
-<<<<<<< HEAD
     if (Object.keys(errors).length === 0 && address1!=="" && address2!=="") {
     axios.get(`http://65.0.17.17:8090/api/payment/${OrderTotal}`, {
-=======
-    axios.get(`http://65.0.17.17:8090/api/payment/${orderTotal}`, {
->>>>>>> 1555de58fc6196b61f23c6cbb7407d9474e2da65
       headers: { Authorization: "Bearer " + sessionStorage.getItem("token") },
     }).then((response) => {
       console.log(response.data, "Inside")

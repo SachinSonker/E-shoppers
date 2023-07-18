@@ -41,7 +41,7 @@ const ProductPage = () => {
           <Grid
             className="box"
             item key={s.id}
-            style={{ width: "25%", paddingTop: "20px", paddingBottom:"20px", paddingLeft:0,paddingRight:0, textAlign: "center" }}
+            style={{ maxWidth: "25%", paddingTop: "20px", paddingBottom:"20px", paddingLeft:0,paddingRight:0, textAlign: "center" }}
           >
           <NavLink key={s.id}  to={`/productdetails?id=${s.id}`} style={{textDecoration:'none'}}>
             <LandingCard

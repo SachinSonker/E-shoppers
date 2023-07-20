@@ -10,10 +10,56 @@
         line-height: 25px !important;
         letter-spacing: -0.055em !important;
         color: black;
-                margin-top: 20px !important;
-                    margin-bottom: 20px !important;
+        margin-top: 20px !important;
+        margin-bottom: 20px !important;
 }
 .wishlist-content{
     margin-top: 20px !important;
-        margin-bottom: 20px !important;
+    margin-bottom: 20px !important;
+    display: flex;
+    gap: 20px 30px;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-content: flex-start;
+}
+.divider{
+    width: 100% !important;
+}
+.wishlist-grid {
+    margin: 0px !important;
+    width: 100% !important;
+    gap: 15px;
+}
+.wishlist-card{
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column !important;
+    justify-content: flex-start;
+    width: 16rem;
+    height: 28rem;
+}
+.wishlist-addtocart {
+    width: 100%;
+    height: 100%;
+    background-color: #8B3DFF !important;
+    color: #fff !important;
+    text-transform: none !important;
+    border-radius: 0px 0px 4px 4px !important;
+}
+.cancel-icon{
+    position: absolute !important;
+    top:8px !important;
+    right: 8px !important;
+    border: thin solid #000000 !important;
+    border-radius: 50% !important;
+    padding: 3px !important;
+    background-color: #e6e6e6 !important;
+}
+.wishlist-icon{
+    position: absolute !important;
+    top: 8px !important;
+    right: 8px !important;
+    border: thin solid #000000 !important;
+    background-color: #fff !important;
+    z-index: 2;
 }

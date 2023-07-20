@@ -117,6 +117,20 @@ export default function CheckoutPage(props) {
       ? updateCartItem(itemId, quantity)
       : deleteItem(itemId) 
   };
+  const updateCartItem = (itemId, quantity) => {
+    axios
+      .put("http://65.0.17.17:8090/api/cartDetails", {
+        productId: itemId,
+        quantity: quantity - 1
+      }, {
+        headers: { Authorization: "Bearer " + sessionStorage.getItem("token") },
+      })
+      .then((response) => {
+        console.log("From decrease quantity", response)
+        // setAddCartObject(response.data)
+        getAllItems()
+      })
+  }
 
   //Payment
   const handlePayment = async (orderId, OrderTotal) => {
@@ -171,20 +185,6 @@ export default function CheckoutPage(props) {
     });
   }
 
-  const updateCartItem = (itemId, quantity) => {
-    axios
-      .put("http://65.0.17.17:8090/api/cartDetails", {
-        productId: itemId,
-        quantity: quantity - 1
-      }, {
-        headers: { Authorization: "Bearer " + sessionStorage.getItem("token") },
-      })
-      .then((response) => {
-        console.log("From decrease quantity", response)
-        // setAddCartObject(response.data)
-        getAllItems()
-      })
-  }
 
   // Order place
   const handleOrderId = () => {

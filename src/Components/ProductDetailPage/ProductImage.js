@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
 import img1 from '../../assets/11.png';
 import "./ProductDetails.css";
+
 import ReactImageMagnify from 'react-image-magnify';
+import { IconButton } from "@mui/material";
+// import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 function ProductImages(props) {
     // const [imgId, setImgId] = useState(0)
     // useEffect(() => { 
@@ -35,6 +39,9 @@ function ProductImages(props) {
                     }
                 </ul>
             </div> */}
+            <IconButton className="favorite-icon">
+                <FavoriteBorderIcon />
+            </IconButton>
             <figure>
             <ReactImageMagnify {...{
                 smallImage: {
@@ -57,7 +64,7 @@ function ProductImages(props) {
                 enlargedImageContainerClassName: 'zoomed-image',
                 isHintEnabled: true,
                 shouldHideHintAfterFirstActivation:false
-            }} /> 
+                }} /> 
             </figure>
         </div>    
     )

@@ -5,6 +5,7 @@ import OutboxIcon from '@mui/icons-material/Outbox';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { useNavigate } from 'react-router-dom';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 const Account = ({logout}) => {
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
@@ -66,6 +67,12 @@ const Account = ({logout}) => {
               <OutboxIcon sx={{ color: '#8B3DFF' }} />
             </ListItemIcon>
             My Orders
+          </MenuItem>
+          <MenuItem onClick={() => { navigate('/wishlist') }}>
+            <ListItemIcon>
+              <FavoriteBorderIcon sx={{ color:'#8B3DFF'}} />
+            </ListItemIcon>
+            My Wishlist
           </MenuItem>
           <Divider />
           <MenuItem onClick={logout}>

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Typography, Grid, Divider,Box, ListItem, ListItemText,List } from '@mui/material'
+import { Typography, Grid, Divider,div, ListItem, ListItemText,List } from '@mui/material'
 import CopyrightIcon from '@mui/icons-material/Copyright';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import FacebookIcon from '@mui/icons-material/Facebook';
@@ -11,7 +11,7 @@ const Footer = () => {
   return (
     <>
       <Divider sx={{ width: '100%' }} />
-      <Box className='box'>
+      <div className='footer-box'>
       <Grid container spacing={2} className='grid-container'>
         <Grid container className='first'>   
             <Grid item xs={12} md={5} lg={5} >
@@ -42,22 +42,22 @@ const Footer = () => {
 
               </Grid>
               <Grid item xs={4} md={4} >
-                <Box sx={{mb:'16px'}}>
+                <div sx={{mb:'16px'}}>
                   <Typography variant='h6'>Contact Us</Typography>
                   <List>
                   <ListItem disablePadding>
                       <ListItemText primary='Locations' onClick={() => window.open('https://www.google.co.in/maps')} sx={{ cursor: 'pointer' }}></ListItemText>
                   </ListItem>
                   </List>
-                </Box>
-                <Box>
+                </div>
+                <div>
                 <Typography variant='h6'>Feedback & Reviews</Typography>
                 <List>
                   <ListItem disablePadding>
                       <ListItemText primary='Leave a Feedback' onClick={() => window.open('/')} sx={{ cursor: 'pointer' }}></ListItemText>
                   </ListItem>
                   </List>
-                </Box>
+                </div>
               </Grid>
 
               <Grid item xs={4} md={4} sx={{ mb: '10px' }}>
@@ -88,7 +88,7 @@ const Footer = () => {
                 </Grid>
               </Grid> 
           </Grid>
-      </Box> 
+      </div> 
     </>
   );
 }

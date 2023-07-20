@@ -6,6 +6,7 @@ import LandingCard from "./Card";
 import { NavLink } from 'react-router-dom';
 import './ProductPage.css';
 import { useSearchParams } from "react-router-dom";
+import { Spinner } from '../Spinner/Spinner';
 
 const ProductPage = () => {
   const [products, setProducts] = useState([]);
@@ -13,15 +14,16 @@ const ProductPage = () => {
   const [params] = useSearchParams();
 
   useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
     try {
       const response = axios
         .get(
           `http://65.0.17.17:8090/api/product/category/${params.get('categoryName')}`
         )
         .then((response) => {
-          var arr = [response.data];
+          //var arr = [response.data];
           setProducts(response.data);
-          console.log(response.data);
+          //console.log(response.data);
           return response;
         });
     } catch (error) {
@@ -29,7 +31,9 @@ const ProductPage = () => {
     }
   }, []);
 
-  return (
+  return products.length === 0 ? (
+    <Spinner />
+) : (
     <>
       <h4 className='page-title'>PRODUCTS</h4>
       <Grid container spacing={4} className="product-card">
@@ -37,7 +41,7 @@ const ProductPage = () => {
           <Grid
             className="box"
             item key={s.id}
-            style={{ width: "25%", paddingTop: "20px", paddingBottom:"20px", paddingLeft:0,paddingRight:0, textAlign: "center" }}
+            style={{ maxWidth: "25%", paddingTop: "20px", paddingBottom:"20px", paddingLeft:0,paddingRight:0, textAlign: "center" }}
           >
           <NavLink key={s.id}  to={`/productdetails?id=${s.id}`} style={{textDecoration:'none'}}>
             <LandingCard

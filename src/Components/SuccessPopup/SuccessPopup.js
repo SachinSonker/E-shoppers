@@ -2,7 +2,13 @@ import React from 'react';
 import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
 import './successPopup.css';
+import { useEffect, useState } from 'react';
+
 const SuccessPopup = () => {
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+  }, []);
 
   const navigate = useNavigate();
   return (

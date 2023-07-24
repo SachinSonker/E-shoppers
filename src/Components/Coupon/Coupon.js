@@ -41,7 +41,7 @@ function Modalpopup(props) {
 
   useEffect(() => {
     axios
-      .get("http://65.0.17.17:8090/api/coupon", {
+      .get("http://localhost:8090/api/coupon", {
         headers: { Authorization: "Bearer " + sessionStorage.getItem("token") },
       })
       .then((response) => {

@@ -33,11 +33,11 @@ function ProductDetails() {
     }
 
     useEffect(() => {
-        axios.get(`http://65.0.17.17:8090/api/product/${params.get('id')}`).then((response) => {
+        axios.get(`http://localhost:8090/api/product/${params.get('id')}`).then((response) => {
             console.log(response.data)
             setProdObj(response.data)
         });
-        axios.get(`http://65.0.17.17:8090/api/product/recommend/${params.get('id')}`)
+        axios.get(`http://localhost:8090/api/product/recommend/${params.get('id')}`)
             .then(response => {
                 setProducts(response.data);
             })
@@ -62,7 +62,7 @@ function ProductDetails() {
                 "size": getRandomItem(size)
             }
 
-            axios.post("http://65.0.17.17:8090/api/addtocart", data, {
+            axios.post("http://localhost:8090/api/addtocart", data, {
                 headers: { Authorization: "Bearer " + sessionStorage.getItem("token") }
             }).then((response) => {
                 console.log(response)

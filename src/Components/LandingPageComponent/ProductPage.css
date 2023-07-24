@@ -2,3 +2,6 @@
     transform: translateY(-8px) !important;
     box-shadow: none!important;
   }
+.slick-slide{
+  margin-left: 70px !important;
+}

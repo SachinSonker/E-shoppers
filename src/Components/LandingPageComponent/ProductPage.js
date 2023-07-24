@@ -16,7 +16,7 @@ const ProductPage = () => {
     try {
       const response = axios
         .get(
-          `http://65.0.17.17:8090/api/product/category/${params.get('categoryName')}`
+          `http://localhost:8090/api/product/category/${params.get('categoryName')}`
         )
         .then((response) => {
           var arr = [response.data];

@@ -165,7 +165,7 @@ export default function Orders() {
   const navigate = useNavigate()
 
   useEffect(() => {
-    axios.get("http://65.0.17.17:8090/api/vieworders", {
+    axios.get("http://localhost:8090/api/vieworders", {
       headers: { Authorization: "Bearer " + sessionStorage.getItem("token") },
     }).then((response) => {
       setOrderList(response.data);

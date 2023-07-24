@@ -165,6 +165,7 @@ export default function Orders() {
   const navigate = useNavigate()
 
   useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
     axios.get("http://localhost:8090/api/vieworders", {
       headers: { Authorization: "Bearer " + sessionStorage.getItem("token") },
     }).then((response) => {
@@ -206,7 +207,8 @@ export default function Orders() {
             <div className='card-Content'>
             <div>
             <Typography component="div" variant="h6">
-              {res.productName}
+              {/* {res.productName} */}
+              {res.productName.length > 50 ? res.productName.slice(0, 50) + "..." : res.productName}
             </Typography>
             <Typography component="div" variant="p">
               Delivery Date : {res.deliveryDate}

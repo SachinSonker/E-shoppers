@@ -8,13 +8,17 @@ import './ProductDetails.css';
 import Stars from "./Stars";
 import { useSearchParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { Grid } from "@mui/material";
+import { Grid,IconButton } from "@mui/material";
 import LandingCard from "../LandingPageComponent/Card";
 import { NavLink } from 'react-router-dom';
+import '../Wishlist/Wishlist.css'
 // import { ToastContainer, toast } from 'react-toastify';
 // import 'react-toastify/dist/ReactToastify.css';
 import { showToast } from '../../services/toastService';
 import 'react-toastify/dist/ReactToastify.css';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import {Spinner} from "../Spinner/Spinner";
+
 function ProductDetails() {
     const [prodObj, setProdObj] = useState({});
     const [products, setProducts] = useState([]);
@@ -33,6 +37,7 @@ function ProductDetails() {
     }
 
     useEffect(() => {
+        window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
         axios.get(`http://localhost:8090/api/product/${params.get('id')}`).then((response) => {
             console.log(response.data)
             setProdObj(response.data)
@@ -72,7 +77,9 @@ function ProductDetails() {
         }
     }
 
-    return (
+    return prodObj.length === 0 ? (
+        <Spinner />
+    ) : (
         <React.Fragment>
   <div className="productDetails" >
                 {/* <div className='image-selector'>
@@ -109,7 +116,10 @@ function ProductDetails() {
                 <div className="product-data-info">
                     <p className="text-data">Available&nbsp;
                         <span>{prodObj.totalStock > 0 ? "In Stock" : " Out of Stock"}</span>
-                    </p>
+                            {/* <IconButton>
+                                <FavoriteBorderIcon />
+                            </IconButton>  */}
+                    </p>   
                     {prodObj.totalStock > 0 ? (
                         <div className="buttons">
                             <button className="buttonstl" style={{fontFamily: "ui-serif"}} onClick={() => {navigate('/checkout')}}>Go To Checkout </button>

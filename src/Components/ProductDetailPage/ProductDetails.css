@@ -97,6 +97,7 @@ hr {
     display: flex;
     justify-content: center;
     flex-direction: row;
+    position: relative;
 }
 .specs{
     display: flex;
@@ -209,4 +210,11 @@ hr {
 .image-selector :hover{
     border:1px solid #8B3DFF;
 }
-
+.favorite-icon{
+    position: absolute !important;
+    top: 20px !important;
+    right: 43px !important;
+    border: thin solid #000000 !important;
+    background-color: #fff !important;
+    z-index: 2;
+}

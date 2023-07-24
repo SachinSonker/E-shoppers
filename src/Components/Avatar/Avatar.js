@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React,{useEffect, useState} from 'react';
 import Avatar from '@mui/material/Avatar';
 import img from '../../assets/default_avatar.webp';
 function stringToColor(string) {
@@ -20,7 +20,7 @@ function stringToColor(string) {
 function stringAvatar(name) {
     let initials = '';
     let avatarProps = {};
-    if (name!== 'null') {
+    if (name!== 'null' && name!== null) {
         const nameParts = name.split(' ');
         if (nameParts.length > 1) {
             initials = `${nameParts[0][0]}${nameParts[1][0]}`;
@@ -47,9 +47,16 @@ function stringAvatar(name) {
 }
 
 export default function AccountAvatars() {
+    const [userName, setUserName] = useState(null)
+    const storeName = sessionStorage.getItem('name')
+    useEffect(() => {
+        if (storeName) {
+            setUserName(storeName)
+        }
+    },[])
     return (
         <>
-            <Avatar {...stringAvatar(sessionStorage.getItem('name'))} />
+            <Avatar {...stringAvatar(userName)} />
         </>
     );
 }

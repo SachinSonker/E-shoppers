@@ -161,6 +161,7 @@ export default function OrderTracking() {
   const [orderTrackingDetails, setOrderTrackingDetails] = useState({});
 
   useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
     axios
       .get(`http://localhost:8090/api/trackorder/${params.get('orderId')}/${params.get('trackingId')}`, {
         headers: { Authorization: "Bearer " + sessionStorage.getItem("token") },

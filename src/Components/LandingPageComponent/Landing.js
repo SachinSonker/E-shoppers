@@ -83,6 +83,7 @@ const Landing=()=>{
 const [categories, setCategories] = useState([]);
 
             useEffect(()=>{
+                window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
                 axios.get('http://localhost:8090/api/category/')
                 .then(response=>{
                     setCategories(response.data);

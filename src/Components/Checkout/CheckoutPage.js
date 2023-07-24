@@ -6,6 +6,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useState, useEffect } from "react";
+import { showToast } from '../../services/toastService';
 import useRazorpay from "react-razorpay";
 import {
   CountryDropdown,
@@ -64,6 +65,7 @@ export default function CheckoutPage(props) {
   const onClose = (() => {setRender(false);});
 
   useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
 
     getAllItems();
     console.log(orderTotal, "Order Total")
@@ -118,6 +120,20 @@ export default function CheckoutPage(props) {
       ? updateCartItem(itemId, quantity)
       : deleteItem(itemId) 
   };
+  const updateCartItem = (itemId, quantity) => {
+    axios
+      .put("http://65.0.17.17:8090/api/cartDetails", {
+        productId: itemId,
+        quantity: quantity - 1
+      }, {
+        headers: { Authorization: "Bearer " + sessionStorage.getItem("token") },
+      })
+      .then((response) => {
+        console.log("From decrease quantity", response)
+        // setAddCartObject(response.data)
+        getAllItems()
+      })
+  }
 
   //Payment
   const handlePayment = async (orderId, OrderTotal) => {
@@ -172,31 +188,22 @@ export default function CheckoutPage(props) {
     });
   }
 
-  const updateCartItem = (itemId, quantity) => {
-    axios
-      .put("http://localhost:8090/api/cartDetails", {
-        productId: itemId,
-        quantity: quantity - 1
-      }, {
-        headers: { Authorization: "Bearer " + sessionStorage.getItem("token") },
-      })
-      .then((response) => {
-        console.log("From decrease quantity", response)
-        // setAddCartObject(response.data)
-        getAllItems()
-      })
-  }
 
   // Order place
   const handleOrderId = () => {
-    axios.get(`http://localhost:8090/api/payment/${orderTotal}`, {
+    if (Object.keys(errors).length === 0 && address1!=="" && address2!=="") {
+    axios.get(`http://localhost:8090/api/payment/${OrderTotal}`, {
       headers: { Authorization: "Bearer " + sessionStorage.getItem("token") },
     }).then((response) => {
       console.log(response.data, "Inside")
       handlePayment(response.data, orderTotal);
       return response.data
     });
+  }else{
+    showToast('Please enter details!', 'error');
   }
+  }
+
 
   //calculating Total price
   const calculateTotalPrice = (price, quantity) => {
@@ -271,6 +278,10 @@ export default function CheckoutPage(props) {
       delete errors.invalid;
       return true;
     }
+  }
+
+  function validatePostalCode(){
+    
   }
   const cart_image = [
     {

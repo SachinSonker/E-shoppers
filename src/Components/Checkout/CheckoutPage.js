@@ -72,7 +72,7 @@ export default function CheckoutPage(props) {
 
   function getAllItems() {
     axios
-      .get("http://65.0.17.17:8090/api/cartDetails", {
+      .get("http://localhost:8090/api/cartDetails", {
         headers: { Authorization: "Bearer " + sessionStorage.getItem("token") },
       })
       .then((response) => {
@@ -99,7 +99,7 @@ export default function CheckoutPage(props) {
   //product increment 
   const incrementQuantity = (itemId,quantity) => {
     axios
-      .put("http://65.0.17.17:8090/api/cartDetails", {
+      .put("http://localhost:8090/api/cartDetails", {
         productId: itemId,
         quantity: quantity + 1
       }, {
@@ -160,7 +160,7 @@ export default function CheckoutPage(props) {
   };
 
   const handleOrder = (orderId) => {
-    axios.post(`http://65.0.17.17:8090/api/placeorder`, {
+    axios.post(`http://localhost:8090/api/placeorder`, {
       "address": address1 + ', ' + address2,
       "orderId": orderId,
       "totalAmount": OrderTotal
@@ -175,7 +175,7 @@ export default function CheckoutPage(props) {
 
   const updateCartItem = (itemId, quantity) => {
     axios
-      .put("http://65.0.17.17:8090/api/cartDetails", {
+      .put("http://localhost:8090/api/cartDetails", {
         productId: itemId,
         quantity: quantity - 1
       }, {
@@ -191,7 +191,7 @@ export default function CheckoutPage(props) {
   // Order place
   const handleOrderId = () => {
     if (Object.keys(errors).length === 0 && address1!=="" && address2!=="") {
-    axios.get(`http://65.0.17.17:8090/api/payment/${OrderTotal}`, {
+    axios.get(`http://localhost:8090/api/payment/${OrderTotal}`, {
       headers: { Authorization: "Bearer " + sessionStorage.getItem("token") },
     }).then((response) => {
       console.log(response.data, "Inside")
@@ -231,7 +231,7 @@ export default function CheckoutPage(props) {
   const deleteItem = (itemId) => {
     console.log(itemId)
     axios
-      .delete(`http://65.0.17.17:8090/api/cartDetails/${itemId}`, {
+      .delete(`http://localhost:8090/api/cartDetails/${itemId}`, {
         headers: { Authorization: "Bearer " + sessionStorage.getItem("token") },
       })
       .then((response) => {
@@ -245,7 +245,7 @@ export default function CheckoutPage(props) {
 
   //clearing cart on placing order
   const deleteAllItemFromCart = () => {
-    axios.delete(`http://65.0.17.17:8090/api/cart`, {
+    axios.delete(`http://localhost:8090/api/cart`, {
       headers: { Authorization: "Bearer " + sessionStorage.getItem("token") },
     })
       .then(response => {

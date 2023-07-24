@@ -18,7 +18,7 @@ const ProductPage = () => {
     try {
       const response = axios
         .get(
-          `http://65.0.17.17:8090/api/product/category/${params.get('categoryName')}`
+          `http://localhost:8090/api/product/category/${params.get('categoryName')}`
         )
         .then((response) => {
           //var arr = [response.data];
@@ -48,7 +48,7 @@ const ProductPage = () => {
               itemID={s.id}
               itemImage={"data:image/jpeg;base64," + s.image}
               itemName={s.name}
-              itemPrice={s.price}
+              itemPrice={s.discountedPrice}
               itemStrikePrice={s.price}
               itemRating={s.ratings}
               cardType="product"

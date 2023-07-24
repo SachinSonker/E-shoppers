@@ -71,7 +71,7 @@ const Navbar = () => {
         console.log("search", searchText)
         if (searchText !== "") {
             setShowOption(true)
-            axios.get(`http://65.0.17.17:8090/api/search/${searchText}`).then((response) => {
+            axios.get(`http://localhost:8090/api/search/${searchText}`).then((response) => {
                 console.log(response)
                 setOptionList(response.data)
             });

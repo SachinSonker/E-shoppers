@@ -30,7 +30,7 @@ function LandingCard(props) {
                         </Typography>
                         {/* Item price and rating */}
                         {props.cardType == "product" ? <Typography color="text.secondary">
-                            <p className='alignleft'>Price  <b>₹{Math.round((props.itemPrice - (props.itemPrice * 0.14)))}</b> &nbsp;&nbsp;<s>₹{Math.round(props.itemStrikePrice)}</s></p>
+                            <p className='alignleft'>Price  <b>₹{Math.round((props.itemPrice))}</b> {props.itemPrice == props.itemStrikePrice ? "" : ""}&nbsp;&nbsp;<s>₹{Math.round(props.itemStrikePrice)}</s></p>
                             <Stars ratings={props.itemRating} reviews={25} />
                             {console.log(props.itemRating)}
                             {/* <p className='alignright'>⭐⭐⭐</p> */}

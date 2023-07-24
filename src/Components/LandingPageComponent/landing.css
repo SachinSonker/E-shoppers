@@ -44,7 +44,7 @@
 
 .card-tile{
     margin: 5px;
-    maxHeight: 450px;
+    max-height: 450px;
     justify-content: center;
     align-items: center;
 }

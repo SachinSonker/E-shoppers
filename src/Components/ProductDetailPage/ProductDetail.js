@@ -8,13 +8,15 @@ import './ProductDetails.css';
 import Stars from "./Stars";
 import { useSearchParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { Grid } from "@mui/material";
+import { Grid,IconButton } from "@mui/material";
 import LandingCard from "../LandingPageComponent/Card";
 import { NavLink } from 'react-router-dom';
+import '../Wishlist/Wishlist.css'
 // import { ToastContainer, toast } from 'react-toastify';
 // import 'react-toastify/dist/ReactToastify.css';
 import { showToast } from '../../services/toastService';
 import 'react-toastify/dist/ReactToastify.css';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import {Spinner} from "../Spinner/Spinner";
 
 function ProductDetails() {
@@ -114,7 +116,10 @@ function ProductDetails() {
                 <div className="product-data-info">
                     <p className="text-data">Available&nbsp;
                         <span>{prodObj.totalStock > 0 ? "In Stock" : " Out of Stock"}</span>
-                    </p>
+                            {/* <IconButton>
+                                <FavoriteBorderIcon />
+                            </IconButton>  */}
+                    </p>   
                     {prodObj.totalStock > 0 ? (
                         <div className="buttons">
                             <button className="buttonstl" style={{fontFamily: "ui-serif"}} onClick={() => {navigate('/checkout')}}>Go To Checkout </button>

@@ -52,7 +52,8 @@ const Navbar = () => {
         setSignIn(true)
     }
     const logout = () => {
-        sessionStorage.removeItem("token")
+        // sessionStorage.removeItem("token")
+        sessionStorage.clear()
         setSignIn(false)
     }
     const handleClick = (newPlacement) => (event) => {

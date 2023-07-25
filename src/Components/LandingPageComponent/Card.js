@@ -11,8 +11,10 @@ import '../Wishlist/Wishlist.css'
 import Stars from '../ProductDetailPage/Stars';
 import CloseIcon from '@mui/icons-material/Close';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+// import FavoriteIcon from '@mui/icons-material/Favorite';
 // Functional component for a landing card
 function LandingCard(props) {
+    // const [clicked, setCliked] = React.useState(false);
     return (
         <div>
             {/* Clickable card area */}
@@ -28,11 +30,11 @@ function LandingCard(props) {
                     />
                     {
                         props.cardType == 'wishlist'
-                            ? <IconButton className='cancel-icon'>
+                            ? <IconButton className='cancel-icon' onClick={props.rmvItem}>
                                 <CloseIcon />
                             </IconButton>
-                            : props.cardType == 'product' ?
-                                <IconButton className='wishlist-icon'>
+                            : props.cardType == 'product' ? 
+                                <IconButton className='wishlist-icon'  onClick={props.addToWishlist} >
                                     <FavoriteBorderIcon />
                                 </IconButton>
                                 : ""
@@ -51,7 +53,9 @@ function LandingCard(props) {
                         </Typography> : props.cardType == 'wishlist'
                             ? <>
                                     <Typography color="text.secondary">
-                                        <p>₹{Math.round((props.itemPrice - (props.itemPrice * 0.14)))}</p>
+                                        {/* <p>₹{Math.round((props.itemPrice - (props.itemPrice * 0.14)))}</p> */}
+                                        <p><b>₹{Math.round((props.itemPrice - (props.itemPrice * 0.14)))}</b> &nbsp;&nbsp;<s>₹{Math.round(props.itemStrikePrice)}</s></p>
+                                        <Stars ratings={props.itemRating} reviews={25} />
                                     </Typography>
                                     {/* <Button className='wishlist-addtocart' onClick={props.addToCart} startIcon={<AddShoppingCartIcon />}>Add to Cart</Button>        */}
                                 </>

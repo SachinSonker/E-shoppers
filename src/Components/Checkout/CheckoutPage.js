@@ -43,6 +43,7 @@ export default function CheckoutPage(props) {
   const [postalcode, setPostalCode] = useState("");
   const [orderTotal, setOrderTotal] = useState(0);
   const [coupon, setCoupon] = useState("");
+  const [isValid, setIsValid] = useState(true);
   const token=sessionStorage.getItem('token');
 
 
@@ -121,7 +122,7 @@ export default function CheckoutPage(props) {
   };
   const updateCartItem = (itemId, quantity) => {
     axios
-      .put("http://65.0.17.17:8090/api/cartDetails", {
+      .put("http://localhost:8090/api/cartDetails", {
         productId: itemId,
         quantity: quantity - 1
       }, {

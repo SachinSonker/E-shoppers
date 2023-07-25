@@ -26,6 +26,7 @@ function ProductDetails() {
     const navigate = useNavigate()
     const size = ["S", "M", "L", "XL"];
     const color = ["White", "Olive", "Cream"];
+    const [favorite, isFavorite] = useState(false);
 
 
     function getRandomItem(arr) {
@@ -76,6 +77,27 @@ function ProductDetails() {
             });
         }
     }
+    const addToWishlist = (productId) => {
+        if (sessionStorage.getItem("token") == null) {
+            //alert("Please Login First...")
+            showToast('Please Login First...', 'info');
+        } else {
+            const data = {
+                productId: productId
+            }
+            axios
+                .post(`http://localhost:8090/api/wishlist/${productId}`, data, {
+                    headers: {
+                        Authorization: "Bearer " + sessionStorage.getItem("token")
+                    }
+                })
+                .then((response) => {
+                    console.log('Item added successfullt to Wislist');
+                    isFavorite(true)
+                    showToast('Item added successfully to Wishlist', 'success');
+                })
+        }
+    }
 
     return prodObj.length === 0 ? (
         <Spinner />
@@ -85,7 +107,7 @@ function ProductDetails() {
                 {/* <div className='image-selector'>
                     <img src={"data:image/jpeg;base64," + prodObj.image}  />
                 </div> */}
-                <ProductImages prodImage={"data:image/jpeg;base64," + prodObj.image} />
+                    <ProductImages prodImage={"data:image/jpeg;base64," + prodObj.image} addToWishlist={() => addToWishlist(prodObj.id)} favorite={favorite} />
             <div className="product-data">
                 <h1 className="heading">{prodObj.name}</h1>
                 <Stars ratings={prodObj.ratings} reviews={25} from="productDetails"/>

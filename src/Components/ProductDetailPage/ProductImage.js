@@ -6,6 +6,7 @@ import ReactImageMagnify from 'react-image-magnify';
 import { IconButton } from "@mui/material";
 // import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 function ProductImages(props) {
     // const [imgId, setImgId] = useState(0)
     // useEffect(() => { 
@@ -39,8 +40,8 @@ function ProductImages(props) {
                     }
                 </ul>
             </div> */}
-            <IconButton className="favorite-icon">
-                <FavoriteBorderIcon />
+            <IconButton className="favorite-icon" onClick={props.addToWishlist} color={props.favorite ? 'error':'default'}>
+                <FavoriteIcon />
             </IconButton>
             <figure>
             <ReactImageMagnify {...{

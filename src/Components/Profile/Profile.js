@@ -138,8 +138,8 @@ export default function ProfilePage() {
             </MDBCol>
         </MDBRow>
 
-        <MDBRow>
-          <MDBCol lg="4">
+        <MDBRow style={{display:'flex',width:'100%'}}>
+          <MDBCol style ={{width:'50%'}} lg="4">
             <MDBCard className="mb-4">
               <MDBCardBody className="text-center">
                 <MDBCardImage
@@ -148,7 +148,7 @@ export default function ProfilePage() {
                   className="rounded-circle"
                   style={{ width: '150px' }}
                   fluid />
-                <p className="text-muted mb-1">{profileDetails.name}</p>
+                <p className="text-muted mb-1" style={{margin:20,marginLeft:'5!important'}}>{profileDetails.name}</p>
                 <div className="d-flex justify-content-center mb-2">
                   {/* <MDBBtn>Follow</MDBBtn> */}
                   {/* <MDBBtn outline className="ms-1">Edit Profile</MDBBtn> */}
@@ -158,7 +158,7 @@ export default function ProfilePage() {
                         onClose={handleClose}
                         aria-labelledby="child-modal-title"
                         aria-describedby="child-modal-description">
-                        <Box sx={{ ...style, width: 500,borderRadius: 5, border:"none" }}>
+                        <Box sx={{ ...style, width: 500,borderRadius: 5, border:"none" ,marginLeft:5,padding:12,}}>
                             <div className='title'>
                                 <p>Edit Profile Details</p>
                                 <hr className='line'/>

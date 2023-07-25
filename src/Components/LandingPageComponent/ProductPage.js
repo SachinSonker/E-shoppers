@@ -7,7 +7,7 @@ import { NavLink } from 'react-router-dom';
 import './ProductPage.css';
 import { useSearchParams } from "react-router-dom";
 import { Spinner } from '../Spinner/Spinner';
-
+import { showToast } from '../../services/toastService';
 const ProductPage = () => {
   const [products, setProducts] = useState([]);
   const location = useLocation();
@@ -31,6 +31,28 @@ const ProductPage = () => {
     }
   }, []);
 
+  const addToWishlist = (productId, event) => {
+    event.stopPropagation();
+    event.preventDefault();
+    if (sessionStorage.getItem("token") == null) {
+      //alert("Please Login First...")
+      showToast('Please Login First...', 'info');
+    } else {
+      const data = {
+        productId:productId
+      }
+      axios
+        .post(`http://localhost:8090/api/wishlist/${productId}`, data, {
+          headers: {
+            Authorization: "Bearer " + sessionStorage.getItem("token")
+          }
+        })
+        .then((response) => {
+          showToast('Item added successfully to Wishlist', 'success');
+        })
+    }
+  }
+
   return products.length === 0 ? (
     <Spinner />
 ) : (
@@ -51,6 +73,7 @@ const ProductPage = () => {
               itemPrice={s.discountedPrice}
               itemStrikePrice={s.price}
               itemRating={s.ratings}
+                addToWishlist={(event) => addToWishlist(s.id, event)}   
               cardType="product"
             ></LandingCard>
           </NavLink>

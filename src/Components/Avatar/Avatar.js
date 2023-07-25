@@ -53,7 +53,7 @@ export default function AccountAvatars() {
         if (storeName) {
             setUserName(storeName)
         }
-    },[])
+    }, [sessionStorage.getItem('name')])
     return (
         <>
             <Avatar {...stringAvatar(userName)} />

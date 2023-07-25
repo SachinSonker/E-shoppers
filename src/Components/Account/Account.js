@@ -56,7 +56,7 @@ const Account = ({logout}) => {
               transformOrigin={{ horizontal: 'right', vertical: 'top' }}
               anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
             >
-          <MenuItem>
+          <MenuItem onClick={()=>{navigate('/profile')}}>
             <ListItemIcon>
               <AccountCircleIcon sx={{ color:'#8B3DFF'}} /> 
             </ListItemIcon>

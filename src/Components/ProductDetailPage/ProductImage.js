@@ -46,7 +46,9 @@ function ProductImages(props) {
             <ReactImageMagnify {...{
                 smallImage: {
                     alt: 'xyz',
-                    isFluidWidth: true,
+                    //isFluidWidth: true,
+                    width: 500,
+                    height: 520,
                     src: props.prodImage,
                 },
                 largeImage: {
@@ -58,8 +60,8 @@ function ProductImages(props) {
                 enlargedImagePosition: 'beside',
                 imageClassName: 'box-image--style',
                 enlargedImageContainerDimensions: {
-                    width: '100%',
-                    height:'150%'
+                    width: '120%',
+                    height:'100%'
                 },
                 enlargedImageContainerClassName: 'zoomed-image',
                 isHintEnabled: true,

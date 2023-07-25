@@ -89,8 +89,13 @@ function ProductDetails() {
             <div className="product-data">
                 <h1 className="heading">{prodObj.name}</h1>
                 <Stars ratings={prodObj.ratings} reviews={25} from="productDetails"/>
-                <p className="product-data-price ">Price <s>₹{Math.round(prodObj.price)}</s></p>
-                <p className="product-data-price product-data-real-price">Offer Price ₹{Math.round(prodObj.price - (prodObj.price * (prodObj.discountPercent/100)))} ({prodObj.discountPercent}% OFF)</p>
+                {prodObj.discountPercent == 0 ? (<p className="product-data-price ">Price ₹{Math.round(prodObj.price)}</p>) : (
+                    <React.Fragment>
+                        <p className="product-data-price ">Price <s>₹{Math.round(prodObj.price)}</s></p>
+                        <p className="product-data-price product-data-real-price">Offer Price ₹{Math.round(prodObj.price - (prodObj.price * (prodObj.discountPercent/100)))} ({prodObj.discountPercent}% OFF)</p>
+                    </React.Fragment>
+                )}
+                
                 <br></br>
                 <p>
                     <span>

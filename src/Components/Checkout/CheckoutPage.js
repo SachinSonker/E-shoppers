@@ -191,11 +191,11 @@ export default function CheckoutPage(props) {
   // Order place
   const handleOrderId = () => {
     if (Object.keys(errors).length === 0 && address1!=="" && address2!=="") {
-    axios.get(`http://localhost:8090/api/payment/${OrderTotal}`, {
+    axios.get(`http://localhost:8090/api/payment/${orderTotal==0 ? OrderTotal : orderTotal}`, {
       headers: { Authorization: "Bearer " + sessionStorage.getItem("token") },
     }).then((response) => {
       console.log(response.data, "Inside")
-      handlePayment(response.data, orderTotal);
+      handlePayment(response.data, orderTotal==0 ? OrderTotal : orderTotal);
       return response.data
     });
   }else{
@@ -699,7 +699,7 @@ export default function CheckoutPage(props) {
                     style={{ textAlign: "Left", fontSize: 14, marginLeft: 30 }}
                   >
                     Final Price &nbsp;<span style={{ marginRight: 120 }}></span>{" "}
-                    <span style={{color:'red'}}>₹ {orderTotal} </span>   
+                    <span style={{color:'red'}}>₹ {orderTotal==0 ? (Math.round(OrderTotal)) : orderTotal} </span>   
                   </Typography>                 
                   <hr />
                   <Button

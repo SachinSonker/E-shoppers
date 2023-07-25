@@ -166,7 +166,7 @@ export default function Orders() {
 
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
-    axios.get("http://65.0.17.17:8090/api/vieworders", {
+    axios.get("http://localhost:8090/api/vieworders", {
       headers: { Authorization: "Bearer " + sessionStorage.getItem("token") },
     }).then((response) => {
       setOrderList(response.data);

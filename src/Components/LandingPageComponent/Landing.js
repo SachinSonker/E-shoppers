@@ -84,7 +84,7 @@ const [categories, setCategories] = useState([]);
 
             useEffect(()=>{
                 window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
-                axios.get('http://65.0.17.17:8090/api/category/')
+                axios.get('http://localhost:8090/api/category/')
                 .then(response=>{
                     setCategories(response.data);
                 })

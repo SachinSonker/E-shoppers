@@ -26,6 +26,7 @@ function ProductDetails() {
     const navigate = useNavigate()
     const size = ["S", "M", "L", "XL"];
     const color = ["White", "Olive", "Cream"];
+    const [favorite, isFavorite] = useState(false);
 
 
     function getRandomItem(arr) {
@@ -38,11 +39,11 @@ function ProductDetails() {
 
     useEffect(() => {
         window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
-        axios.get(`http://65.0.17.17:8090/api/product/${params.get('id')}`).then((response) => {
+        axios.get(`http://localhost:8090/api/product/${params.get('id')}`).then((response) => {
             console.log(response.data)
             setProdObj(response.data)
         });
-        axios.get(`http://65.0.17.17:8090/api/product/recommend/${params.get('id')}`)
+        axios.get(`http://localhost:8090/api/product/recommend/${params.get('id')}`)
             .then(response => {
                 setProducts(response.data);
             })
@@ -67,13 +68,34 @@ function ProductDetails() {
                 "size": getRandomItem(size)
             }
 
-            axios.post("http://65.0.17.17:8090/api/addtocart", data, {
+            axios.post("http://localhost:8090/api/addtocart", data, {
                 headers: { Authorization: "Bearer " + sessionStorage.getItem("token") }
             }).then((response) => {
                 console.log(response)
                 //alert("Item added successfully...")
                 showToast('Item added successfully...', 'success');
             });
+        }
+    }
+    const addToWishlist = (productId) => {
+        if (sessionStorage.getItem("token") == null) {
+            //alert("Please Login First...")
+            showToast('Please Login First...', 'info');
+        } else {
+            const data = {
+                productId: productId
+            }
+            axios
+                .post(`http://localhost:8090/api/wishlist/${productId}`, data, {
+                    headers: {
+                        Authorization: "Bearer " + sessionStorage.getItem("token")
+                    }
+                })
+                .then((response) => {
+                    console.log('Item added successfullt to Wislist');
+                    isFavorite(true)
+                    showToast('Item added successfully to Wishlist', 'success');
+                })
         }
     }
 
@@ -85,7 +107,7 @@ function ProductDetails() {
                 {/* <div className='image-selector'>
                     <img src={"data:image/jpeg;base64," + prodObj.image}  />
                 </div> */}
-                <ProductImages prodImage={"data:image/jpeg;base64," + prodObj.image} />
+                    <ProductImages prodImage={"data:image/jpeg;base64," + prodObj.image} addToWishlist={() => addToWishlist(prodObj.id)} favorite={favorite} />
             <div className="product-data">
                 <h1 className="heading">{prodObj.name}</h1>
                 <Stars ratings={prodObj.ratings} reviews={25} from="productDetails"/>

@@ -28,15 +28,18 @@
 .wishlist-grid {
     margin: 0px !important;
     width: 100% !important;
-    gap: 15px;
 }
 .wishlist-card{
     margin-top: 10px;
     display: flex;
     flex-direction: column !important;
     justify-content: flex-start;
-    width: 16rem;
-    height: 28rem;
+    /* width: 16rem; */
+    max-width: 25%;
+    /* height: 28rem; */
+}
+.wishlist-card :hover{
+    box-shadow: none !important;
 }
 .wishlist-addtocart {
     width: 100%;
@@ -45,6 +48,9 @@
     color: #fff !important;
     text-transform: none !important;
     border-radius: 0px 0px 4px 4px !important;
+}
+.wishlist-addtocart :hover{
+    background-color: #7300e6 !important;
 }
 .cancel-icon{
     position: absolute !important;

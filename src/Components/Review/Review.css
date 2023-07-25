@@ -1,0 +1,11 @@
+.slick-track{
+    display: flex !important;
+    width: 300px !important;
+    height: 300px !important;
+}
+.slick-prev:before {
+    background-color: black !important;
+}
+.slick-next:before {
+    background-color: black !important;
+}

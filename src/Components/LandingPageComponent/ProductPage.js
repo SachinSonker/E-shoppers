@@ -70,7 +70,7 @@ const ProductPage = () => {
               itemID={s.id}
               itemImage={"data:image/jpeg;base64," + s.image}
               itemName={s.name}
-              itemPrice={s.price}
+              itemPrice={s.discountedPrice}
               itemStrikePrice={s.price}
               itemRating={s.ratings}
                 addToWishlist={(event) => addToWishlist(s.id, event)}   

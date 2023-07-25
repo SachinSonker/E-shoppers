@@ -207,7 +207,8 @@ export default function Orders() {
             <div className='card-Content'>
             <div>
             <Typography component="div" variant="h6">
-              {res.productName}
+              {/* {res.productName} */}
+              {res.productName.length > 50 ? res.productName.slice(0, 50) + "..." : res.productName}
             </Typography>
             <Typography component="div" variant="p">
               Delivery Date : {res.deliveryDate}

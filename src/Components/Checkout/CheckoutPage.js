@@ -43,6 +43,7 @@ export default function CheckoutPage(props) {
   const [postalcode, setPostalCode] = useState("");
   const [orderTotal, setOrderTotal] = useState(0);
   const [coupon, setCoupon] = useState("");
+  const [isValid, setIsValid] = useState(true);
   const token=sessionStorage.getItem('token');
 
 

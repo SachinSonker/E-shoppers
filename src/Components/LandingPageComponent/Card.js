@@ -11,13 +11,14 @@ import '../Wishlist/Wishlist.css'
 import Stars from '../ProductDetailPage/Stars';
 import CloseIcon from '@mui/icons-material/Close';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-// import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 // Functional component for a landing card
 function LandingCard(props) {
     // const [clicked, setCliked] = React.useState(false);
     return (
         <div>
             {/* Clickable card area */}
+
             <CardActionArea>
                 {/* Card component */}
                 <Card className='card-tile'>
@@ -34,7 +35,7 @@ function LandingCard(props) {
                                 <CloseIcon />
                             </IconButton>
                             : props.cardType == 'product' ? 
-                                <IconButton className='wishlist-icon'  onClick={props.addToWishlist} >
+                                <IconButton className='wishlist-icon' onClick={props.addToWishlist} >
                                     <FavoriteBorderIcon />
                                 </IconButton>
                                 : ""

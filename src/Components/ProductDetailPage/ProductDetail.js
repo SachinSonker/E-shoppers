@@ -77,7 +77,19 @@ function ProductDetails() {
             });
         }
     }
-    const addToWishlist = (productId) => {
+    const rmvItemFromWishlist = (wishlistId) => {
+        axios.delete(`http://localhost:8090/api/wishlist/${wishlistId}`, {
+            headers: {
+                Authorization: "Bearer " + sessionStorage.getItem("token")
+            }
+        })
+            .then((response) => {
+                console.log(response)
+            })
+    }
+    const addToWishlist = (productId, event) => {
+        event.stopPropagation();
+        event.preventDefault();
         if (sessionStorage.getItem("token") == null) {
             //alert("Please Login First...")
             showToast('Please Login First...', 'info');
@@ -92,9 +104,9 @@ function ProductDetails() {
                     }
                 })
                 .then((response) => {
-                    console.log('Item added successfullt to Wislist');
-                    isFavorite(true)
-                    showToast('Item added successfully to Wishlist', 'success');
+                    console.log('Item added successfullt to Wislist')
+                    isFavorite(true) 
+                    showToast('Item added successfully to Wishlist', 'success')
                 })
         }
     }
@@ -178,6 +190,7 @@ function ProductDetails() {
                                             itemPrice={s.price}
                                             itemStrikePrice={s.price}
                                             itemRating={s.ratings}
+                                            addToWishlist={(event)=>addToWishlist(s.id,event)}
                                             cardType="product"
                                         ></LandingCard>
                                     </NavLink>

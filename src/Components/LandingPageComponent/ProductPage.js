@@ -12,7 +12,7 @@ const ProductPage = () => {
   const [products, setProducts] = useState([]);
   const location = useLocation();
   const [params] = useSearchParams();
-
+  
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
     try {
@@ -53,6 +53,7 @@ const ProductPage = () => {
     }
   }
 
+
   return products.length === 0 ? (
     <Spinner />
 ) : (
@@ -73,7 +74,7 @@ const ProductPage = () => {
               itemPrice={s.discountedPrice}
               itemStrikePrice={s.price}
               itemRating={s.ratings}
-                addToWishlist={(event) => addToWishlist(s.id, event)}   
+                addToWishlist={(event) => addToWishlist(s.id, event)} 
               cardType="product"
             ></LandingCard>
           </NavLink>

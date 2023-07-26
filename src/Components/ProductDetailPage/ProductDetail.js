@@ -119,7 +119,7 @@ function ProductDetails() {
                 {/* <div className='image-selector'>
                     <img src={"data:image/jpeg;base64," + prodObj.image}  />
                 </div> */}
-                    <ProductImages prodImage={"data:image/jpeg;base64," + prodObj.image} addToWishlist={() => addToWishlist(prodObj.id)} favorite={favorite} />
+                    <ProductImages prodImage={"data:image/jpeg;base64," + prodObj.image} addToWishlist={(event) => addToWishlist(prodObj.id,event)} favorite={favorite} />
             <div className="product-data">
                 <h1 className="heading">{prodObj.name}</h1>
                 <Stars ratings={prodObj.ratings} reviews={25} from="productDetails"/>

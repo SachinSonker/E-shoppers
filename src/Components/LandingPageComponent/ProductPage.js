@@ -74,6 +74,7 @@ const ProductPage = () => {
               itemPrice={s.discountedPrice}
               itemStrikePrice={s.price}
               itemRating={s.ratings}
+              itemDiscount={s.discountPercent}
                 addToWishlist={(event) => addToWishlist(s.id, event)} 
               cardType="product"
             ></LandingCard>

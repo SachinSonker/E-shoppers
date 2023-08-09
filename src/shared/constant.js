@@ -1,5 +1,5 @@
 
-const apiUrl = 'http://localhost:8090';
+const apiUrl = 'http://13.126.90.64:8090';
 
 export const constants = {
     url : {

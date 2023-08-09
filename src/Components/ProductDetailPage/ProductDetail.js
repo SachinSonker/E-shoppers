@@ -39,11 +39,11 @@ function ProductDetails() {
 
     useEffect(() => {
         window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
-        axios.get(`http://localhost:8090/api/product/${params.get('id')}`).then((response) => {
+        axios.get(`http://13.126.90.64:8090/api/product/${params.get('id')}`).then((response) => {
             console.log(response.data)
             setProdObj(response.data)
         });
-        axios.get(`http://localhost:8090/api/product/recommend/${params.get('id')}`)
+        axios.get(`http://13.126.90.64:8090/api/product/recommend/${params.get('id')}`)
             .then(response => {
                 setProducts(response.data);
             })
@@ -68,7 +68,7 @@ function ProductDetails() {
                 "size": getRandomItem(size)
             }
 
-            axios.post("http://localhost:8090/api/addtocart", data, {
+            axios.post("http://13.126.90.64:8090/api/addtocart", data, {
                 headers: { Authorization: "Bearer " + sessionStorage.getItem("token") }
             }).then((response) => {
                 console.log(response)
@@ -78,7 +78,7 @@ function ProductDetails() {
         }
     }
     const rmvItemFromWishlist = (wishlistId) => {
-        axios.delete(`http://localhost:8090/api/wishlist/${wishlistId}`, {
+        axios.delete(`http://13.126.90.64:8090/api/wishlist/${wishlistId}`, {
             headers: {
                 Authorization: "Bearer " + sessionStorage.getItem("token")
             }
@@ -98,7 +98,7 @@ function ProductDetails() {
                 productId: productId
             }
             axios
-                .post(`http://localhost:8090/api/wishlist/${productId}`, data, {
+                .post(`http://13.126.90.64:8090/api/wishlist/${productId}`, data, {
                     headers: {
                         Authorization: "Bearer " + sessionStorage.getItem("token")
                     }

@@ -18,7 +18,7 @@ const ProductPage = () => {
     try {
       const response = axios
         .get(
-          `http://localhost:8090/api/product/category/${params.get('categoryName')}`
+          `http://13.126.90.64:8090/api/product/category/${params.get('categoryName')}`
         )
         .then((response) => {
           //var arr = [response.data];
@@ -42,7 +42,7 @@ const ProductPage = () => {
         productId:productId
       }
       axios
-        .post(`http://localhost:8090/api/wishlist/${productId}`, data, {
+        .post(`http://13.126.90.64:8090/api/wishlist/${productId}`, data, {
           headers: {
             Authorization: "Bearer " + sessionStorage.getItem("token")
           }

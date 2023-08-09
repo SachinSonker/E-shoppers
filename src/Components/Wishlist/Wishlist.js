@@ -22,7 +22,7 @@ const Wishlist = () => {
   }, [])
   const getAllWishlistItems = () => {
     axios
-      .get("http://localhost:8090/api/wishlist/", {
+      .get("http://13.126.90.64:8090/api/wishlist/", {
         headers: {
           Authorization:"Bearer " + sessionStorage.getItem("token")
         }
@@ -35,7 +35,7 @@ const Wishlist = () => {
   const rmvItemFromWishlist = (wishlistId, event) => {
     event.stopPropagation()
     event.preventDefault();
-    axios.delete(`http://localhost:8090/api/wishlist/${wishlistId}`, {
+    axios.delete(`http://13.126.90.64:8090/api/wishlist/${wishlistId}`, {
       headers: {
         Authorization: "Bearer " + sessionStorage.getItem("token")
       }
@@ -57,7 +57,7 @@ const Wishlist = () => {
         "size": getRandomItem(size)
       }
 
-      axios.post("http://localhost:8090/api/addtocart", data, {
+      axios.post("http://13.126.90.64:8090/api/addtocart", data, {
         headers: { Authorization: "Bearer " + sessionStorage.getItem("token") }
       }).then((response) => {
         console.log(response)

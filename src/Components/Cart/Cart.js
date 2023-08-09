@@ -19,7 +19,7 @@ const Cart = ({ onClose, itemRemove }) => {
   }, []);
   const getAllCartItems = () => {
     axios
-      .get("http://localhost:8090/api/cartDetails", {
+      .get("http://13.126.90.64:8090/api/cartDetails", {
         headers: { Authorization: "Bearer " + sessionStorage.getItem("token") },
       })
       .then((response) => {
@@ -39,7 +39,7 @@ const Cart = ({ onClose, itemRemove }) => {
   // Increase the quantity of a cart item
   const increaseQty = (productId,quantity) => {
     axios
-      .put("http://localhost:8090/api/cartDetails", {
+      .put("http://13.126.90.64:8090/api/cartDetails", {
         productId:productId,
         quantity: quantity + 1
       }, {
@@ -61,7 +61,7 @@ const Cart = ({ onClose, itemRemove }) => {
   };
   const updateCartItem = (productId,quantity) => {
     axios
-      .put("http://localhost:8090/api/cartDetails", {
+      .put("http://13.126.90.64:8090/api/cartDetails", {
         productId: productId,
         quantity: quantity - 1
       }, {
@@ -76,7 +76,7 @@ const Cart = ({ onClose, itemRemove }) => {
 
   // Delete a cart item
   const deleteProduct = (productId) => {
-    axios.delete(`http://localhost:8090/api/cartDetails/${productId}`, {
+    axios.delete(`http://13.126.90.64:8090/api/cartDetails/${productId}`, {
       headers: { Authorization: "Bearer " + sessionStorage.getItem("token") },
     })
       .then((response) => {

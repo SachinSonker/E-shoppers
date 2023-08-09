@@ -44,7 +44,7 @@ export default function ProfilePage() {
 
   function getProfileDetails(){
     axios
-    .get("http://localhost:8090/api/profile", {
+    .get("http://13.126.90.64:8090/api/profile", {
       headers: { Authorization: "Bearer " + sessionStorage.getItem('token') },
     })
 
@@ -88,7 +88,7 @@ export default function ProfilePage() {
         }
         
         axios
-        .put("http://localhost:8090/api/profile", data ,{
+        .put("http://13.126.90.64:8090/api/profile", data ,{
           headers: { Authorization: "Bearer " + sessionStorage.getItem('token')
         },
         })

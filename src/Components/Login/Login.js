@@ -119,7 +119,7 @@ export default function Login({ onClose, registration, loggedIn }) {
                                         <div className='Btn'>
                                             <button value="signin" onClick={onSubmit}>Sign In</button>
                                         </div>
-                                        <div>
+                                        {/* <div>
                                             <p>or continue with</p>
                                         </div>
                                         <div className="google">
@@ -136,8 +136,8 @@ export default function Login({ onClose, registration, loggedIn }) {
                                                 size="medium"
                                                 width='270'
                                             />
-                                            {/* <input type="button" value="Google" /> */}
-                                        </div>
+                                            //<input type="button" value="Google" /> 
+                                        </div> */}
                                         <div className='hr-line'>
                                             <hr />
                                         </div>
